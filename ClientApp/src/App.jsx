@@ -8,6 +8,7 @@ import CheckOutPage from './pages/CheckOutPage'
 import CompletePage from './pages/CompletePage'
 import OrderPage from './pages/OrderPage'
 import PizzaPage from './pages/PizzaPage'
+import AddItems from './pages/AddItems'
 import './custom.scss'
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
           <Route exact path="/complete" component={CompletePage} />
           <Route exact path="/order" component={OrderPage} />
           <Route exact path="/pizza" component={PizzaPage} />
+          <Route exact path="/additems" component={AddItems} />
           <Route exact path="*" component={NotFound} />
         </Switch>
       </Layout>

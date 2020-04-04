@@ -72,33 +72,38 @@ YELLOW - FAC123
 GRAY - D9D9D9
 WHITE - FFFFFF
 
-Database
+*** Database
 Catagory
 -- *Id
 -- Name
--- Link to Item
+-- Item ID
+
 Customer Table
 -- *Id  
 -- Name
--- Addres
+-- Address
 -- City
 -- State
 -- Zip
 -- Phone
 -- Email
+-- Password
+-- List<Order> Orders
+
+Orders Table
+-- *Id
+-- Items
+-- Order Time
+-- Customer ID
+
 Items Table
 -- *Id
 -- Name
 -- Description
 -- Price
 -- Image Path
-Orders
--- *Id
--- Items
--- Order Time
--- Completed
--- Pickup or Delivery
--- Out For Delivery
+-- Order ID
+-- Category ID
 
 Old Cart
 
