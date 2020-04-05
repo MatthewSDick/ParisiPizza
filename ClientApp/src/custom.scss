@@ -180,8 +180,9 @@ code {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: inherit;
   min-width: 5px;
+  max-width: 10rem;
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-style: sans-serif;
@@ -192,9 +193,11 @@ code {
 
 .dropdown-content a {
   float: none;
-  color: black;
+  // color: white;
+  color: #fac123;
   padding: 3px 3px;
   min-width: 50px;
+  // max-width: 2rem;
   margin: 0.5rem 0rem 0rem 0rem;
   text-decoration: none;
   display: block;
@@ -215,7 +218,9 @@ code {
 /* Add a grey background color to dropdown links on hover */
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  // background-color: #ddd;
+  // color: black;
+  color: #548c1d;
 }
 
 /* Show the dropdown menu on hover */
@@ -255,7 +260,7 @@ code {
 
 .dot-twitter {
   // background-image: url('./images/Rounded_Twitter5_svg-256.png');
-  background-image: url('./pages/images/Rounded_Pinterest2_svg-256.png');
+  background-image: url('./pages/images/Rounded_Twitter5_svg-256.png');
   background-size: cover;
   height: 50px;
   width: 50px;
@@ -1039,4 +1044,8 @@ footer {
   justify-content: center;
   border: lightgray 1px solid;
   padding: 1rem;
+}
+
+.add-items input {
+  width: 50%;
 }

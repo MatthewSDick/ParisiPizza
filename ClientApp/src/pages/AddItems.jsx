@@ -6,7 +6,7 @@ const AddItems = () => {
   const [item, setItem] = useState({})
   const [wasCreated, setwasCreated] = useState({
     shouldRedirect: false,
-    newItemInformation,
+    newItemInformation: '',
   })
 
   const updateItem = e => {
@@ -20,7 +20,7 @@ const AddItems = () => {
 
   const addItemToAPI = async () => {
     console.log('adding - ', item)
-    const resp = await axios.post('/api/post', item)
+    const resp = await axios.post('/api/items/post', item)
     if (resp == 201) {
       wasCreated({ shouldRedirect: true, newItemInformation: resp.data })
     } else {
@@ -39,7 +39,7 @@ const AddItems = () => {
     )
   } else {
     return (
-      <div>
+      <div className="add-items">
         {/*     public string Name { get; set; }
     public string Description { get; set; }
     public string ImagePath { get; set; }
@@ -47,8 +47,8 @@ const AddItems = () => {
 
         <h3>Name of the item</h3>
         <input type="text" name="name" onChange={updateItem}></input>
-        <h3>Description</h3>
-        <input type="text" name="description" onChange={updateItem}></input>
+        <h3>Catagory</h3>
+        <input type="text" name="Catagory" onChange={updateItem}></input>
         <h3>Image Path</h3>
         <input type="text" name="ImagePath" onChange={updateItem}></input>
         <h3>Price</h3>
