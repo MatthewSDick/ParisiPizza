@@ -17,17 +17,17 @@ const HelloWorld = () => {
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-content">
-                <a href="#">Appetizers</a>
-                <a href="#">Baked Pasta</a>
-                <a href="#">Dolci</a>
-                <a href="#">Entrees</a>
-                <a href="#">Hoagies</a>
-                <a href="#">Italian Specialties</a>
-                <a href="#">Paninis</a>
-                <a href="#">Pasta</a>
-                <a href="#">Pizza</a>
-                <a href="#">Salads</a>
-                <a href="#">Seafood</a>
+                <a href="/order/Appetizers">Appetizers</a>
+                <a href="/order/Baked Pasta">Baked Pasta</a>
+                <a href="/order/Dolci">Dolci</a>
+                <a href="/order/Entrees">Entrees</a>
+                <a href="/order/Hoagies">Hoagies</a>
+                <a href="/order/Italian Specialties">Italian Specialties</a>
+                <a href="/order/Paninis">Paninis</a>
+                <a href="/order/Pasta">Pasta</a>
+                <a href="/pizza">Pizza</a>
+                <a href="/order/Salads">Salads</a>
+                <a href="/order/Seafood">Seafood</a>
               </div>
             </div>
             {/* this is the bottom of nav menu */}
@@ -40,11 +40,14 @@ const HelloWorld = () => {
               <li>
                 <img class="cart" src="images/cart_icon.png" />
               </li>
-              <li class="top-items-count">0</li>
+              <li class="top-items-count">{localStorage.getItem('items')}</li>
+
               <li class="top-items">Items</li>
               <li class="top-money">$ 0.00</li>
               <li>
-                <button class="top-checkout">Checkout</button>
+                <a href="/checkout">
+                  <button class="top-checkout">Checkout</button>
+                </a>
               </li>
             </ul>
           </div>
@@ -53,7 +56,9 @@ const HelloWorld = () => {
         <h2>Authentic Italian Pizza</h2>
         <h1>Best pizza in St Pete</h1>
         <div class="top-wrapper">
-          <button class="top-button">Order Online</button>
+          <a href="/pizza">
+            <button class="top-button">Order Online</button>
+          </a>
         </div>
       </div>
       <div class="line">

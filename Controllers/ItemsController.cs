@@ -30,11 +30,10 @@ namespace ParisiPizza.Controllers
 
     [HttpGet("category")]
 
-    public async Task<ActionResult<IEnumerable<Item>>> GetCatagory(string category)
+    public async Task<ActionResult<IEnumerable<Item>>> GetCatagory(string categoryName)
     {
-      //   var results = _context.Questions.Include(question => question.Answers).Where(question => question.QuestionText.Contains(searchTerm));\
-      // var question = await _context.Questions.Include(question => question.Answers).FirstOrDefaultAsync(q => q.Id == id);
-      var results = _context.Items.Include(item => item.Category).Where(c => c.Category == category);
+
+      var results = _context.Items.Where(item => item.Category == categoryName);
 
       return await results.ToListAsync();
     }
