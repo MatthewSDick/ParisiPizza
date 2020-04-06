@@ -33,9 +33,15 @@ namespace ParisiPizza.Controllers
     public async Task<ActionResult<IEnumerable<Item>>> GetCatagory(string categoryName)
     {
 
-      var results = _context.Items.Where(item => item.Category == categoryName);
+      var results = await _context.Items.Where(item => item.Category == categoryName).ToListAsync();
 
-      return await results.ToListAsync();
+
+      if (results == null)
+      {
+        return NotFound();
+      }
+
+      return results;
     }
 
 
