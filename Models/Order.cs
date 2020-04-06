@@ -16,7 +16,8 @@ namespace ParisiPizza
 
     public int Id { get; set; }
     public DateTime OrderTime { get; set; } = DateTime.Now;
-    public string PickupDelivery { get; set; }
+    
+    
 
 
   }

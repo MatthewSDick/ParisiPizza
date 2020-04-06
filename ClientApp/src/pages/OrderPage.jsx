@@ -6,10 +6,6 @@ import Item from '../components/Item'
 
 const OrderPage = props => {
   const menuCategory = props.match.params.category
-  console.log('in from props ' + props.match.params.category)
-  console.log('menuCategory variavle = ' + menuCategory)
-  // const menuCategory = 'Seafood'
-  // console.log('value is ' + menuCategory)
   const [categoryItems, setCategoryItems] = useState({
     itemData: [],
     isLoaded: false,
@@ -28,6 +24,18 @@ const OrderPage = props => {
     })
     localStorage.setItem('items', '99')
   }
+
+  // const addOrderItem = async () => {
+  //   const response = await axios.post('/api/questions', question)
+  //   if (response.status === 201) {
+  //     // setSaveResults({
+  //       // shouldRedirect: true,
+  //       // savedQuestionData: response.data,
+  //     })
+  //   } else {
+  //     //failure to add
+  //   }
+  // }
 
   useEffect(() => {
     GetCategoryItems()
@@ -103,64 +111,13 @@ const OrderPage = props => {
               {categoryItems.itemData.map(item => {
                 return (
                   <Item
+                    id={item.id}
                     name={item.name}
                     imagePath={item.imagePath}
                     price={item.price}
                   />
                 )
               })}
-
-              {/* <li className="order-item">
-                <img
-                  className="order-image"
-                  src="./images/pepperoni-pizz.jpg"
-                  alt="Pepperoni Pizza"
-                />
-                <p>Item Name</p>
-                <p>$ 99.99</p>
-                <button className="order-add-to-cart-btn">ADD TO CART</button>
-              </li>
-              <li className="order-item">
-                <img
-                  className="order-image"
-                  src="./images/pepperoni-pizz.jpg"
-                  alt="Pepperoni Pizza"
-                />
-                <p>Item Name</p>
-                <p>$ 99.99</p>
-                <button className="order-add-to-cart-btn">ADD TO CART</button>
-              </li>
-              <li className="order-item">
-                <img
-                  className="order-image"
-                  src="./images/pepperoni-pizz.jpg"
-                  alt="Pepperoni Pizza"
-                />
-                <p>Item Name</p>
-                <p>$ 99.99</p>
-                <button className="order-add-to-cart-btn">ADD TO CART</button>
-              </li>
-              <li className="order-item">
-                <img
-                  className="order-image"
-                  src="./images/pepperoni-pizz.jpg"
-                  alt="Pepperoni Pizza"
-                />
-                <p>Item Name</p>
-                <p>$ 99.99</p>
-                <button className="order-add-to-cart-btn">ADD TO CART</button>
-              </li>
-              <li className="order-item">
-                <img
-                  className="order-image"
-                  src="./images/pepperoni-pizz.jpg"
-                  alt="Pepperoni Pizza"
-                />
-                <p>Item Name</p>
-                <p>$ 99.99</p>
-                <button className="order-add-to-cart-btn">ADD TO CART</button>
-              </li> */}
-              {/* bottom of the map loop */}
             </ul>
           </div>
         </div>
