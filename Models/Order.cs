@@ -18,7 +18,5 @@ namespace ParisiPizza
     public string PickupDelivery { get; set; }
 
 
-
-
   }
 }
