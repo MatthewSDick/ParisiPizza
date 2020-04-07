@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import Item from '../components/Item'
 
 const OrderPage = props => {
   const menuCategory = props.match.params.category
@@ -10,13 +9,14 @@ const OrderPage = props => {
     itemData: [],
     isLoaded: false,
   })
+  const [item, setItem] = useState({})
   // const menuCategory = props.menuCategory
 
   const GetCategoryItems = async () => {
     const response = await axios.get(
       `/api/items/category?categoryName=${menuCategory}`
     )
-    console.log('After API ' + menuCategory)
+    // console.log('After API ' + menuCategory)
     console.log(response.data)
     setCategoryItems({
       itemData: response.data,
@@ -25,19 +25,24 @@ const OrderPage = props => {
     localStorage.setItem('items', '99')
   }
 
-  // const addOrderItem = async () => {
-  //   const response = await axios.post('/api/questions', question)
-  //   if (response.status === 201) {
-  //     // setSaveResults({
-  //       // shouldRedirect: true,
-  //       // savedQuestionData: response.data,
-  //     })
-  //   } else {
-  //     //failure to add
-  //   }
-  // }
+  const addItemToOrder = async () => {
+    var orderID = sessionStorage.getItem('orderID')
+    console.log('orderID before:' + orderID)
+    if (!orderID) {
+      const response = await axios.post('/api/order', {
+        orderstatus: 'Started',
+      })
+      orderID = response.data.id
+      console.log(response.data)
+      sessionStorage.setItem('orderID', response.data.id)
+      console.log('orderID after:' + orderID)
+    } else {
+      // Do something
+    }
+  }
 
   useEffect(() => {
+    // localStorage.setItem('orderID', '')
     GetCategoryItems()
   }, [])
 
@@ -70,52 +75,30 @@ const OrderPage = props => {
                 </div>
               </div>
               {/* another loop */}
-
-              {/* <div className="order-cart-list-item">
-                <div className="order-cart-image-box">
-                  <img
-                    className="order-cart-image"
-                    src="./images/pepperoni-pizz.jpg"
-                    alt="Pepperoni Pizza"
-                  />
-                </div>
-                <div className="order-cart-details">
-                  <p>Homemade Lasagna</p>
-                  <p>
-                    4 X $ <span style={{ color: '#CA0707' }}>14.95</span>
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h3 className="order-subtotal">
-                  Subtotal: <span style={{ color: '#CA0707' }}>$ 99.99</span>
-                </h3>
-              </div>
-              <div className="order-buttons">
-                <div className="order-buttons-left">
-                  <button className="order-left-button">VIEW CART</button>
-                </div>
-                <div className="order-buttons-right">
-                  <button className="order-right-button">CHECKOUT</button>
-                </div>
-              </div> */}
-
-              {/* end items loop */}
             </div>
           </div>
 
           <div className="order-page-right">
             <ul className="catagory-list">
-              {/* map from API */}
-
               {categoryItems.itemData.map(item => {
                 return (
-                  <Item
-                    id={item.id}
-                    name={item.name}
-                    imagePath={item.imagePath}
-                    price={item.price}
-                  />
+                  <li className="order-item">
+                    <img
+                      className="order-image"
+                      src={item.imagePath}
+                      alt="Pepperoni Pizza"
+                    />
+                    <p>{item.name}</p>
+                    <p>{item.price}</p>
+                    <p>{item.id}</p>
+                    <button
+                      value={item.id}
+                      className="order-add-to-cart-btn"
+                      onClick={addItemToOrder}
+                    >
+                      ADD TO CART
+                    </button>
+                  </li>
                 )
               })}
             </ul>

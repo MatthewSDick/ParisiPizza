@@ -7,7 +7,11 @@ const Item = props => {
       <img className="order-image" src={imagePath} alt="Pepperoni Pizza" />
       <p>{name}</p>
       <p>{price}</p>
-      <button value={id} className="order-add-to-cart-btn">
+      <button
+        value={id}
+        className="order-add-to-cart-btn"
+        onClick="addItemToOrder"
+      >
         ADD TO CART
       </button>
     </li>

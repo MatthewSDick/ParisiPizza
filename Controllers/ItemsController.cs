@@ -98,12 +98,34 @@ namespace ParisiPizza.Controllers
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost("{item}")]
     public async Task<ActionResult<Item>> PostItem(Item item)
+
     {
       _context.Items.Add(item);
       await _context.SaveChangesAsync();
 
       return CreatedAtAction("GetItem", new { id = item.Id }, item);
     }
+
+
+
+
+
+    // [HttpPost("{itemId}")]
+    // public async Task<ActionResult<Item>> addItemToOrder(int orderId, int itemId)
+    // {
+    //   Version item = new Item
+    //   {
+    //     orderId = orderId,
+    //     itemId = itemId
+    //   };
+    // }
+
+
+
+
+
+
+
 
     // DELETE: api/Items/5
     [HttpDelete("{id}")]

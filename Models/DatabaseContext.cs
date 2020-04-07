@@ -11,9 +11,12 @@ namespace ParisiPizza.Models
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Item> Items { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Pizza> Pizzas { get; set; }
+    public DbSet<Topping> Toppings { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<CustomerOrder> CustomerOrders { get; set; }
     public DbSet<OrderPizza> OrderPizzas { get; set; }
+    public DbSet<PizzaTopping> PizzaToppings { get; set; }
 
 
     private string ConvertPostConnectionToConnectionString(string connection)
