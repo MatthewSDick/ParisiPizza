@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParisiPizza.Models;
@@ -9,9 +10,10 @@ using ParisiPizza.Models;
 namespace ParisiPizza.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200407003814_FixedListInCustomer")]
+    partial class FixedListInCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,7 +76,7 @@ namespace ParisiPizza.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("CustomerOrders");
+                    b.ToTable("CustomerOrder");
                 });
 
             modelBuilder.Entity("ParisiPizza.Item", b =>
@@ -144,56 +146,16 @@ namespace ParisiPizza.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("ParisiPizza.OrderPizza", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PizzaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("PizzaId");
-
-                    b.ToTable("OrderPizzas");
-                });
-
-            modelBuilder.Entity("ParisiPizza.Pizza", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Price")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pizza");
-                });
-
             modelBuilder.Entity("ParisiPizza.CustomerOrder", b =>
                 {
                     b.HasOne("ParisiPizza.Customer", "Customer")
-                        .WithMany("CustomerOrders")
+                        .WithMany("CustomerOrder")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ParisiPizza.Order", "Order")
-                        .WithMany("CustomerOrders")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -210,21 +172,6 @@ namespace ParisiPizza.Migrations
                     b.HasOne("ParisiPizza.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParisiPizza.OrderPizza", b =>
-                {
-                    b.HasOne("ParisiPizza.Order", "Order")
-                        .WithMany("OrderPizzas")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParisiPizza.Pizza", "Pizza")
-                        .WithMany()
-                        .HasForeignKey("PizzaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace ParisiPizza
@@ -15,5 +16,6 @@ namespace ParisiPizza
     public string Zip { get; set; }
     public string EMail { get; set; }
     public string Phone { get; set; }
+    public List<CustomerOrder> CustomerOrders { get; set; } = new List<CustomerOrder>();
   }
 }
