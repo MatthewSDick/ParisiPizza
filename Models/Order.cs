@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace ParisiPizza
@@ -16,7 +17,6 @@ namespace ParisiPizza
     public int Id { get; set; }
     public DateTime OrderTime { get; set; } = DateTime.Now;
     public string PickupDelivery { get; set; }
-
-
+    public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
   }
 }

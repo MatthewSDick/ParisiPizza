@@ -8,7 +8,6 @@ namespace ParisiPizza
   {
 
     /*  -- Name
-        -- Description
         -- Image Path
         -- Price */
 
