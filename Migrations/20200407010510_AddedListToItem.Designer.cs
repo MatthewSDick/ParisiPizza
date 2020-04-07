@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParisiPizza.Models;
@@ -9,9 +10,10 @@ using ParisiPizza.Models;
 namespace ParisiPizza.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200407010510_AddedListToItem")]
+    partial class AddedListToItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,46 +186,6 @@ namespace ParisiPizza.Migrations
                     b.ToTable("Pizza");
                 });
 
-            modelBuilder.Entity("ParisiPizza.PizzaTopping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("PizzaID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ToppingId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PizzaID");
-
-                    b.HasIndex("ToppingId");
-
-                    b.ToTable("PizzaTopping");
-                });
-
-            modelBuilder.Entity("ParisiPizza.Topping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Placement")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Topping");
-                });
-
             modelBuilder.Entity("ParisiPizza.CustomerOrder", b =>
                 {
                     b.HasOne("ParisiPizza.Customer", "Customer")
@@ -263,23 +225,8 @@ namespace ParisiPizza.Migrations
                         .IsRequired();
 
                     b.HasOne("ParisiPizza.Pizza", "Pizza")
-                        .WithMany("OrderPizzas")
+                        .WithMany()
                         .HasForeignKey("PizzaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParisiPizza.PizzaTopping", b =>
-                {
-                    b.HasOne("ParisiPizza.Pizza", "Pizza")
-                        .WithMany("PizzaToppings")
-                        .HasForeignKey("PizzaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParisiPizza.Topping", "Topping")
-                        .WithMany("PizzaToppings")
-                        .HasForeignKey("ToppingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

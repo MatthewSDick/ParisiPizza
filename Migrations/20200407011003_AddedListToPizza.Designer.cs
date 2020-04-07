@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParisiPizza.Models;
@@ -9,9 +10,10 @@ using ParisiPizza.Models;
 namespace ParisiPizza.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200407011003_AddedListToPizza")]
+    partial class AddedListToPizza
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,7 +280,7 @@ namespace ParisiPizza.Migrations
                         .IsRequired();
 
                     b.HasOne("ParisiPizza.Topping", "Topping")
-                        .WithMany("PizzaToppings")
+                        .WithMany()
                         .HasForeignKey("ToppingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
