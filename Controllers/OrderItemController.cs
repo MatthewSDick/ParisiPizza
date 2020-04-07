@@ -22,8 +22,9 @@ namespace ParisiPizza.Controllers
       _context = context;
     }
 
-    [HttpPost("{itemId}")]
-    public async Task<AcceptedResult> AddItemToOrder(int itemId, int orderId)
+    // [HttpPost("{itemId}")]
+    [HttpPost]
+    public async Task<ActionResult> AddItemToOrder(int itemId, int orderId)
     {
 
       var orderItem = new OrderItem
@@ -31,9 +32,8 @@ namespace ParisiPizza.Controllers
         ItemId = itemId,
         OrderId = orderId
       };
-
       _context.OrderItems.Add(orderItem);
-      await _context.SaveChanges();
+      await _context.SaveChangesAsync();
       return Ok(orderItem);
     }
 

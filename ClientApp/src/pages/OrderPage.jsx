@@ -9,7 +9,8 @@ const OrderPage = props => {
     itemData: [],
     isLoaded: false,
   })
-  const [item, setItem] = useState({})
+  const [selectedItem, setSelectedItem] = useState('')
+
   // const menuCategory = props.menuCategory
 
   const GetCategoryItems = async () => {
@@ -22,10 +23,10 @@ const OrderPage = props => {
       itemData: response.data,
       isLoaded: true,
     })
-    localStorage.setItem('items', '99')
+    // localStorage.setItem('items', '99')
   }
 
-  const addItemToOrder = async () => {
+  const saveItem = async () => {
     var orderID = sessionStorage.getItem('orderID')
     console.log('orderID before:' + orderID)
     if (!orderID) {
@@ -37,12 +38,23 @@ const OrderPage = props => {
       sessionStorage.setItem('orderID', response.data.id)
       console.log('orderID after:' + orderID)
     } else {
+      console.log('selected Item:' + selectedItem)
       // Do something
+      const response = await axios.post('/api/orderitem', {
+        orderID: orderID,
+        itemId: selectedItem,
+      })
     }
   }
 
+  const addItemToOrder = async e => {
+    console.log('target:' + e.target.value)
+    setSelectedItem(e.target.value)
+    console.log('selected Item:' + electedItem)
+    saveItem()
+  }
+
   useEffect(() => {
-    // localStorage.setItem('orderID', '')
     GetCategoryItems()
   }, [])
 
