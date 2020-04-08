@@ -12,6 +12,7 @@ namespace ParisiPizza
     public int ItemId { get; set; }
     public Item Item { get; set; }
     public int OrderId { get; set; }
+    [JsonIgnore]
     public Order Order { get; set; }
 
   }

@@ -9,8 +9,8 @@ const OrderPage = props => {
     itemData: [],
     isLoaded: false,
   })
-  const [selectedItem, setSelectedItem] = useState('')
-
+  const [selectedItem, setSelectedItem] = useState({})
+  const [item, setItem] = useState({})
   // const menuCategory = props.menuCategory
 
   const GetCategoryItems = async () => {
@@ -26,7 +26,7 @@ const OrderPage = props => {
     // localStorage.setItem('items', '99')
   }
 
-  const saveItem = async () => {
+  const saveItem = async e => {
     var orderID = sessionStorage.getItem('orderID')
     console.log('orderID before:' + orderID)
     if (!orderID) {
@@ -40,17 +40,24 @@ const OrderPage = props => {
     } else {
       console.log('selected Item:' + selectedItem)
       // Do something
-      const response = await axios.post('/api/orderitem', {
-        orderID: orderID,
-        itemId: selectedItem,
-      })
+      var itemID = sessionStorage.getItem('itemID')
+      console.log('itemId:' + itemID)
+      const response = await axios.post(
+        `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
+      )
+      // const response = await axios.post('/api/orderitem/addItem', {
+      //   orderID: orderID,
+      //   itemId: itemID,
+      // })
+      console.log(response.data)
     }
   }
 
   const addItemToOrder = async e => {
-    console.log('target:' + e.target.value)
-    setSelectedItem(e.target.value)
-    console.log('selected Item:' + electedItem)
+    // console.log('target:' + e.target.value)
+    // setSelectedItem(e.target.value)
+    // console.log('selected Item right:' + selectedItem)
+    sessionStorage.setItem('itemID', e.target.value)
     saveItem()
   }
 

@@ -13,7 +13,7 @@ namespace ParisiPizza
     public string Category { get; set; }
     public string ImagePath { get; set; }
     public string Price { get; set; }
-
+    [JsonIgnore]
     public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
 

@@ -10,101 +10,171 @@ using ParisiPizza.Models;
 
 namespace ParisiPizza.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OrderController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  public class OrderController : ControllerBase
+  {
+    private readonly DatabaseContext _context;
+
+    public OrderController(DatabaseContext context)
     {
-        private readonly DatabaseContext _context;
-
-        public OrderController(DatabaseContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/Order
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
-        {
-            return await _context.Orders.ToListAsync();
-        }
-
-        // GET: api/Order/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
-
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return order;
-        }
-
-        // PUT: api/Order/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
-        {
-            if (id != order.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Order
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
-        {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
-        }
-
-        // DELETE: api/Order/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Order>> DeleteOrder(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-
-            return order;
-        }
-
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.Id == id);
-        }
+      _context = context;
     }
+
+    // GET: api/Order
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+    {
+      return await _context.Orders.ToListAsync();
+    }
+
+
+
+
+
+
+
+
+
+    [HttpGet("order_items/{id}")]
+    public async Task<ActionResult> GetOrderItems(int id)
+
+    // SELECT *
+    // FROM "OrderItems" w, "Items" c
+    // WHERE w."OrderId" = 29 and w."ItemId" = c."Id";
+    {
+
+      //   var orderItems = await _context.Orders.Include(order => order.OrderItems).ThenInclude(orderItems => orderItems.Item)
+      //   .Where(order => order.Id == id).ToListAsync();
+
+      // var user = await _context.Users.Include(i => i.Bookmarks).ThenInclude(i => i.Trail).FirstOrDefaultAsync(f => f.Id == userId);
+      var order = await _context.Orders.Include(i => i.OrderItems).ThenInclude(i => i.Item).FirstOrDefaultAsync(f => f.Id == id);
+
+
+      if (order == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(order);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // GET: api/Order/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Order>> GetOrder(int id)
+    {
+      var order = await _context.Orders.FindAsync(id);
+
+      if (order == null)
+      {
+        return NotFound();
+      }
+
+      return order;
+    }
+
+    // PUT: api/Order/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+    // more details see https://aka.ms/RazorPagesCRUD.
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutOrder(int id, Order order)
+    {
+      if (id != order.Id)
+      {
+        return BadRequest();
+      }
+
+      _context.Entry(order).State = EntityState.Modified;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!OrderExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    // POST: api/Order
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+    // more details see https://aka.ms/RazorPagesCRUD.
+    [HttpPost]
+    public async Task<ActionResult<Order>> PostOrder(Order order)
+    {
+      _context.Orders.Add(order);
+      await _context.SaveChangesAsync();
+
+      return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+    }
+
+    // DELETE: api/Order/5
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Order>> DeleteOrder(int id)
+    {
+      var order = await _context.Orders.FindAsync(id);
+      if (order == null)
+      {
+        return NotFound();
+      }
+
+      _context.Orders.Remove(order);
+      await _context.SaveChangesAsync();
+
+      return order;
+    }
+
+    private bool OrderExists(int id)
+    {
+      return _context.Orders.Any(e => e.Id == id);
+    }
+  }
 }
