@@ -11,19 +11,16 @@ const OrderPage = props => {
   })
   const [selectedItem, setSelectedItem] = useState({})
   const [item, setItem] = useState({})
-  // const menuCategory = props.menuCategory
 
   const GetCategoryItems = async () => {
     const response = await axios.get(
       `/api/items/category?categoryName=${menuCategory}`
     )
-    // console.log('After API ' + menuCategory)
     console.log(response.data)
     setCategoryItems({
       itemData: response.data,
       isLoaded: true,
     })
-    // localStorage.setItem('items', '99')
   }
 
   const saveItem = async e => {
@@ -45,11 +42,12 @@ const OrderPage = props => {
       const response = await axios.post(
         `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
       )
-      // const response = await axios.post('/api/orderitem/addItem', {
-      //   orderID: orderID,
-      //   itemId: itemID,
-      // })
-      console.log(response.data)
+      console.log('Order ID before cart:' + orderID)
+      const response2 = await axios.get(
+        `/api/order/orderitems?orderID=${orderID}`
+        // /api/order/orderitems?orderID=30
+      )
+      console.log('cart: ' + response2.data.orderItems)
     }
   }
 

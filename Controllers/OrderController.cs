@@ -32,24 +32,11 @@ namespace ParisiPizza.Controllers
 
 
 
-
-
-
-
-    [HttpGet("order_items/{id}")]
-    public async Task<ActionResult> GetOrderItems(int id)
-
-    // SELECT *
-    // FROM "OrderItems" w, "Items" c
-    // WHERE w."OrderId" = 29 and w."ItemId" = c."Id";
+    [HttpGet("orderitems")]
+    public async Task<ActionResult> GetOrderItems(int orderID)
     {
 
-      //   var orderItems = await _context.Orders.Include(order => order.OrderItems).ThenInclude(orderItems => orderItems.Item)
-      //   .Where(order => order.Id == id).ToListAsync();
-
-      // var user = await _context.Users.Include(i => i.Bookmarks).ThenInclude(i => i.Trail).FirstOrDefaultAsync(f => f.Id == userId);
-      var order = await _context.Orders.Include(i => i.OrderItems).ThenInclude(i => i.Item).FirstOrDefaultAsync(f => f.Id == id);
-
+      var order = await _context.Orders.Include(i => i.OrderItems).ThenInclude(i => i.Item).FirstOrDefaultAsync(f => f.Id == orderID);
 
       if (order == null)
       {
@@ -58,42 +45,6 @@ namespace ParisiPizza.Controllers
 
       return Ok(order);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
