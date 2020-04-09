@@ -38,7 +38,9 @@ const HelloWorld = () => {
           <div class="three">
             <ul class="right-nav">
               <li>
-                <img class="cart" src="images/cart_icon.png" />
+                <a href="/cart">
+                  <img class="cart" src="images/cart_icon.png" />
+                </a>
               </li>
               <li class="top-items-count">{localStorage.getItem('items')}</li>
 
