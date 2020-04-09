@@ -11,8 +11,12 @@ const OrderPage = props => {
     isLoaded: false,
   })
 
+  // const [cartItems, setCartItems] = useState({
+  //   cartData: [],
+  // })
+
   const [cartItems, setCartItems] = useState({
-    cartData: [],
+    cartData: { orderItems: [] },
   })
 
   const GetCategoryItems = async () => {
@@ -61,7 +65,6 @@ const OrderPage = props => {
     setCartItems({
       cartData: response.data,
     })
-    console.log(cartItems)
   }
 
   const addItemToOrder = async e => {
@@ -94,21 +97,24 @@ const OrderPage = props => {
                     <div className="order-cart-image-box">
                       <img
                         className="order-cart-image"
-                        src="./images/pepperoni-pizz.jpg"
+                        src={item.item.imagePath}
                         alt="Shopping cart"
                       />
                     </div>
                     <div className="order-cart-details">
-                      <p>Homemade Lasagna</p>
+                      <p>{item.item.name}</p>
                       <p>
-                        4 X $ <span style={{ color: '#CA0707' }}>14.95</span>
+                        4 X ${' '}
+                        <span style={{ color: '#CA0707' }}>
+                          {item.item.price}
+                        </span>
                       </p>
                     </div>
                   </div>
                 )
               })}
               {/* end cart items loop */}
-
+              {/* 
               <div className="order-cart-list-item">
                 <div className="order-cart-image-box">
                   <img
@@ -123,7 +129,7 @@ const OrderPage = props => {
                     4 X $ <span style={{ color: '#CA0707' }}>14.95</span>
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

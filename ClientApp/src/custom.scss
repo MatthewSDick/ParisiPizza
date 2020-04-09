@@ -705,12 +705,13 @@ footer {
 }
 
 .order-cart-image-box {
-  width: 30%;
-  height: 100%;
+  width: 10vh;
+  height: auto;
 }
 
 .order-cart-image {
   width: 100%;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
   /* border: solid 1px red; */
 }
 
@@ -726,6 +727,7 @@ footer {
 .order-cart-details {
   /* border: solid 1px red; */
   width: 69%;
+  margin-left: 1rem;
 }
 
 .order-cart-head {
