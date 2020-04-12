@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import CartItem from '../components/CartItem'
 import axios from 'axios'
 
 const CartPage = () => {
@@ -49,67 +50,27 @@ const CartPage = () => {
               <div className="divTableCellPrice">
                 <p>Price</p>
               </div>
-              <div className="divTableCellQuantity">
+              {/* <div className="divTableCellQuantity">
                 <p>Quantity</p>
-              </div>
-              <div className="divTableCellTotal">
+              </div> */}
+              {/* <div className="divTableCellTotal">
                 <p>OrderTotal</p>
-              </div>
+              </div> */}
             </div>
             {/* Looping items */}
 
-            {/* <ul className="catagory-list">
-              {categoryItems.itemData.map(item => {
-                return (
-                  <li className="order-item">
-                    <img
-                      className="order-image"
-                      src={item.imagePath}
-                      alt="Pepperoni Pizza"
-                    />
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                    <p>{item.id}</p>
-                    <button
-                      value={item.id}
-                      className="order-add-to-cart-btn"
-                      onClick={addItemToOrder}
-                    >
-                      ADD TO CART
-                    </button>
-                  </li>
-                )
-              })}
-            </ul> */}
-
             {cartItems.cartData.orderItems.map(item => {
               return (
-                <div className="divTableRow">
-                  <div className="divTableCellDelete">
-                    <img className="trashcan" src="/images/delete.png" />
-                  </div>
-                  <div className="divTableCellPic">
-                    <img className="checkout-image" src={item.item.imagePath} />
-                    {/* <p>{item.item.imagePath}</p> */}
-                  </div>
-                  <div className="divTableCellProduct">
-                    <p>{item.item.name}</p>
-                  </div>
-                  <div className="divTableCellPrice">
-                    <p>{item.item.price}</p>
-                  </div>
-                  <div className="divTableCellQuantity">
-                    <p>2</p>
-                  </div>
-                  <div className="divTableCellTotal">
-                    <p>$25.09</p>
-                  </div>
-                </div>
+                <CartItem
+                  name={item.item.name}
+                  imagePath={item.item.imagePath}
+                  price={item.item.price}
+                  id={item.item.id}
+                />
               )
             })}
             {/* End Loop */}
 
-            {/* end looping items */}
             <div className="divTableFooter">
               <div className="divTableCellDelete">
                 <p></p>
@@ -117,12 +78,12 @@ const CartPage = () => {
               <div className="divTableCellPic">
                 <p></p>
               </div>
-              <div className="divTableCellProduct">
+              {/* <div className="divTableCellProduct">
                 <p></p>
-              </div>
-              <div className="divTableCellPrice">
+              </div> */}
+              {/* <div className="divTableCellPrice">
                 <p></p>
-              </div>
+              </div> */}
               <div className="divTableCellQuantity">
                 <button className="add-to-cart">UPDATE CART</button>
               </div>

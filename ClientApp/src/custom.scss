@@ -663,7 +663,7 @@ footer {
 }
 
 .order-page-left {
-  width: 30%;
+  width: 25%;
   /* background-color: #F5F5F5; */
 }
 
@@ -942,6 +942,8 @@ footer {
   flex-direction: row;
   align-items: center;
   color: black;
+  margin: 0.5rem;
+  background-color: white;
 }
 
 .divTableCellL {
@@ -951,7 +953,7 @@ footer {
 
 .divTableCellC {
   width: 20%;
-  text-align: right;
+  text-align: center;
   /* border: green 1px solid; */
 }
 
@@ -960,33 +962,30 @@ footer {
   /* border: purple 1px solid; */
 }
 .divTableCellDelete {
-  width: 10%;
-
-  /* border: purple 1px solid; */
+  width: 15%;
+  height: auto;
+  // border: black 1px solid;
 }
 
 .divTableCellPic {
   width: 15%;
-
-  /* border: purple 1px solid; */
+  // border: red 1px solid;
 }
 .divTableCellProduct {
-  width: 35%;
-
-  /* border: purple 1px solid; */
+  width: 45%;
+  // border: blue 1px solid;
 }
 .divTableCellPrice {
-  width: 10%;
+  width: 15%;
+  // border: purple 1px solid;
+}
 
-  /* border: purple 1px solid; */
+.divTableCellTotal {
+  width: 15%;
+  // border: yellow 1px solid;
 }
 
 .divTableCellQuantity {
-  width: 15%;
-
-  /* border: purple 1px solid; */
-}
-.divTableCellTotal {
   width: 15%;
 
   /* border: purple 1px solid; */
@@ -1055,10 +1054,69 @@ footer {
 
 .checkout-image {
   height: auto;
-  width: 10vw;
+  width: 4vw;
 }
 
 .trashcan {
   height: 5vh;
   width: auto;
+}
+
+.order-trashcan {
+  height: 2vh;
+  width: auto;
+}
+
+.order-divTableCellDelete {
+  width: 10%;
+  height: auto;
+  text-align: center;
+  // border: black 1px solid;
+}
+
+.order-divTableCellPic {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  align-self: center;
+  justify-items: center;
+  // border: red 1px solid;
+}
+.order-divTableCellProduct {
+  width: 55%;
+  // border: blue 1px solid;
+  margin-left: 0.5rem;
+}
+.order-divTableCellPrice {
+  width: 10%;
+  // border: purple 1px solid;
+}
+
+// .order-divTableCellTotal {
+//   width: 5%;
+//   border: yellow 1px solid;
+// }
+
+.order-divTableCellPic {
+  width: auto;
+  align-self: flex-end;
+}
+
+.order-checkout-image {
+  height: auto;
+  width: 4vw;
+  align-items: center;
+}
+
+.order-divTableRow {
+  /* width: 70%; */
+  display: inline-block;
+  // border: black 1px solid;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  color: black;
+  margin: 0.5rem;
+  background-color: white;
 }

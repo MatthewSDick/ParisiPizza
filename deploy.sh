@@ -1,4 +1,4 @@
-docker build -t ParisiPizza-image .
+docker build -t parisipizza-image .
 
 docker tag ParisiPizza-image registry.heroku.com/parisipizza/web
 

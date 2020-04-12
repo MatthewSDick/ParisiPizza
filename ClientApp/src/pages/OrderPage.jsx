@@ -1,19 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import Header from '../components/Header'
+import CartPage from '../components/CartItem'
 import Footer from '../components/Footer'
+import CartItem from '../components/CartItem'
+import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'add-item':
+      return {
+        basketItems: [...state.basketItems, { item: action.item }],
+      }
+    // do this
+    case 'something-else':
+    // do this
+    default:
+      return state
+  }
+}
+
 const OrderPage = props => {
+  const [{ basketItems }, dispatch] = useReducer(reducer, {
+    basketItems: [],
+  })
+
   const menuCategory = props.match.params.category
 
   const [categoryItems, setCategoryItems] = useState({
     itemData: [],
     isLoaded: false,
   })
-
-  // const [cartItems, setCartItems] = useState({
-  //   cartData: [],
-  // })
 
   const [cartItems, setCartItems] = useState({
     cartData: { orderItems: [] },
@@ -57,25 +74,33 @@ const OrderPage = props => {
     )
   }
 
-  const refreshCart = async () => {
-    var orderID = sessionStorage.getItem('orderID')
-    console.log('refresh OrderId:' + orderID)
-    const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-    console.log(response.data)
-    setCartItems({
-      cartData: response.data,
-    })
-  }
+  // const refreshCart = async () => {
+  //   var orderID = sessionStorage.getItem('orderID')
+  //   console.log('refresh OrderId:' + orderID)
+  //   const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
+  //   console.log(response.data)
+  //   setCartItems({
+  //     cartData: response.data,
+  //   })
+  // }
 
-  const addItemToOrder = async e => {
-    sessionStorage.setItem('itemID', e.target.value)
-    isThereOrder()
-    saveItem()
-    refreshCart()
+  // const addItemToOrder = async e => {
+  //   sessionStorage.setItem('itemID', e.target.value)
+  //   isThereOrder()
+  //   saveItem()
+  //   refreshCart()
+  // }
+
+  const addItemToCart = e => {
+    var item = e.target.value
+    dispatch({ type: 'add-item', item })
   }
 
   useEffect(() => {
     GetCategoryItems()
+    isThereOrder()
+    // refreshCart()
+    // refreshCart()
   }, [])
 
   if (!categoryItems.isLoaded) {
@@ -91,45 +116,18 @@ const OrderPage = props => {
               <h3 className="order-cart-head">Cart</h3>
 
               {/* loop cart items  */}
-              {cartItems.cartData.orderItems.map(item => {
+              {/* {cartItems.cartData.orderItems.map(item => { */}
+              {/* <pre>{JSON.stringify(basketItems, null, 2)}</pre> */}
+              {basketItems.map(item => {
                 return (
-                  <div className="order-cart-list-item">
-                    <div className="order-cart-image-box">
-                      <img
-                        className="order-cart-image"
-                        src={item.item.imagePath}
-                        alt="Shopping cart"
-                      />
-                    </div>
-                    <div className="order-cart-details">
-                      <p>{item.item.name}</p>
-                      <p>
-                        4 X ${' '}
-                        <span style={{ color: '#CA0707' }}>
-                          {item.item.price}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
+                  <CartItemOrderPage
+                    name={item.item.name}
+                    imagePath={item.item.imagePath}
+                    price={item.item.price}
+                    id={item.item.id}
+                  />
                 )
               })}
-              {/* end cart items loop */}
-              {/* 
-              <div className="order-cart-list-item">
-                <div className="order-cart-image-box">
-                  <img
-                    className="order-cart-image"
-                    src="./images/pepperoni-pizz.jpg"
-                    alt="Shopping cart"
-                  />
-                </div>
-                <div className="order-cart-details">
-                  <p>Homemade Lasagna</p>
-                  <p>
-                    4 X $ <span style={{ color: '#CA0707' }}>14.95</span>
-                  </p>
-                </div>
-              </div> */}
             </div>
           </div>
 
@@ -141,7 +139,7 @@ const OrderPage = props => {
                     <img
                       className="order-image"
                       src={item.imagePath}
-                      alt="Pepperoni Pizza"
+                      alt={item.name}
                     />
                     <p>{item.name}</p>
                     <p>{item.price}</p>
@@ -149,13 +147,38 @@ const OrderPage = props => {
                     <button
                       value={item.id}
                       className="order-add-to-cart-btn"
-                      onClick={addItemToOrder}
+                      // onClick={addItemToOrder}
+                      // onClick={addItemToCart}
+                      onClick={() => dispatch({ type: 'add-item', item })}
                     >
                       ADD TO CART
                     </button>
                   </li>
                 )
               })}
+
+              {/* {categoryItems.itemData.map(item => {
+                return (
+                  <li className="order-item">
+                    <img
+                      className="order-image"
+                      src={item.imagePath}
+                      alt={item.name}
+                    />
+                    <p>{item.name}</p>
+                    <p>{item.price}</p>
+                    <p>{item.id}</p>
+                    <button
+                      value={item.id}
+                      className="order-add-to-cart-btn"
+                      // onClick={addItemToOrder}
+                      onClick={addItemToCart}
+                    >
+                      ADD TO CART
+                    </button>
+                  </li>
+                )
+              })} */}
             </ul>
           </div>
         </div>

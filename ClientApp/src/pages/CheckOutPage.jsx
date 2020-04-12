@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import CartItem from '../components/CartItem'
 import axios from 'axios'
 
 const CheckOutPage = props => {
@@ -101,44 +102,37 @@ const CheckOutPage = props => {
         >
           <div className="divTableBody">
             <div className="divTableRowHeader">
-              <div className="divTableCellL">
+              <div className="divTableCellDelete">
+                <p style={{ color: '#CA0707' }}>.></p>
+              </div>
+              <div className="divTableCellPic">
+                <p style={{ color: '#CA0707' }}>.></p>
+              </div>
+              <div className="divTableCellProduct">
                 <p>Product</p>
               </div>
-              <div className="divTableCellC">
-                <p style={{ color: '#CA0707' }}>.</p>
+              <div className="divTableCellPrice">
+                <p>Price</p>
               </div>
-              <div className="divTableCellR">
-                <p>Total</p>
-              </div>
+              {/* <div className="divTableCellQuantity">
+                <p>Quantity</p>
+              </div> */}
+              {/* <div className="divTableCellTotal">
+                  <p>OrderTotal</p>
+                </div> */}
             </div>
             {/* Looping items */}
 
             {cartItems.cartData.orderItems.map(item => {
               return (
-                <div className="divTableRow">
-                  {/* <div className="divTableCellDelete">
-                    <img className="trashcan" src="/images/delete.png" />
-                  </div> */}
-                  <div className="divTableCellL">
-                    <p>{item.item.name}</p>
-                  </div>
-                  <div className="divTableCellC">&nbsp;</div>
-                  <div className="divTableCellR">
-                    <p>{item.item.price}</p>
-                  </div>
-                </div>
+                <CartItem
+                  name={item.item.name}
+                  imagePath={item.item.imagePath}
+                  price={item.item.price}
+                  id={item.item.id}
+                />
               )
             })}
-
-            <div className="divTableRow">
-              <div className="divTableCellL">
-                <p>Homemade Lasagna X 2</p>
-              </div>
-              <div className="divTableCellC">&nbsp;</div>
-              <div className="divTableCellR">
-                <p>$25.09</p>
-              </div>
-            </div>
 
             {/* end looping items */}
             <div className="divTableRow">
