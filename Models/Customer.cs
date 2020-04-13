@@ -16,6 +16,7 @@ namespace ParisiPizza
     public string Zip { get; set; }
     public string EMail { get; set; }
     public string Phone { get; set; }
+    public string AdditionalInfo { get; set; }
     public List<CustomerOrder> CustomerOrders { get; set; } = new List<CustomerOrder>();
   }
 }

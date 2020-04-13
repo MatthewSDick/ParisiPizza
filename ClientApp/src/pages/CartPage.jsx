@@ -9,8 +9,8 @@ const CartPage = () => {
     cartData: [],
     isLoaded: false,
   })
-  // var orderID = 30
-  var orderID = sessionStorage.getItem('orderID')
+  var orderID = 30
+  // var orderID = sessionStorage.getItem('orderID')
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
     console.log(response.data)

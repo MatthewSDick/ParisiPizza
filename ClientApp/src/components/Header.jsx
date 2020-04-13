@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HelloWorld = () => {
+const Header = () => {
   return (
     <div>
       <div class="top">
@@ -72,4 +72,4 @@ const HelloWorld = () => {
   )
 }
 
-export default HelloWorld
+export default Header

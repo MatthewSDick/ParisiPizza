@@ -4,7 +4,30 @@ import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import axios from 'axios'
 
-const CheckOutPage = props => {
+const CheckOutPage = () => {
+  const [customer, setCustomer] = useState({})
+
+  const updateCustomerData = e => {
+    const key = e.target.name
+    const value = e.target.value
+    setCustomer(prevCustomer => {
+      prevCustomer[key] = value
+      return prevCustomer
+    })
+  }
+
+  const submitOrderToAPI = async () => {
+    console.log('adding customer:', customer)
+    // do API stuff
+    const resp = await axios.post('api/customers', customer)
+    console.log(resp.data)
+    if (resp.status === 201) {
+      // do something
+    } else {
+      // do something
+    }
+  }
+
   const [cartItems, setCartItems] = useState({
     cartData: [],
     isLoaded: false,
@@ -37,40 +60,68 @@ const CheckOutPage = props => {
             <p>
               First Name<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="firstName"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               Last Name<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="lastName"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               Address<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="address"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               City<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="city"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               State<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="state"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               Zip<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input type="text" name="zip" onChange={updateCustomerData}></input>
             <p>
               Phone<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="phone"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               Email<span style={{ color: '#CA0707' }}> *</span>
             </p>
-            <input type="text"></input>
+            <input
+              type="text"
+              name="email"
+              onChange={updateCustomerData}
+            ></input>
             <p>
               <input
                 type="radio"
-                name="delivery-method"
-                value="pick-up"
+                name="pick-up"
+                onChange={updateCustomerData}
                 classNAme="delivery-method"
               />{' '}
               Pick Up
@@ -78,8 +129,8 @@ const CheckOutPage = props => {
             <p>
               <input
                 type="radio"
-                name="delivery-method"
-                value="delivery"
+                name="delivery"
+                onChange={updateCustomerData}
                 classNAme="delivery-method"
               />{' '}
               Delivery
@@ -90,8 +141,9 @@ const CheckOutPage = props => {
             <h2>Additional Information</h2>
             <input
               type="text"
+              name="additional-info"
               className="additional-info"
-              value="Notes about your order, e.g. special notes for delivery"
+              onChange={updateCustomerData}
             ></input>
           </div>
         </div>
@@ -173,11 +225,11 @@ const CheckOutPage = props => {
                 <p>&nbsp;</p>
               </div>
               <div className="divTableCellC">
-                <p>&nbsp;</p>
+                <button className="add-to-cart" onClick={submitOrderToAPI}>
+                  SUBMIT ORDER
+                </button>
               </div>
-              <div className="divTableCellR">
-                <button className="add-to-cart">PLACE ORDER</button>
-              </div>
+              <div className="divTableCellR"></div>
             </div>
           </div>
         </div>
