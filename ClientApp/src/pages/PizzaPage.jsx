@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useReducer, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'add-topping':
+      return {
+        toppings: [...state.toppings, { name: action.name }],
+      }
+    // case 'toggle-todo':
+    //   return {}
+    default:
+      return state
+  }
+}
+
 const PizzaPage = () => {
+  const [{ toppings }, dispatch] = useReducer(reducer, {
+    toppings: [],
+  })
+
   return (
     <div>
       <Header />
@@ -40,6 +57,7 @@ const PizzaPage = () => {
             Each additional topping: Large + $2.00 (this should change by radio
             button)
           </p>
+          <pre>{JSON.stringify(toppings, null, 2)}</pre>
         </div>
       </div>
       <div className="pizza-bottom">
@@ -48,8 +66,17 @@ const PizzaPage = () => {
             <p>Left Half - $1.00</p>
           </div>
           <div className="toppings-detail">
-            <img src="./images/toppings/Anchovies.jpg" alt="Anchovies" />
-            <img src="./images/toppings/Bacon.jpg" alt="Bacon" />
+            <img
+              onClick={() =>
+                dispatch({ type: 'add-topping', name: 'L-Anchovies' })
+              }
+              src="./images/toppings/Anchovies.jpg"
+              alt="Anchovies"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Bacon_bwzh1l.jpg"
+              alt="Bacon"
+            />
             <img src="./images/toppings/Beef.jpg" alt="Ground Beef" />
             <img src="./images/toppings/Cheese.jpg" alt="Cheese" />
             <img src="./images/toppings/Garlic.jpg" alt="Garlic" />
@@ -60,10 +87,22 @@ const PizzaPage = () => {
             <img src="./images/toppings/Mushrooms.jpg" alt="Mushrooms" />
             <img src="./images/toppings/Olives.jpg" alt="Olives" />
             <img src="./images/toppings/Onion.jpg" alt="Onion" />
-            <img src="./images/toppings/Pepperoni.jpg" alt="Pepperoni" />
-            <img src="./images/toppings/Pineapple.jpg" alt="Pineapple" />
-            <img src="./images/toppings/Sausage.jpg" alt="Sausage" />
-            <img src="./images/toppings/Tomatoes.jpg" alt="Tomatoes" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pepperoni_vpkhtk.jpg"
+              alt="Pepperoni"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pineapple_gbfeqb.jpg"
+              alt="Pineapple"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Sausage_wlsps7.jpg"
+              alt="Sausage"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Tomatoes_j8wyg5.jpg"
+              alt="Tomatoes"
+            />
           </div>
         </div>
 
