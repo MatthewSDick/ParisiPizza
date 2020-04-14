@@ -6,6 +6,12 @@ import axios from 'axios'
 
 const CheckOutPage = () => {
   const [customer, setCustomer] = useState({})
+  const [order, setOrder] = useState({
+    Id: 0,
+    PickupDelivery: '',
+    OrderStatus: '',
+    OrderTotal: '',
+  })
 
   const updateCustomerData = e => {
     const key = e.target.name
@@ -16,10 +22,34 @@ const CheckOutPage = () => {
     })
   }
 
-  const submitOrderToAPI = async () => {
+  const finalizeOrder = () => {
+    sendCustomerInfo()
+    closeOrder()
+  }
+
+  const sendCustomerInfo = async () => {
     console.log('adding customer:', customer)
     // do API stuff
     const resp = await axios.post('api/customers', customer)
+    console.log(resp.data)
+    if (resp.status === 201) {
+      // do something
+    } else {
+      // do something
+    }
+  }
+
+  const closeOrder = async () => {
+    // var orderID = sessionStorage.getItem('orderID')
+    var orderID = 5
+    console.log('CloseOrder OrderId :' + orderID)
+    setOrder({
+      Id: orderID,
+      PickupDelivery: 'Delivery',
+      OrderStatus: 'AAAAAA',
+      OrderTotal: '99.99',
+    })
+    const resp = await axios.put(`api/order/${orderID}`, order)
     console.log(resp.data)
     if (resp.status === 201) {
       // do something
@@ -32,8 +62,9 @@ const CheckOutPage = () => {
     cartData: [],
     isLoaded: false,
   })
-  var orderID = 30
-  // var orderID = sessionStorage.getItem('orderID')
+
+  // var orderID = 30
+  var orderID = sessionStorage.getItem('orderID')
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
     console.log(response.data)
@@ -45,6 +76,9 @@ const CheckOutPage = () => {
   }
 
   useEffect(() => {
+    // Setting order ID here is just for testing
+    sessionStorage.setItem('orderID', 5)
+    console.log('Order id: ', sessionStorage.getItem('orderID'))
     GetCartInfo()
   }, [])
 
@@ -141,7 +175,7 @@ const CheckOutPage = () => {
             <h2>Additional Information</h2>
             <input
               type="text"
-              name="additional-info"
+              name="additionalinfo"
               className="additional-info"
               onChange={updateCustomerData}
             ></input>
@@ -225,7 +259,7 @@ const CheckOutPage = () => {
                 <p>&nbsp;</p>
               </div>
               <div className="divTableCellC">
-                <button className="add-to-cart" onClick={submitOrderToAPI}>
+                <button className="add-to-cart" onClick={finalizeOrder}>
                   SUBMIT ORDER
                 </button>
               </div>
