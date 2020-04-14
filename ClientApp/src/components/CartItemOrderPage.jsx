@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CartItemOrderPage = props => {
-  const { name, imagePath, price, id } = props
+  const { name, imagePath, price, id, dispatch } = props
   return (
     <div className="order-divTableRow">
       <div className="order-divTableCellDelete">
@@ -16,9 +16,6 @@ const CartItemOrderPage = props => {
       <div className="order-divTableCellPrice">
         <p>{price}</p>
       </div>
-      {/* <div className="divTableCellTotal">
-        <p>$25.09</p>
-      </div> */}
     </div>
   )
 }

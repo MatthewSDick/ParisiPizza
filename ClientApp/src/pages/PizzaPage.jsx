@@ -67,26 +67,53 @@ const PizzaPage = () => {
           </div>
           <div className="toppings-detail">
             <img
-              onClick={() =>
-                dispatch({ type: 'add-topping', name: 'L-Anchovies' })
-              }
-              src="./images/toppings/Anchovies.jpg"
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Anchovies_ye67hd.jpg"
               alt="Anchovies"
             />
             <img
               src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Bacon_bwzh1l.jpg"
               alt="Bacon"
             />
-            <img src="./images/toppings/Beef.jpg" alt="Ground Beef" />
-            <img src="./images/toppings/Cheese.jpg" alt="Cheese" />
-            <img src="./images/toppings/Garlic.jpg" alt="Garlic" />
-            <img src="./images/toppings/GreenPeppers.jpg" alt="Green Peppers" />
-            <img src="./images/toppings/Ham.jpg" alt="Ham" />
-            <img src="./images/toppings/Jalapeno.jpg" alt="Jalapeno" />
-            <img src="./images/toppings/Meatballs.jpg" alt="Meatballs" />
-            <img src="./images/toppings/Mushrooms.jpg" alt="Mushrooms" />
-            <img src="./images/toppings/Olives.jpg" alt="Olives" />
-            <img src="./images/toppings/Onion.jpg" alt="Onion" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Beef_d8aoc4.jpg"
+              alt="Ground Beef"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Cheese_zjrpld.jpg"
+              alt="Cheese"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Garlic_nfrlhz.jpg"
+              alt="Garlic"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/GreenPeppers_ryzanv.jpg"
+              alt="Green Peppers"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Ham_fec7kx.jpg"
+              alt="Ham"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Jalapeno_uduqjl.jpg"
+              alt="Jalapeno"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Meatballs_gwghds.jpg"
+              alt="Meatballs"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Mushrooms_twme7d.jpg"
+              alt="Mushrooms"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Olives_zcxlp6.jpg"
+              alt="Olives"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Onion_zzzmje.jpg"
+              alt="Onion"
+            />
             <img
               src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pepperoni_vpkhtk.jpg"
               alt="Pepperoni"
@@ -111,22 +138,70 @@ const PizzaPage = () => {
             <p>Whole Pizza - $2.00</p>
           </div>
           <div className="toppings-detail">
-            <img src="./images/toppings/Anchovies.jpg" alt="Anchovies" />
-            <img src="./images/toppings/Bacon.jpg" alt="Bacon" />
-            <img src="./images/toppings/Beef.jpg" alt="Ground Beef" />
-            <img src="./images/toppings/Cheese.jpg" alt="Cheese" />
-            <img src="./images/toppings/Garlic.jpg" alt="Garlic" />
-            <img src="./images/toppings/GreenPeppers.jpg" alt="Green Peppers" />
-            <img src="./images/toppings/Ham.jpg" alt="Ham" />
-            <img src="./images/toppings/Jalapeno.jpg" alt="Jalapeno" />
-            <img src="./images/toppings/Meatballs.jpg" alt="Meatballs" />
-            <img src="./images/toppings/Mushrooms.jpg" alt="Mushrooms" />
-            <img src="./images/toppings/Olives.jpg" alt="Olives" />
-            <img src="./images/toppings/Onion.jpg" alt="Onion" />
-            <img src="./images/toppings/Pepperoni.jpg" alt="Pepperoni" />
-            <img src="./images/toppings/Pineapple.jpg" alt="Pineapple" />
-            <img src="./images/toppings/Sausage.jpg" alt="Sausage" />
-            <img src="./images/toppings/Tomatoes.jpg" alt="Tomatoes" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Anchovies_ye67hd.jpg"
+              alt="Anchovies"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Bacon_bwzh1l.jpg"
+              alt="Bacon"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Beef_d8aoc4.jpg"
+              alt="Ground Beef"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Cheese_zjrpld.jpg"
+              alt="Cheese"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Garlic_nfrlhz.jpg"
+              alt="Garlic"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/GreenPeppers_ryzanv.jpg"
+              alt="Green Peppers"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Ham_fec7kx.jpg"
+              alt="Ham"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Jalapeno_uduqjl.jpg"
+              alt="Jalapeno"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Meatballs_gwghds.jpg"
+              alt="Meatballs"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Mushrooms_twme7d.jpg"
+              alt="Mushrooms"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Olives_zcxlp6.jpg"
+              alt="Olives"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Onion_zzzmje.jpg"
+              alt="Onion"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pepperoni_vpkhtk.jpg"
+              alt="Pepperoni"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pineapple_gbfeqb.jpg"
+              alt="Pineapple"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Sausage_wlsps7.jpg"
+              alt="Sausage"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Tomatoes_j8wyg5.jpg"
+              alt="Tomatoes"
+            />
           </div>
         </div>
         <div className="toppings-right">
@@ -134,22 +209,70 @@ const PizzaPage = () => {
             <p>Right Half - $1.00</p>
           </div>
           <div className="toppings-detail">
-            <img src="./images/toppings/Anchovies.jpg" alt="Anchovies" />
-            <img src="./images/toppings/Bacon.jpg" alt="Bacon" />
-            <img src="./images/toppings/Beef.jpg" alt="Ground Beef" />
-            <img src="./images/toppings/Cheese.jpg" alt="Cheese" />
-            <img src="./images/toppings/Garlic.jpg" alt="Garlic" />
-            <img src="./images/toppings/GreenPeppers.jpg" alt="Green Peppers" />
-            <img src="./images/toppings/Ham.jpg" alt="Ham" />
-            <img src="./images/toppings/Jalapeno.jpg" alt="Jalapeno" />
-            <img src="./images/toppings/Meatballs.jpg" alt="Meatballs" />
-            <img src="./images/toppings/Mushrooms.jpg" alt="Mushrooms" />
-            <img src="./images/toppings/Olives.jpg" alt="Olives" />
-            <img src="./images/toppings/Onion.jpg" alt="Onion" />
-            <img src="./images/toppings/Pepperoni.jpg" alt="Pepperoni" />
-            <img src="./images/toppings/Pineapple.jpg" alt="Pineapple" />
-            <img src="./images/toppings/Sausage.jpg" alt="Sausage" />
-            <img src="./images/toppings/Tomatoes.jpg" alt="Tomatoes" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Anchovies_ye67hd.jpg"
+              alt="Anchovies"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Bacon_bwzh1l.jpg"
+              alt="Bacon"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Beef_d8aoc4.jpg"
+              alt="Ground Beef"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Cheese_zjrpld.jpg"
+              alt="Cheese"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Garlic_nfrlhz.jpg"
+              alt="Garlic"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/GreenPeppers_ryzanv.jpg"
+              alt="Green Peppers"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Ham_fec7kx.jpg"
+              alt="Ham"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Jalapeno_uduqjl.jpg"
+              alt="Jalapeno"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Meatballs_gwghds.jpg"
+              alt="Meatballs"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Mushrooms_twme7d.jpg"
+              alt="Mushrooms"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Olives_zcxlp6.jpg"
+              alt="Olives"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Onion_zzzmje.jpg"
+              alt="Onion"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pepperoni_vpkhtk.jpg"
+              alt="Pepperoni"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Pineapple_gbfeqb.jpg"
+              alt="Pineapple"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Sausage_wlsps7.jpg"
+              alt="Sausage"
+            />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Tomatoes_j8wyg5.jpg"
+              alt="Tomatoes"
+            />
           </div>
         </div>
       </div>

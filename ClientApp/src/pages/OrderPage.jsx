@@ -9,12 +9,27 @@ import axios from 'axios'
 const reducer = (state, action) => {
   switch (action.type) {
     case 'add-item':
+      var orderID = sessionStorage.getItem('orderID')
+      console.log('add-item Order: ', orderID)
+      var itemID = action.item.id
+      console.log('add-item Item: ', itemID)
+      const response = axios.post(
+        `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
+      ).then
+
+      console.log('in add item :', response)
+
       return {
         basketItems: [...state.basketItems, { item: action.item }],
       }
-    // do this
-    case 'something-else':
-    // do this
+
+    case 'delete-item':
+      return {
+        basketItems: [
+          ...state.basketItems.filter((x, i) => i !== action.index),
+        ],
+      }
+
     default:
       return state
   }
@@ -23,6 +38,7 @@ const reducer = (state, action) => {
 const OrderPage = props => {
   const [{ basketItems }, dispatch] = useReducer(reducer, {
     basketItems: [],
+    // OrderItemID,
   })
 
   const menuCategory = props.match.params.category
@@ -63,12 +79,8 @@ const OrderPage = props => {
   }
 
   const saveItem = async e => {
-    console.log('Entering saveItem')
     var orderID = sessionStorage.getItem('orderID')
-    console.log('Entering saveItem orderID =' + orderID)
     var itemID = sessionStorage.getItem('itemID')
-    console.log('selected Item:', itemID)
-    console.log('In saveItem itemID:' + itemID)
     const response = await axios.post(
       `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
     )
@@ -115,9 +127,35 @@ const OrderPage = props => {
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
 
-              {/* loop cart items  */}
-              {/* {cartItems.cartData.orderItems.map(item => { */}
-              {/* <pre>{JSON.stringify(basketItems, null, 2)}</pre> */}
+              {basketItems.map((item, index) => {
+                return (
+                  <div className="order-divTableRow">
+                    <div key={item.id} className="order-divTableCellDelete">
+                      <img
+                        onClick={() => dispatch({ type: 'delete-item', index })}
+                        className="order-trashcan"
+                        src="/images/delete.png"
+                      />
+                    </div>
+                    <div className="order-divTableCellPic">
+                      <img
+                        className="order-checkout-image"
+                        src={item.item.imagePath}
+                      />
+                    </div>
+                    <div className="order-divTableCellProduct">
+                      <p>{item.item.name}</p>
+                    </div>
+                    <div className="order-divTableCellPrice">
+                      <p>{item.item.price}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* 
               {basketItems.map(item => {
                 return (
                   <CartItemOrderPage
@@ -125,11 +163,12 @@ const OrderPage = props => {
                     imagePath={item.item.imagePath}
                     price={item.item.price}
                     id={item.item.id}
+                    dispatch={dispatch}
                   />
                 )
               })}
             </div>
-          </div>
+          </div> */}
 
           <div className="order-page-right">
             <ul className="catagory-list">
@@ -147,8 +186,6 @@ const OrderPage = props => {
                     <button
                       value={item.id}
                       className="order-add-to-cart-btn"
-                      // onClick={addItemToOrder}
-                      // onClick={addItemToCart}
                       onClick={() => dispatch({ type: 'add-item', item })}
                     >
                       ADD TO CART
@@ -156,29 +193,6 @@ const OrderPage = props => {
                   </li>
                 )
               })}
-
-              {/* {categoryItems.itemData.map(item => {
-                return (
-                  <li className="order-item">
-                    <img
-                      className="order-image"
-                      src={item.imagePath}
-                      alt={item.name}
-                    />
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                    <p>{item.id}</p>
-                    <button
-                      value={item.id}
-                      className="order-add-to-cart-btn"
-                      // onClick={addItemToOrder}
-                      onClick={addItemToCart}
-                    >
-                      ADD TO CART
-                    </button>
-                  </li>
-                )
-              })} */}
             </ul>
           </div>
         </div>
