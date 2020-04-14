@@ -7,23 +7,36 @@ import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
 
 const reducer = (state, action) => {
+  var orderItemTableId = ''
   switch (action.type) {
     case 'add-item':
       var orderID = sessionStorage.getItem('orderID')
       console.log('add-item Order: ', orderID)
       var itemID = action.item.id
       console.log('add-item Item: ', itemID)
-      const response = axios.post(
-        `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
-      ).then
-
-      console.log('in add item :', response)
+      const response = axios
+        .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
+        .then(response => {
+          console.log('After API . then: ', response)
+          if (response.status === 200) {
+            sessionStorage.setItem('setOrderItemID', response.data.id)
+            orderItemTableId = response.data.id
+          } else {
+          }
+          console.log('woohoo: ' + orderItemTableId)
+        })
 
       return {
-        basketItems: [...state.basketItems, { item: action.item }],
+        basketItems: [
+          ...state.basketItems,
+          { item: action.item, OrderItemId: sessionStorage.getItem('orderID') },
+        ],
       }
 
     case 'delete-item':
+      console.log(action.item)
+      var itemToDelete = sessionStorage.getItem('setOrderItemID')
+      const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
       return {
         basketItems: [
           ...state.basketItems.filter((x, i) => i !== action.index),
@@ -38,7 +51,7 @@ const reducer = (state, action) => {
 const OrderPage = props => {
   const [{ basketItems }, dispatch] = useReducer(reducer, {
     basketItems: [],
-    // OrderItemID,
+    OrderItemId: '',
   })
 
   const menuCategory = props.match.params.category
@@ -126,7 +139,7 @@ const OrderPage = props => {
           <div className="order-page-left">
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
-
+              {console.log('basket: ', basketItems)}
               {basketItems.map((item, index) => {
                 return (
                   <div className="order-divTableRow">

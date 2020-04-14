@@ -37,6 +37,26 @@ namespace ParisiPizza.Controllers
     }
 
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<OrderItem>> DeleteItem(int id)
+    {
+      var item = await _context.OrderItems.FindAsync(id);
+      if (item == null)
+      {
+        return NotFound();
+      }
+
+      _context.OrderItems.Remove(item);
+      await _context.SaveChangesAsync();
+
+      return item;
+    }
+
+    private bool OrderExists(int id)
+    {
+      return _context.OrderItems.Any(e => e.Id == id);
+    }
+
 
 
 
