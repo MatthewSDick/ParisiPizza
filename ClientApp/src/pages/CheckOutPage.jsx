@@ -31,29 +31,16 @@ const CheckOutPage = () => {
     })
   }
 
-  // const completeOrder = () => {
-  //   const key = OrderStatus
-  //   const value = '99.99'
-  //   setOrder(prevOrder => {
-  //     prevOrder[key] = value
-  //     return prevOrder
-  //   })
-  // }
+  const completeOrder = () => {
+    setOrder(previousOrder => {
+      return { ...previousOrder, OrderStatus: 'Closed' }
+    })
+  }
 
   const finalizeOrder = () => {
     // sendCustomerInfo()
-    // completeOrder()
-
-    // setOrder({ ...order, OrderTotal: '99.99' })
-    console.log('new order:', order)
-
-    // this.setState(prevState => ({
-    //   order: {
-    //     ...prevState.order,
-    //     OrderTotal: '99.99',
-    //   },
-    // }))
-
+    completeOrder()
+    console.log('after complete order:', order)
     // closeOrder()
   }
 

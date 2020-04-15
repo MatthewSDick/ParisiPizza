@@ -1,4 +1,7 @@
-import { createContext } from 'react'
-import { create } from 'domain'
+import { createContext, useContext } from 'react'
 
-export const orderContext = createContext(null)
+// Used to setup the provider
+export const OrderContext = createContext()
+
+// Used to be able to get data from the context
+export const useOrder = () => useContext(OrderContext)

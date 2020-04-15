@@ -11,28 +11,26 @@ import OrderPage from './pages/OrderPage'
 import PizzaPage from './pages/PizzaPage'
 import AddItems from './pages/AddItems'
 import './custom.scss'
-import { orderContext } from './pages/OrderContext'
+import { OrderContext } from './pages/OrderContext'
 
-export default class App extends Component {
-  // const [value, setValue] = useState({'Hello from context'})
-  static displayName = App.name
+export default function App() {
+  const [order, setOrder] = useState([])
+  const contextObject = { order, setOrder }
 
-  render() {
-    return (
-      <Layout>
+  return (
+    <Layout>
+      <OrderContext.Provider value={contextObject}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/cart" component={CartPage} />
           <Route exact path="/checkout" component={CheckOutPage} />
           <Route exact path="/complete" component={CompletePage} />
-          {/* <orderContext.Provider value={{ value, setValue }}> */}
           <Route exact path="/order/:category" component={OrderPage} />
-          {/* </orderContext.Provider> */}
           <Route exact path="/pizza" component={PizzaPage} />
           <Route exact path="/additems" component={AddItems} />
           <Route exact path="*" component={NotFound} />
         </Switch>
-      </Layout>
-    )
-  }
+      </OrderContext.Provider>
+    </Layout>
+  )
 }

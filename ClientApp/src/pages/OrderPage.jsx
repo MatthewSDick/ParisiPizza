@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
-import { orderContext } from './OrderContext'
+import { useOrder } from './OrderContext'
 
 const reducer = (state, action) => {
   var orderItemTableId = ''
@@ -50,8 +50,9 @@ const reducer = (state, action) => {
 }
 
 const OrderPage = props => {
-  // added this line to attempt the context and it worked
-  // const msg = useContext(orderContext)
+  // const contextObject = useUserProfile()
+  const Context = useOrder()
+  console.log('Top app: ', Context)
   // const { value, setValue } = useContext(orderContext)
   const [{ basketItems }, dispatch] = useReducer(reducer, {
     basketItems: [],
@@ -81,17 +82,16 @@ const OrderPage = props => {
   }
 
   const isThereOrder = async e => {
-    console.log('Entering isTereOrder')
-    var orderID = sessionStorage.getItem('orderID')
-    console.log('isThereOrder before API orderID=' + orderID)
-    if (!orderID) {
+    const orderId = Context.order
+    // const orderId = ''
+    console.log('After pull from Context: ', orderId)
+    if (!orderId) {
       const response = await axios.post('/api/order', {
         orderstatus: 'Started',
       })
-      orderID = response.data.id
-      console.log('isThereOrder response=:' + response.data)
-      sessionStorage.setItem('orderID', response.data.id)
-      console.log('isThereOrder after API orderID=' + orderID)
+      console.log('Response.Data:', response.data)
+      Context.setOrder(response.data.id)
+      console.log('AfterContext set:', Context)
     }
   }
 
