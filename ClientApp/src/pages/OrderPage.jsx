@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
 import Header from '../components/Header'
 import CartPage from '../components/CartItem'
 import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
+import { orderContext } from './OrderContext'
 
 const reducer = (state, action) => {
   var orderItemTableId = ''
@@ -49,6 +50,9 @@ const reducer = (state, action) => {
 }
 
 const OrderPage = props => {
+  // added this line to attempt the context and it worked
+  // const msg = useContext(orderContext)
+  // const { value, setValue } = useContext(orderContext)
   const [{ basketItems }, dispatch] = useReducer(reducer, {
     basketItems: [],
     OrderItemId: '',
@@ -134,7 +138,7 @@ const OrderPage = props => {
     return (
       <div>
         <Header />
-
+        {/* <div>{value}</div> */}
         <div className="order-page">
           <div className="order-page-left">
             <div className="cart-view">

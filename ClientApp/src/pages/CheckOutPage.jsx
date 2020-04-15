@@ -7,7 +7,7 @@ import axios from 'axios'
 const CheckOutPage = () => {
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
-    Id: 0,
+    Id: '',
     PickupDelivery: '',
     OrderStatus: '',
     OrderTotal: '',
@@ -22,9 +22,39 @@ const CheckOutPage = () => {
     })
   }
 
+  const updateOrderData = e => {
+    const key = e.target.name
+    const value = e.target.value
+    setOrder(prevOrder => {
+      prevOrder[key] = value
+      return prevOrder
+    })
+  }
+
+  // const completeOrder = () => {
+  //   const key = OrderStatus
+  //   const value = '99.99'
+  //   setOrder(prevOrder => {
+  //     prevOrder[key] = value
+  //     return prevOrder
+  //   })
+  // }
+
   const finalizeOrder = () => {
-    sendCustomerInfo()
-    closeOrder()
+    // sendCustomerInfo()
+    // completeOrder()
+
+    // setOrder({ ...order, OrderTotal: '99.99' })
+    console.log('new order:', order)
+
+    // this.setState(prevState => ({
+    //   order: {
+    //     ...prevState.order,
+    //     OrderTotal: '99.99',
+    //   },
+    // }))
+
+    // closeOrder()
   }
 
   const sendCustomerInfo = async () => {
@@ -40,15 +70,9 @@ const CheckOutPage = () => {
   }
 
   const closeOrder = async () => {
-    // var orderID = sessionStorage.getItem('orderID')
-    var orderID = 5
+    var orderID = sessionStorage.getItem('orderID')
     console.log('CloseOrder OrderId :' + orderID)
-    setOrder({
-      Id: orderID,
-      PickupDelivery: 'Delivery',
-      OrderStatus: 'AAAAAA',
-      OrderTotal: '99.99',
-    })
+    console.log('the order is', order)
     const resp = await axios.put(`api/order/${orderID}`, order)
     console.log(resp.data)
     if (resp.status === 201) {
@@ -76,7 +100,7 @@ const CheckOutPage = () => {
   }
 
   useEffect(() => {
-    // Setting order ID here is just for testing
+    // Setting order ID in the line below is just for testing
     sessionStorage.setItem('orderID', 5)
     console.log('Order id: ', sessionStorage.getItem('orderID'))
     GetCartInfo()
@@ -153,18 +177,20 @@ const CheckOutPage = () => {
             ></input>
             <p>
               <input
+                value="pickup"
                 type="radio"
-                name="pick-up"
-                onChange={updateCustomerData}
+                name="pick-up-delivery"
+                onChange={updateOrderData}
                 classNAme="delivery-method"
               />{' '}
               Pick Up
             </p>
             <p>
               <input
+                value="delivery"
                 type="radio"
-                name="delivery"
-                onChange={updateCustomerData}
+                name="pick-up-delivery"
+                onChange={updateOrderData}
                 classNAme="delivery-method"
               />{' '}
               Delivery
@@ -177,7 +203,7 @@ const CheckOutPage = () => {
               type="text"
               name="additionalinfo"
               className="additional-info"
-              onChange={updateCustomerData}
+              onChange={updateOrderData}
             ></input>
           </div>
         </div>
