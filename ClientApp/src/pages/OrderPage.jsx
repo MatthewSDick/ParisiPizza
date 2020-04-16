@@ -8,13 +8,14 @@ import axios from 'axios'
 import { useOrder } from './OrderContext'
 
 const reducer = (state, action) => {
+  // const Context = useOrder()
+  // const orderID = Context.orderId
   var orderItemTableId = ''
   switch (action.type) {
     case 'add-item':
       var orderID = sessionStorage.getItem('orderID')
-      console.log('add-item Order: ', orderID)
       var itemID = action.item.id
-      console.log('add-item Item: ', itemID)
+      console.log('Info when adding: ', action.item)
       const response = axios
         .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
         .then(response => {
@@ -24,7 +25,6 @@ const reducer = (state, action) => {
             orderItemTableId = response.data.id
           } else {
           }
-          console.log('woohoo: ' + orderItemTableId)
         })
 
       return {
@@ -32,6 +32,7 @@ const reducer = (state, action) => {
           ...state.basketItems,
           { item: action.item, OrderItemId: sessionStorage.getItem('orderID') },
         ],
+        cartTotal: state.cartTotal + action.item.price,
       }
 
     case 'delete-item':
@@ -56,7 +57,7 @@ const OrderPage = props => {
   // const { value, setValue } = useContext(orderContext)
   const [{ basketItems }, dispatch] = useReducer(reducer, {
     basketItems: [],
-    OrderItemId: '',
+    cartTotal: 0,
   })
 
   const menuCategory = props.match.params.category
@@ -93,6 +94,7 @@ const OrderPage = props => {
       })
       console.log('Response.Data after API for new order: ', response.data)
       Context.setOrderId(response.data.id)
+      sessionStorage.setItem('orderID', response.data.id)
       console.log('Context data after it is set from API: ', Context)
     }
   }
@@ -146,6 +148,7 @@ const OrderPage = props => {
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
               {console.log('basket: ', basketItems)}
+              {console.log('basket total: ', basketItems.cartTotal)}
               {basketItems.map((item, index) => {
                 return (
                   <div className="order-divTableRow">
@@ -171,6 +174,7 @@ const OrderPage = props => {
                   </div>
                 )
               })}
+              <button className="order-checkout">PROCEED TO CHECKOUT</button>
             </div>
           </div>
 
