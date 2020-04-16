@@ -206,7 +206,6 @@ const PizzaPage = () => {
             />
           </div>
         </div>
-
         <div className="toppings-whole">
           <div>
             <p>Whole Pizza - $2.00</p>

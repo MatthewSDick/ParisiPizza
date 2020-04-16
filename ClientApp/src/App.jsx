@@ -12,10 +12,12 @@ import PizzaPage from './pages/PizzaPage'
 import AddItems from './pages/AddItems'
 import './custom.scss'
 import { OrderContext } from './pages/OrderContext'
+import Header from './components/Header'
 
 export default function App() {
-  const [order, setOrder] = useState([])
-  const contextObject = { order, setOrder }
+  const [orderId, setOrderId] = useState(0)
+
+  const contextObject = { orderId, setOrderId }
 
   return (
     <Layout>

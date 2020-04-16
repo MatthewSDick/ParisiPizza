@@ -60,6 +60,7 @@ const OrderPage = props => {
   })
 
   const menuCategory = props.match.params.category
+  console.log(menuCategory)
 
   const [categoryItems, setCategoryItems] = useState({
     itemData: [],
@@ -82,16 +83,17 @@ const OrderPage = props => {
   }
 
   const isThereOrder = async e => {
-    const orderId = Context.order
-    // const orderId = ''
-    console.log('After pull from Context: ', orderId)
-    if (!orderId) {
+    console.log('Enter isThereOrder Context: ', Context)
+    const orderID = Context.orderId
+    // const orderID = ''
+    console.log('orderID after set from Context: ', orderID)
+    if (!orderID) {
       const response = await axios.post('/api/order', {
         orderstatus: 'Started',
       })
-      console.log('Response.Data:', response.data)
-      Context.setOrder(response.data.id)
-      console.log('AfterContext set:', Context)
+      console.log('Response.Data after API for new order: ', response.data)
+      Context.setOrderId(response.data.id)
+      console.log('Context data after it is set from API: ', Context)
     }
   }
 
@@ -130,7 +132,7 @@ const OrderPage = props => {
     isThereOrder()
     // refreshCart()
     // refreshCart()
-  }, [])
+  }, [menuCategory])
 
   if (!categoryItems.isLoaded) {
     return <h2>Loading...</h2>

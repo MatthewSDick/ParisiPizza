@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -7,27 +8,27 @@ const Header = () => {
         <div class="flex1">
           <div class="one">
             {/* this is the nav menu */}
-            <a href="/">
+            <Link to="/">
               <button className="go-home">Home</button>
               {/* <span>Home</span> */}
-            </a>
+            </Link>
             <div class="dropdown">
               <button class="dropbtn">
                 Order Online
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-content">
-                <a href="/order/Appetizers">Appetizers</a>
-                <a href="/order/Baked Pasta">Baked Pasta</a>
-                <a href="/order/Dolci">Dolci</a>
-                <a href="/order/Entrees">Entrees</a>
-                <a href="/order/Hoagies">Hoagies</a>
-                <a href="/order/Italian Specialties">Italian Specialties</a>
-                <a href="/order/Paninis">Paninis</a>
-                <a href="/order/Pasta">Pasta</a>
-                <a href="/pizza">Pizza</a>
-                <a href="/order/Salads">Salads</a>
-                <a href="/order/Seafood">Seafood</a>
+                <Link to="/order/Appetizers">Appetizers</Link>
+                <Link to="/order/Baked Pasta">Baked Pasta</Link>
+                <Link to="/order/Dolci">Dolci</Link>
+                <Link to="/order/Entrees">Entrees</Link>
+                <Link to="/order/Hoagies">Hoagies</Link>
+                <Link to="/order/Italian Specialties">Italian Specialties</Link>
+                <Link to="/order/Paninis">Paninis</Link>
+                <Link to="/order/Pasta">Pasta</Link>
+                <Link to="/pizza">Pizza</Link>
+                <Link to="/order/Salads">Salads</Link>
+                <Link to="/order/Seafood">Seafood</Link>
               </div>
             </div>
             {/* this is the bottom of nav menu */}
@@ -38,18 +39,18 @@ const Header = () => {
           <div class="three">
             <ul class="right-nav">
               <li>
-                <a href="/cart">
+                <Link to="/cart">
                   <img class="cart" src="images/cart_icon.png" />
-                </a>
+                </Link>
               </li>
               <li class="top-items-count">{localStorage.getItem('items')}</li>
 
               <li class="top-items">Items</li>
               <li class="top-money">$ 0.00</li>
               <li>
-                <a href="/checkout">
+                {/* <Link to="/checkout">
                   <button class="top-checkout">Checkout</button>
-                </a>
+                </Link> */}
               </li>
             </ul>
           </div>
@@ -58,9 +59,9 @@ const Header = () => {
         <h2>Authentic Italian Pizza</h2>
         <h1>Best pizza in St Pete</h1>
         <div class="top-wrapper">
-          <a href="/pizza">
+          <Link to="/pizza">
             <button class="top-button">Order Online</button>
-          </a>
+          </Link>
         </div>
       </div>
       <div class="line">

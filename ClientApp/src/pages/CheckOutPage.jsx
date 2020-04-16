@@ -1,17 +1,25 @@
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect, useContext, Component } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import axios from 'axios'
+import { useOrder } from './OrderContext'
 
 const CheckOutPage = () => {
+  const Context = useOrder()
+  // The below line is hear coded so we can code the rest of the page
+  // Comment out and re-enable the line below it when ready
+  const orderID = '4'
+  // const orderID = Context.orderId
+
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
-    Id: '',
-    PickupDelivery: '',
+    Id: 0,
+    PickupDelivery: 'Delivery',
     OrderStatus: '',
-    OrderTotal: '',
+    OrderTotal: '99.99',
   })
+  // console.log('just set top: ', order)
 
   const updateCustomerData = e => {
     const key = e.target.name
@@ -35,12 +43,12 @@ const CheckOutPage = () => {
     setOrder(previousOrder => {
       return { ...previousOrder, OrderStatus: 'Closed' }
     })
+    console.log('just set: ', order)
   }
 
   const finalizeOrder = () => {
-    // sendCustomerInfo()
+    sendCustomerInfo()
     completeOrder()
-    console.log('after complete order:', order)
     // closeOrder()
   }
 
@@ -57,8 +65,6 @@ const CheckOutPage = () => {
   }
 
   const closeOrder = async () => {
-    var orderID = sessionStorage.getItem('orderID')
-    console.log('CloseOrder OrderId :' + orderID)
     console.log('the order is', order)
     const resp = await axios.put(`api/order/${orderID}`, order)
     console.log(resp.data)
@@ -74,22 +80,19 @@ const CheckOutPage = () => {
     isLoaded: false,
   })
 
-  // var orderID = 30
-  var orderID = sessionStorage.getItem('orderID')
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-    console.log(response.data)
+    console.log('Cart Info: ', response.data)
     setCartItems({
       cartData: response.data,
       isLoaded: true,
     })
-    // console.log(cartData)
+    setOrder(previousOrder => {
+      return { ...previousOrder, Id: response.data.id }
+    })
   }
 
   useEffect(() => {
-    // Setting order ID in the line below is just for testing
-    sessionStorage.setItem('orderID', 5)
-    console.log('Order id: ', sessionStorage.getItem('orderID'))
     GetCartInfo()
   }, [])
 
@@ -190,7 +193,7 @@ const CheckOutPage = () => {
               type="text"
               name="additionalinfo"
               className="additional-info"
-              onChange={updateOrderData}
+              onChange={updateCustomerData}
             ></input>
           </div>
         </div>
