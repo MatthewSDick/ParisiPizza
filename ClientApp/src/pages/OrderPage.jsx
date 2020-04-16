@@ -8,41 +8,44 @@ import axios from 'axios'
 import { useOrder } from './OrderContext'
 
 const reducer = (state, action) => {
+  //Don't know how to get this from Context while in dispatch
   // const Context = useOrder()
   // const orderID = Context.orderId
-  var orderItemTableId = ''
   switch (action.type) {
     case 'add-item':
-      var orderID = sessionStorage.getItem('orderID')
-      var itemID = action.item.id
+      // using this because I can't pull from context
+      const orderID = sessionStorage.getItem('orderID')
+      const itemID = action.item.id
+      const itemAddPrice = parseFloat(action.item.price)
+      console.log('Add:', itemAddPrice)
       console.log('Info when adding: ', action.item)
       const response = axios
         .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
         .then(response => {
           console.log('After API . then: ', response)
           if (response.status === 200) {
+            // need to set this to the item in the basket for the delete
             sessionStorage.setItem('setOrderItemID', response.data.id)
-            orderItemTableId = response.data.id
           } else {
           }
         })
 
       return {
-        basketItems: [
-          ...state.basketItems,
-          { item: action.item, OrderItemId: sessionStorage.getItem('orderID') },
-        ],
-        cartTotal: state.cartTotal + action.item.price,
+        basketItems: [...state.basketItems, { item: action.item }],
+        cartTotal: state.cartTotal + itemAddPrice,
       }
 
     case 'delete-item':
-      console.log(action.item)
+      console.log('In delete: ', action.item)
+      const itemDeletePrice = parseFloat(action.item.item.price)
+      console.log('Delete:', itemDeletePrice)
       var itemToDelete = sessionStorage.getItem('setOrderItemID')
       const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
       return {
         basketItems: [
           ...state.basketItems.filter((x, i) => i !== action.index),
         ],
+        cartTotal: state.cartTotal - itemDeletePrice,
       }
 
     default:
@@ -55,7 +58,7 @@ const OrderPage = props => {
   const Context = useOrder()
   console.log('Top app: ', Context)
   // const { value, setValue } = useContext(orderContext)
-  const [{ basketItems }, dispatch] = useReducer(reducer, {
+  const [{ basketItems, cartTotal }, dispatch] = useReducer(reducer, {
     basketItems: [],
     cartTotal: 0,
   })
@@ -148,13 +151,15 @@ const OrderPage = props => {
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
               {console.log('basket: ', basketItems)}
-              {console.log('basket total: ', basketItems.cartTotal)}
+              {console.log('basket total: ', cartTotal)}
               {basketItems.map((item, index) => {
                 return (
                   <div className="order-divTableRow">
                     <div key={item.id} className="order-divTableCellDelete">
                       <img
-                        onClick={() => dispatch({ type: 'delete-item', index })}
+                        onClick={() =>
+                          dispatch({ type: 'delete-item', index, item })
+                        }
                         className="order-trashcan"
                         src="/images/delete.png"
                       />
