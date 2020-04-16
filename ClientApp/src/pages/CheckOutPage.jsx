@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
+import { Link } from 'react-router-dom'
 
 const CheckOutPage = () => {
   const Context = useOrder()
@@ -55,7 +56,7 @@ const CheckOutPage = () => {
     const resp = await axios.post('api/customers', customer)
     console.log(resp.data)
     if (resp.status === 201) {
-      // do something
+      // do something... disp
     } else {
       // do something
     }
@@ -95,7 +96,12 @@ const CheckOutPage = () => {
   }, [])
 
   if (!cartItems.isLoaded) {
-    return <h2>You must have items in your car to checkout.</h2>
+    return (
+      <h2>
+        You do not have anything in your cart at this time{' '}
+        <Link to="/order/Baked Pasta"> Click here to order</Link>
+      </h2>
+    )
   } else {
     return (
       <div>

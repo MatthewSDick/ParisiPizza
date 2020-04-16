@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, Component } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
 import axios from 'axios'
+import { useOrder } from './OrderContext'
+import { Link } from 'react-router-dom'
 
 const CartPage = () => {
+  const Context = useOrder()
   const [cartItems, setCartItems] = useState({
     cartData: [],
     isLoaded: false,
   })
-  var orderID = 30
+  const orderID = Context.orderId
+  console.log('orderID: ', orderID)
   // var orderID = sessionStorage.getItem('orderID')
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
@@ -27,7 +31,12 @@ const CartPage = () => {
   }, [])
 
   if (!cartItems.isLoaded) {
-    return <h2>Loading...</h2>
+    return (
+      <h2>
+        You do not have anything in your cart at this time{' '}
+        <Link to="/order/Baked Pasta"> Click here to order</Link>
+      </h2>
+    )
   } else {
     return (
       <div>
