@@ -7,17 +7,14 @@ import { useOrder } from './OrderContext'
 
 const CheckOutPage = () => {
   const Context = useOrder()
-  // The below line is hear coded so we can code the rest of the page
-  // Comment out and re-enable the line below it when ready
-  const orderID = '4'
-  // const orderID = Context.orderId
+  console.log('Context:', Context)
+  const orderID = Context.orderId
+  console.log('OrderID at top: ', orderID)
 
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
     Id: 0,
-    PickupDelivery: 'Delivery',
-    OrderStatus: '',
-    OrderTotal: '99.99',
+    OrderStatus: 'Closed',
   })
   // console.log('just set top: ', order)
 
@@ -39,17 +36,17 @@ const CheckOutPage = () => {
     })
   }
 
-  const completeOrder = () => {
+  const setOrderPrice = () => {
     setOrder(previousOrder => {
-      return { ...previousOrder, OrderStatus: 'Closed' }
+      return { ...previousOrder, OrderTotal: '56.56' }
     })
     console.log('just set: ', order)
   }
 
   const finalizeOrder = () => {
     sendCustomerInfo()
-    completeOrder()
-    // closeOrder()
+    setOrderPrice()
+    closeOrder()
   }
 
   const sendCustomerInfo = async () => {
@@ -66,13 +63,13 @@ const CheckOutPage = () => {
 
   const closeOrder = async () => {
     console.log('the order is', order)
-    const resp = await axios.put(`api/order/${orderID}`, order)
-    console.log(resp.data)
-    if (resp.status === 201) {
-      // do something
-    } else {
-      // do something
-    }
+    // const resp = await axios.put(`api/order/${orderID}`, order)
+    // console.log(resp.data)
+    // if (resp.status === 201) {
+    //   // do something
+    // } else {
+    //   // do something
+    // }
   }
 
   const [cartItems, setCartItems] = useState({
@@ -81,6 +78,7 @@ const CheckOutPage = () => {
   })
 
   const GetCartInfo = async () => {
+    // const orderID = Context.orderId
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
     console.log('Cart Info: ', response.data)
     setCartItems({
@@ -97,7 +95,7 @@ const CheckOutPage = () => {
   }, [])
 
   if (!cartItems.isLoaded) {
-    return <h2>Loading...</h2>
+    return <h2>You must have items in your car to checkout.</h2>
   } else {
     return (
       <div>
@@ -169,7 +167,7 @@ const CheckOutPage = () => {
               <input
                 value="pickup"
                 type="radio"
-                name="pick-up-delivery"
+                name="pickupdelivery"
                 onChange={updateOrderData}
                 classNAme="delivery-method"
               />{' '}

@@ -6,6 +6,7 @@ import CartItem from '../components/CartItem'
 import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
+import { Link } from 'react-router-dom'
 
 const reducer = (state, action) => {
   //Don't know how to get this from Context while in dispatch
@@ -179,7 +180,9 @@ const OrderPage = props => {
                   </div>
                 )
               })}
-              <button className="order-checkout">PROCEED TO CHECKOUT</button>
+              <Link to="/checkout">
+                <button className="order-checkout">PROCEED TO CHECKOUT</button>
+              </Link>
             </div>
           </div>
 
