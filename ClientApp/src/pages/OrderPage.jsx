@@ -8,59 +8,59 @@ import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
 
-const reducer = (state, action) => {
-  //Don't know how to get this from Context while in dispatch
-  // const Context = useOrder()
-  // const orderID = Context.orderId
-  switch (action.type) {
-    case 'add-item':
-      // using this because I can't pull from context
-      const orderID = sessionStorage.getItem('orderID')
-      const itemID = action.item.id
-      const itemAddPrice = parseFloat(action.item.price)
-      console.log('Add:', itemAddPrice)
-      // console.log('Info when adding: ', action.item)
-      return {
-        basketItems: [
-          ...state.basketItems,
-          { item: action.item, orderItemID: action.item.orderItemId },
-        ],
-        cartTotal: state.cartTotal + itemAddPrice,
-      }
+// const reducer = (state, action) => {
+//   //Don't know how to get this from Context while in reducer/dispatch
+//   // const Context = useOrder()
+//   // const orderID = Context.orderId
+//   switch (action.type) {
+//     case 'add-item':
+//       // using this because I can't pull from context
+//       // const orderID = sessionStorage.getItem('orderID')
+//       const itemID = action.item.id
+//       const itemAddPrice = parseFloat(action.item.price)
+//       console.log('Add:', itemAddPrice)
+//       // console.log('Info when adding: ', action.item)
+//       return {
+//         basketItems: [
+//           ...state.basketItems,
+//           { item: action.item, orderItemID: action.item.orderItemId },
+//         ],
+//         cartTotal: state.cartTotal + itemAddPrice,
+//       }
 
-    case 'delete-item':
-      // console.log('In delete: ', action.item)
-      const itemDeletePrice = parseFloat(action.item.item.price)
-      console.log('Delete:', itemDeletePrice)
-      var itemToDelete = action.item.item.orderItemId
-      // console.log('the action in delete;', action)
+//     case 'delete-item':
+//       // console.log('In delete: ', action.item)
+//       const itemDeletePrice = parseFloat(action.item.item.price)
+//       console.log('Delete:', itemDeletePrice)
+//       var itemToDelete = action.item.item.orderItemId
+//       // console.log('the action in delete;', action)
 
-      const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
-      return {
-        basketItems: [
-          ...state.basketItems.filter((x, i) => i !== action.index),
-        ],
-        cartTotal: state.cartTotal - itemDeletePrice,
-      }
+//       const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
+//       return {
+//         basketItems: [
+//           ...state.basketItems.filter((x, i) => i !== action.index),
+//         ],
+//         cartTotal: state.cartTotal - itemDeletePrice,
+//       }
 
-    default:
-      return state
-  }
-}
+//     default:
+//       return state
+//   }
+// }
 
 const OrderPage = props => {
   // const contextObject = useUserProfile()
   const Context = useOrder()
-  // console.log('Top app: ', Context)
+  console.log('Top app: ', Context)
   // const { value, setValue } = useContext(orderContext)
-  const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
-    reducer,
-    {
-      basketItems: [],
-      cartTotal: 0,
-      orderItemID: '',
-    }
-  )
+  // const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
+  //   reducer,
+  //   {
+  //     basketItems: [],
+  //     cartTotal: 0,
+  //     orderItemID: '',
+  //   }
+  // )
 
   const menuCategory = props.match.params.category
   // console.log(menuCategory)
@@ -96,7 +96,7 @@ const OrderPage = props => {
       })
       // console.log('Response.Data after API for new order: ', response.data)
       Context.setOrderId(response.data.id)
-      sessionStorage.setItem('orderID', response.data.id)
+      // sessionStorage.setItem('orderID', response.data.id)
       // console.log('Context data after it is set from API: ', Context)
     }
   }
@@ -115,32 +115,15 @@ const OrderPage = props => {
           // sessionStorage.setItem('setOrderItemID', response.data.id)
           const orderItemId = response.data.id
           item.orderItemId = orderItemId
-          dispatch({ type: 'add-item', item })
+          Context.dispatch({ type: 'add-item', item })
         } else {
         }
       })
   }
 
-  // const refreshCart = async () => {
-  //   var orderID = sessionStorage.getItem('orderID')
-  //   console.log('refresh OrderId:' + orderID)
-  //   const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-  //   console.log(response.data)
-  //   setCartItems({
-  //     cartData: response.data,
-  //   })
-  // }
-
-  // const addItemToOrder = async e => {
-  //   sessionStorage.setItem('itemID', e.target.value)
-  //   isThereOrder()
-  //   saveItem()
-  //   refreshCart()
-  // }
-
   const addItemToCart = e => {
     var item = e.target.value
-    dispatch({ type: 'add-item', item })
+    Context.dispatch({ type: 'add-item', item })
   }
 
   useEffect(() => {
@@ -161,15 +144,15 @@ const OrderPage = props => {
           <div className="order-page-left">
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
-              {console.log('basket: ', basketItems)}
-              {console.log('basket total: ', cartTotal)}
-              {basketItems.map((item, index) => {
+              {console.log('basket: ', Context.basketItems)}
+              {console.log('basket total: ', Context.cartTotal)}
+              {Context.basketItems.map((item, index) => {
                 return (
                   <div className="order-divTableRow">
                     <div key={item.id} className="order-divTableCellDelete">
                       <img
                         onClick={() =>
-                          dispatch({ type: 'delete-item', index, item })
+                          Context.dispatch({ type: 'delete-item', index, item })
                         }
                         className="order-trashcan"
                         src="/images/delete.png"
@@ -193,7 +176,7 @@ const OrderPage = props => {
               <Link to="/checkout">
                 <button className="order-checkout">PROCEED TO CHECKOUT</button>
               </Link>
-              <pre>{JSON.stringify(basketItems, null, 2)}</pre>
+              <pre>{JSON.stringify(Context.basketItems, null, 2)}</pre>
             </div>
           </div>
 
