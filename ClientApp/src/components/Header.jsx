@@ -34,7 +34,10 @@ const Header = () => {
             {/* this is the bottom of nav menu */}
           </div>
           <div class="two">
-            <img src="images/Parisi_Logo_BeforeAndAfter.jpg" />
+            <img
+              className="parisi-logo"
+              src="images/Parisi_Logo_BeforeAndAfter.jpg"
+            />
           </div>
           <div class="three">
             <ul class="right-nav">

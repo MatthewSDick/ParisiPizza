@@ -20,6 +20,7 @@ const reducer = (state, action) => {
               }
             : { toppings: [...state.toppings, { name: action.name }] }
         ),
+
         // toppings: state.toppings.map(t =>
         //   t.name == action.name
         //     ? // ...state.basketItems.filter((x, i) => i !== action.index)
@@ -93,6 +94,7 @@ const PizzaPage = () => {
           </div>
           <div className="toppings-detail">
             <img
+              title="Anchovies"
               src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Anchovies_ye67hd.jpg"
               alt="Anchovies"
               onClick={() =>
@@ -100,6 +102,7 @@ const PizzaPage = () => {
               }
             />
             <img
+              title="Bacon"
               src="https://res.cloudinary.com/matthewdick/image/upload/v1586738047/Bacon_bwzh1l.jpg"
               alt="Bacon"
               onClick={() =>

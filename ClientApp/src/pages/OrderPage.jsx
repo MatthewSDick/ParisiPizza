@@ -19,28 +19,22 @@ const reducer = (state, action) => {
       const itemID = action.item.id
       const itemAddPrice = parseFloat(action.item.price)
       console.log('Add:', itemAddPrice)
-      console.log('Info when adding: ', action.item)
-      const response = axios
-        .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
-        .then(response => {
-          console.log('After API . then: ', response)
-          if (response.status === 200) {
-            // need to set this to the item in the basket for the delete
-            sessionStorage.setItem('setOrderItemID', response.data.id)
-          } else {
-          }
-        })
-
+      // console.log('Info when adding: ', action.item)
       return {
-        basketItems: [...state.basketItems, { item: action.item }],
+        basketItems: [
+          ...state.basketItems,
+          { item: action.item, orderItemID: action.item.orderItemId },
+        ],
         cartTotal: state.cartTotal + itemAddPrice,
       }
 
     case 'delete-item':
-      console.log('In delete: ', action.item)
+      // console.log('In delete: ', action.item)
       const itemDeletePrice = parseFloat(action.item.item.price)
       console.log('Delete:', itemDeletePrice)
-      var itemToDelete = sessionStorage.getItem('setOrderItemID')
+      var itemToDelete = action.item.item.orderItemId
+      // console.log('the action in delete;', action)
+
       const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
       return {
         basketItems: [
@@ -57,15 +51,19 @@ const reducer = (state, action) => {
 const OrderPage = props => {
   // const contextObject = useUserProfile()
   const Context = useOrder()
-  console.log('Top app: ', Context)
+  // console.log('Top app: ', Context)
   // const { value, setValue } = useContext(orderContext)
-  const [{ basketItems, cartTotal }, dispatch] = useReducer(reducer, {
-    basketItems: [],
-    cartTotal: 0,
-  })
+  const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
+    reducer,
+    {
+      basketItems: [],
+      cartTotal: 0,
+      orderItemID: '',
+    }
+  )
 
   const menuCategory = props.match.params.category
-  console.log(menuCategory)
+  // console.log(menuCategory)
 
   const [categoryItems, setCategoryItems] = useState({
     itemData: [],
@@ -80,7 +78,7 @@ const OrderPage = props => {
     const response = await axios.get(
       `/api/items/category?categoryName=${menuCategory}`
     )
-    console.log(response.data)
+    // console.log(response.data)
     setCategoryItems({
       itemData: response.data,
       isLoaded: true,
@@ -88,27 +86,39 @@ const OrderPage = props => {
   }
 
   const isThereOrder = async e => {
-    console.log('Enter isThereOrder Context: ', Context)
+    // console.log('Enter isThereOrder Context: ', Context)
     const orderID = Context.orderId
     // const orderID = ''
-    console.log('orderID after set from Context: ', orderID)
+    // console.log('orderID after set from Context: ', orderID)
     if (!orderID) {
       const response = await axios.post('/api/order', {
         orderstatus: 'Started',
       })
-      console.log('Response.Data after API for new order: ', response.data)
+      // console.log('Response.Data after API for new order: ', response.data)
       Context.setOrderId(response.data.id)
       sessionStorage.setItem('orderID', response.data.id)
-      console.log('Context data after it is set from API: ', Context)
+      // console.log('Context data after it is set from API: ', Context)
     }
   }
 
-  const saveItem = async e => {
-    var orderID = sessionStorage.getItem('orderID')
-    var itemID = sessionStorage.getItem('itemID')
-    const response = await axios.post(
-      `/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`
-    )
+  const saveItemData = async item => {
+    // console.log('is the item here:', item)
+    const orderID = Context.orderId
+    const itemID = item.id
+    const response = axios
+      .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
+      .then(response => {
+        // console.log('After API . then: ', response)
+        if (response.status === 200) {
+          // need to set this to the item in the basket for the delete
+          // set the OrderItem:Id here
+          // sessionStorage.setItem('setOrderItemID', response.data.id)
+          const orderItemId = response.data.id
+          item.orderItemId = orderItemId
+          dispatch({ type: 'add-item', item })
+        } else {
+        }
+      })
   }
 
   // const refreshCart = async () => {
@@ -183,6 +193,7 @@ const OrderPage = props => {
               <Link to="/checkout">
                 <button className="order-checkout">PROCEED TO CHECKOUT</button>
               </Link>
+              <pre>{JSON.stringify(basketItems, null, 2)}</pre>
             </div>
           </div>
 
@@ -214,12 +225,20 @@ const OrderPage = props => {
                     <p>{item.name}</p>
                     <p>{item.price}</p>
                     <p>{item.id}</p>
-                    <button
+                    {/* <button
                       value={item.id}
                       className="order-add-to-cart-btn"
                       onClick={() => dispatch({ type: 'add-item', item })}
                     >
                       ADD TO CART
+                    </button> */}
+                    <button
+                      key={item}
+                      value={item.id}
+                      className="order-add-to-cart-btn"
+                      onClick={() => saveItemData(item)}
+                    >
+                      > ADD TO CART
                     </button>
                   </li>
                 )
