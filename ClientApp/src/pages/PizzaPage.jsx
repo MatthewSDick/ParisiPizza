@@ -3,6 +3,10 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
 
+function mark(el) {
+  el.style.border = '1px solid blue'
+}
+
 const reducer = (state, action) => {
   console.log(action.name)
   switch (action.type) {
@@ -12,6 +16,9 @@ const reducer = (state, action) => {
       // if it is there then delete
       console.log('action: ', action)
       var toppingPrice = 0
+      const baseTotal = state.baseTotal
+      console.log('basePrice', baseTotal)
+
       const toppingSize = action.name.split('-')[0]
       console.log('toppingSize', toppingSize)
       if (toppingSize == 'whole') {
@@ -32,23 +39,20 @@ const reducer = (state, action) => {
         // ...state,
         // toppings: [...state.toppings, action.name],
 
-        // toppings: state.toppings.map((t, topping) =>
-        //   topping === action.name
-        //     ? {
-        //         toppings: [...state.pizzas, { topping: action.name }],
-        //         // toppings: [
-        //         //   ...state.toppings.filter((name, i) => i !== action.name),
-        //         // ],
-        //       }
-        //     : { toppings: [...state.pizzas, { topping: action.name }] }
-        // ),
+        toppings: state.toppings.map((t, topping) =>
+          topping === action.name ? { ...t, selected: !t.selected } : t
+        ),
       }
 
     case 'pizza-size':
       const basePrice = parseFloat(action.price)
-      console.log('size', action.size)
+      console.log('basePrice', action.price)
 
       return {
+        ...state,
+        baseTotal: state.baseTotal + basePrice,
+        pizzaTotal: state.pizzaTotal + basePrice,
+
         // pizzaTotal: state.pizzaTotal + toppingPrice,
         // ...state,
         // toppings: [...state.toppings, action.name],
@@ -66,15 +70,15 @@ const reducer = (state, action) => {
 }
 
 const PizzaPage = () => {
-  const [{ toppings, size, pizzaTotal, toppingsTotal }, dispatch] = useReducer(
-    reducer,
-    {
-      toppings: [],
-      size: '',
-      pizzaTotal: 0,
-      toppingsTotal: 0,
-    }
-  )
+  const [
+    { toppings, baseTotal, pizzaTotal, toppingsTotal },
+    dispatch,
+  ] = useReducer(reducer, {
+    toppings: [],
+    baseTotal: 0,
+    pizzaTotal: 0,
+    toppingsTotal: 0,
+  })
 
   const [pizzaToppings, setPizzaToppings] = useState({
     toppingData: [],
@@ -179,10 +183,6 @@ const PizzaPage = () => {
             <h3 style={{ color: '#CA0707' }}>
               ${parseFloat(pizzaTotal).toFixed(2)}
             </h3>
-            <p>
-              Each additional topping: Large + $2.00 (this should change by
-              radio button)
-            </p>
             <pre>{JSON.stringify(pizzaTotal, null, 2)}</pre>
           </div>
         </div>
@@ -200,12 +200,12 @@ const PizzaPage = () => {
                     src={item.imagePath}
                     alt={item.name}
                     onClick={() =>
-                      // dispatch({ type: 'delete-item', index, item })
                       dispatch({
                         type: 'add-topping',
                         name: `left-${item.name}`,
                       })
                     }
+                    // style={{ border-color: toppings.selected ? color:'red' : '' }}
                   />
                 )
               })}
