@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom'
 
 const CheckOutPage = () => {
   const Context = useOrder()
+  const orderSubTotal = Context.cartTotal
+  const orderTax = Context.cartTotal * 0.06
+  const orderTotal = orderSubTotal + orderTax
   console.log('Context:', Context)
   const orderID = Context.orderId
   console.log('OrderID at top: ', orderID)
@@ -45,6 +48,7 @@ const CheckOutPage = () => {
   }
 
   const finalizeOrder = () => {
+    console.log('context', Context)
     sendCustomerInfo()
     setOrderPrice()
     closeOrder()
@@ -249,7 +253,7 @@ const CheckOutPage = () => {
                 <p>SubTotal:</p>
               </div>
               <div className="divTableCellR">
-                <p>$25.09</p>
+                <p>$ {orderSubTotal.toFixed(2)}</p>
               </div>
             </div>
             <div className="divTableRow">
@@ -260,7 +264,7 @@ const CheckOutPage = () => {
                 <p>Tax:</p>
               </div>
               <div className="divTableCellR">
-                <p>$1.35</p>
+                <p>$ {orderTax.toFixed(2)}</p>
               </div>
             </div>
             <div className="divTableRow">
@@ -271,7 +275,7 @@ const CheckOutPage = () => {
                 <p>Total:</p>
               </div>
               <div className="divTableCellR">
-                <p>$26.44</p>
+                <p>$ {orderTotal.toFixed(2)}</p>
               </div>
             </div>
             <div className="divTableRow">

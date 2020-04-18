@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { useOrder } from '../pages/OrderContext'
 
 const Header = () => {
+  const Context = useOrder()
   return (
     <div>
       <div class="top">
@@ -48,8 +50,10 @@ const Header = () => {
               </li>
               <li class="top-items-count">{localStorage.getItem('items')}</li>
 
-              <li class="top-items">Items</li>
-              <li class="top-money">$ 0.00</li>
+              <li class="top-items">{Context.basketItems.length} Items</li>
+              <li class="top-money">
+                Total: ${parseFloat(Context.cartTotal).toFixed(2)}
+              </li>
               <li>
                 {/* <Link to="/checkout">
                   <button class="top-checkout">Checkout</button>

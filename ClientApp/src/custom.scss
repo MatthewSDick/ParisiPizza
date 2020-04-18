@@ -59,6 +59,7 @@ code {
 
 .top-money {
   margin-left: 1rem;
+  font-weight: bold;
 }
 
 .top-items {
@@ -1019,7 +1020,15 @@ footer {
   flex-direction: column;
   justify-content: center;
   width: 20%;
-  margin: 0rem 0rem 2rem 0rem;
+  margin: 0rem 0rem 1rem 0rem;
+}
+
+.divTableBodyCart .divTableRow {
+  height: 1rem;
+  align-content: center;
+  border: 0;
+  padding: 0.5rem;
+  margin: 0;
 }
 
 .divTableRowCart {
@@ -1045,7 +1054,7 @@ footer {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  border: lightgray 1px solid;
+  // border: lightgray 1px solid;
   padding: 1rem;
 }
 
