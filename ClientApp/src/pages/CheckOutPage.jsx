@@ -19,6 +19,8 @@ const CheckOutPage = () => {
   const [order, setOrder] = useState({
     Id: 0,
     OrderStatus: 'Closed',
+    OrderTotal: 0,
+    pickupDelivery: '',
   })
   // console.log('just set top: ', order)
 
@@ -40,30 +42,26 @@ const CheckOutPage = () => {
     })
   }
 
-  const setOrderPrice = () => {
-    setOrder(previousOrder => {
-      return { ...previousOrder, OrderTotal: '56.56' }
-    })
-    console.log('just set: ', order)
-  }
-
   const finalizeOrder = () => {
-    console.log('context', Context)
     sendCustomerInfo()
-    setOrderPrice()
+    setOrderstatus()
     closeOrder()
   }
 
   const sendCustomerInfo = async () => {
-    console.log('adding customer:', customer)
-    // do API stuff
     const resp = await axios.post('api/customers', customer)
-    console.log(resp.data)
     if (resp.status === 201) {
       // do something... disp
     } else {
       // do something
     }
+  }
+
+  const setOrderstatus = () => {
+    setOrder(previousOrder => {
+      return { ...previousOrder, OrderTotal: orderTotal }
+    })
+    console.log('just set: ', order)
   }
 
   const closeOrder = async () => {
@@ -177,7 +175,7 @@ const CheckOutPage = () => {
               <input
                 value="pickup"
                 type="radio"
-                name="pickupdelivery"
+                name="pickupDelivery"
                 onChange={updateOrderData}
                 classNAme="delivery-method"
               />{' '}
@@ -187,7 +185,7 @@ const CheckOutPage = () => {
               <input
                 value="delivery"
                 type="radio"
-                name="pick-up-delivery"
+                name="pickupDelivery"
                 onChange={updateOrderData}
                 classNAme="delivery-method"
               />{' '}

@@ -134,7 +134,7 @@ const PizzaPage = () => {
           <div className="pizza-one-right">
             <h2>Custom Pizza</h2>
             <h3 style={{ color: '#CA0707' }}>$9.99 - $11.99</h3>
-            <p>Small + $1.40; Medium + $1.70; Large + $2.00</p>
+            {/* <p>Small + $1.40; Medium + $1.70; Large + $2.00</p> */}
             <label>
               <input
                 onClick={pizzaSizeSelection}
@@ -172,7 +172,7 @@ const PizzaPage = () => {
             <h3 style={{ color: '#CA0707' }}>
               ${parseFloat(pizzaTotal).toFixed(2)}
             </h3>
-            <pre>{JSON.stringify(selected, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(selected, null, 2)}</pre> */}
           </div>
         </div>
         {/* hide this */}
@@ -187,7 +187,7 @@ const PizzaPage = () => {
               {pizzaToppings.toppingData.map((item, index) => {
                 return (
                   <img
-                    className="topping-image"
+                    className="left-{item.name}"
                     title={item.name}
                     src={item.imagePath}
                     alt={item.name}
@@ -226,6 +226,7 @@ const PizzaPage = () => {
               {pizzaToppings.toppingData.map((item, index) => {
                 return (
                   <img
+                    className={index}
                     title={item.name}
                     src={item.imagePath}
                     alt={item.name}
