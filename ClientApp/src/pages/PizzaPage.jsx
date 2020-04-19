@@ -20,7 +20,6 @@ const reducer = (state, action) => {
       console.log('basePrice', baseTotal)
 
       const toppingSize = action.name.split('-')[0]
-      console.log('toppingSize', toppingSize)
       if (toppingSize == 'whole') {
         toppingPrice = 2
       } else {
@@ -33,14 +32,8 @@ const reducer = (state, action) => {
         toppingsTotal: state.toppingsTotal + toppingPrice,
         pizzaTotal: state.pizzaTotal + toppingPrice,
 
-        // pizzas: [...state.pizzas, { toppings: action.name }],
-
-        // Gavin
-        // ...state,
-        // toppings: [...state.toppings, action.name],
-
-        toppings: state.toppings.map((t, topping) =>
-          topping === action.name ? { ...t, selected: !t.selected } : t
+        selected: state.toppings.map((t, index) =>
+          index === action.index ? { ...t, selected: !t.selected } : t
         ),
       }
 
@@ -50,18 +43,8 @@ const reducer = (state, action) => {
 
       return {
         ...state,
-        baseTotal: state.baseTotal + basePrice,
-        pizzaTotal: state.pizzaTotal + basePrice,
-
-        // pizzaTotal: state.pizzaTotal + toppingPrice,
-        // ...state,
-        // toppings: [...state.toppings, action.name],
-        // ...state
-        // pizzaTotal: [
-        //   ...state.pizzaTotal,
-        //    pizzaTotal: state.pizzaTotal + basePrice ,
-        // ],
-        // pizzaTotal: state.pizzaTotal + basePrice,
+        baseTotal: basePrice,
+        pizzaTotal: state.toppingsTotal + basePrice,
       }
 
     default:
@@ -71,13 +54,14 @@ const reducer = (state, action) => {
 
 const PizzaPage = () => {
   const [
-    { toppings, baseTotal, pizzaTotal, toppingsTotal },
+    { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
     dispatch,
   ] = useReducer(reducer, {
     toppings: [],
     baseTotal: 0,
     pizzaTotal: 0,
     toppingsTotal: 0,
+    selected: false,
   })
 
   const [pizzaToppings, setPizzaToppings] = useState({
@@ -122,6 +106,11 @@ const PizzaPage = () => {
   const pizzaSizeSelection = e => {
     const price = e.target.value
     dispatch({ type: 'pizza-size', price })
+    console.log('toppings:', toppings)
+    console.log('baseTotal:', baseTotal)
+    console.log('toppingsTotal:', toppingsTotal)
+    console.log('pizzaTotal:', pizzaTotal)
+    console.log('selected:', selected)
   }
 
   useEffect(() => {
@@ -183,9 +172,11 @@ const PizzaPage = () => {
             <h3 style={{ color: '#CA0707' }}>
               ${parseFloat(pizzaTotal).toFixed(2)}
             </h3>
-            <pre>{JSON.stringify(pizzaTotal, null, 2)}</pre>
+            <pre>{JSON.stringify(selected, null, 2)}</pre>
           </div>
         </div>
+        {/* hide this */}
+        {/* <div className="pizza-bottom" style={{ visibility: 'hidden' }}> */}
         <div className="pizza-bottom">
           <div className="toppings-left">
             <div>
@@ -196,6 +187,7 @@ const PizzaPage = () => {
               {pizzaToppings.toppingData.map((item, index) => {
                 return (
                   <img
+                    className="topping-image"
                     title={item.name}
                     src={item.imagePath}
                     alt={item.name}
@@ -205,8 +197,23 @@ const PizzaPage = () => {
                         name: `left-${item.name}`,
                       })
                     }
-                    // style={{ border-color: toppings.selected ? color:'red' : '' }}
                   />
+                  // <img
+                  //   className="topping-image"
+                  //   title={item.name}
+                  //   src={item.imagePath}
+                  //   alt={item.name}
+                  //   onClick={() =>
+                  //     dispatch({
+                  //       type: 'add-topping',
+                  //       name: `left-${item.name}`,
+                  //       index: index,
+                  //     })
+                  //   }
+                  //   style={{
+                  //     border: selected ? '1px red solid' : '',
+                  //   }}
+                  // />
                 )
               })}
             </div>
