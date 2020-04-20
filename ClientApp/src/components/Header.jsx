@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useOrder } from '../pages/OrderContext'
+import '../components/header.scss'
 
 const Header = () => {
   const Context = useOrder()
@@ -38,14 +39,17 @@ const Header = () => {
           <div class="two">
             <img
               className="parisi-logo"
-              src="images/Parisi_Logo_BeforeAndAfter.jpg"
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Parisi_Logo_BeforeAndAfter_up4lwu.jpg"
             />
           </div>
           <div class="three">
             <ul class="right-nav">
               <li>
                 <Link to="/cart">
-                  <img class="cart" src="images/cart_icon.png" />
+                  <img
+                    class="cart"
+                    src="https://res.cloudinary.com/matthewdick/image/upload/v1587340362/cart_icon_dcdryh.png"
+                  />
                 </Link>
               </li>
               <li class="top-items-count">{localStorage.getItem('items')}</li>
@@ -73,7 +77,10 @@ const Header = () => {
       </div>
       <div class="line">
         <div class="div-line-left"></div>
-        <img class="pizza-logo" src="images/pizza_icon.png" />
+        <img
+          class="pizza-logo"
+          src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/pizza_icon_ytfkvx.png"
+        />
         <div class="div-line-right"></div>
       </div>
     </div>

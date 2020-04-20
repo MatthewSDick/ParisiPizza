@@ -127,7 +127,7 @@ const PizzaPage = () => {
           <div className="pizza-one-left">
             <img
               className="pepp-pizza"
-              src="./images/pepperoni-pizz.jpg"
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/pepperoni-pizz_i2klyc.jpg"
               alt="pepperoni pizza"
             />
           </div>

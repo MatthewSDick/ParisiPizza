@@ -155,7 +155,7 @@ const OrderPage = props => {
                           Context.dispatch({ type: 'delete-item', index, item })
                         }
                         className="order-trashcan"
-                        src="/images/delete.png"
+                        src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
                       />
                     </div>
                     <div className="order-divTableCellPic">

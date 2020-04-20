@@ -11,16 +11,16 @@ const CheckOutPage = () => {
   const orderSubTotal = Context.cartTotal
   const orderTax = Context.cartTotal * 0.06
   const orderTotal = orderSubTotal + orderTax
-  console.log('Context:', Context)
   const orderID = Context.orderId
-  console.log('OrderID at top: ', orderID)
+  var customerID = ''
 
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
     Id: 0,
     OrderStatus: 'Closed',
-    OrderTotal: 0,
+    OrderTotal: orderTotal.toFixed(2),
     pickupDelivery: '',
+    AdditionalInfo: '',
   })
   // console.log('just set top: ', order)
 
@@ -40,39 +40,44 @@ const CheckOutPage = () => {
       prevOrder[key] = value
       return prevOrder
     })
+    console.log('aaaaaa', order)
   }
 
   const finalizeOrder = () => {
     sendCustomerInfo()
-    setOrderstatus()
-    closeOrder()
+    // setOrderstatus()
+    // closeOrder()
   }
 
   const sendCustomerInfo = async () => {
     const resp = await axios.post('api/customers', customer)
     if (resp.status === 201) {
-      // do something... disp
+      customerID = resp.data.id
     } else {
       // do something
     }
   }
 
   const setOrderstatus = () => {
+    const orderTotal = Context.cartTotal
+    console.log('orderTotal:', orderTotal)
     setOrder(previousOrder => {
-      return { ...previousOrder, OrderTotal: orderTotal }
+      return {
+        ...previousOrder,
+        AdditionalInfo: customer.AdditionalInfo,
+      }
     })
-    console.log('just set: ', order)
   }
 
   const closeOrder = async () => {
     console.log('the order is', order)
-    // const resp = await axios.put(`api/order/${orderID}`, order)
-    // console.log(resp.data)
-    // if (resp.status === 201) {
-    //   // do something
-    // } else {
-    //   // do something
-    // }
+    const resp = await axios.put(`api/order/${orderID}`, order)
+    console.log(resp.data)
+    if (resp.status === 200 || 204) {
+      // do something
+    } else {
+      // do something
+    }
   }
 
   const [cartItems, setCartItems] = useState({

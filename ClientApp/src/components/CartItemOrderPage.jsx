@@ -5,7 +5,10 @@ const CartItemOrderPage = props => {
   return (
     <div className="order-divTableRow">
       <div className="order-divTableCellDelete">
-        <img className="order-trashcan" src="/images/delete.png" />
+        <img
+          className="order-trashcan"
+          src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
+        />
       </div>
       <div className="order-divTableCellPic">
         <img className="order-checkout-image" src={imagePath} />

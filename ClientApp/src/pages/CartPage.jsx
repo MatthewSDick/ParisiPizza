@@ -71,6 +71,7 @@ const CartPage = () => {
             </div>
             {/* Looping items */}
 
+            {/* {cartItems.cartData.orderItems.map((item, index) => { */}
             {cartItems.cartData.orderItems.map(item => {
               return (
                 <CartItem
@@ -78,6 +79,7 @@ const CartPage = () => {
                   imagePath={item.item.imagePath}
                   price={item.item.price}
                   id={item.item.id}
+                  // index={item.index}
                 />
               )
             })}

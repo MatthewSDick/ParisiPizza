@@ -15,28 +15,86 @@ export function Home() {
         <h2>Order pizza, pasta & more online for carryout or delivery</h2>
         <div class="center-images">
           <div class="left-image">
-            <img src="./images/main-pizza.jpg" alt="pizza" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/main-pizza_ktipx4.jpg"
+              alt="pizza"
+            />
           </div>
           <div class="welcome-message">
-            <p>
+            <p className="message">
               Thank you for choosing Parisi Pizza – Fresh Italian catering
               delivering the finest Pasta, Pizza, Soup and freshly prepared
               Italian food. Ideal for a casual lunch and all your office
               catering needs. Come and join us for the best in Italian food. All
               our sauce’s dough and breads are made fresh daily on premises with
               the freshest ingredients available.
-              <span style={{ color: '#FAC123' }}>Buon Appetito…</span>
+              <span style={{ color: '#FAC123' }}> Buon Appetito…</span>
             </p>
           </div>
           <div class="right-image">
-            <img src="./images/ziti.jpg" alt="Ziti" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/ziti_mf4oem.jpg"
+              alt="Ziti"
+            />
           </div>
         </div>
         <div class="hours-wine">
           <div class="hours">
+            {/* <div class="divTableHours">
+              <div class="divTableBodyHours">
+                <div class="divTableRowHour">
+                  <div class="divTableCellHours">&nbsp;</div>
+                  <div class="divTableCellHours">&nbsp;</div>
+                  <div class="divTableCellHours">&nbsp;</div>
+                  <div class="divTableCellHours">&nbsp;</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Monday&nbsp;</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">10:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Tuesday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">10:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Wednesday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">10:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Thursday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">10:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Friday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">11:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Saturday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">11:00 PM</div>
+                </div>
+                <div class="divTableRowHours">
+                  <div class="divTableCellHours">Sunday</div>
+                  <div class="divTableCellHours">11:00 AM</div>
+                  <div class="divTableCellHours">-</div>
+                  <div class="divTableCellHours">10:00 PM</div>
+                </div>
+              </div>
+            </div> */}
             <table>
               <tr>
-                <td class="hours-top" colspan="2" align="center">
+                <td className="hours-top" colspan="2" align="center">
                   <h3>Our business hours</h3>
                 </td>
               </tr>
@@ -72,7 +130,10 @@ export function Home() {
           </div>
           <div class="wine">
             <h3>We have great wine selections</h3>
-            <img src="./images//wine-bottles.jpg" alt="Bottles of wine" />
+            <img
+              src="https://res.cloudinary.com/matthewdick/image/upload/v1587340364/wine-bottles_ip9k0a.jpg"
+              alt="Bottles of wine"
+            />
           </div>
         </div>
         {/* Below is the div for the bottom of the center portion */}
