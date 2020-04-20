@@ -10,8 +10,8 @@ using ParisiPizza.Models;
 namespace ParisiPizza.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200407011050_AddedListToToppings")]
-    partial class AddedListToToppings
+    [Migration("20200420134519_FixingDB")]
+    partial class FixingDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,6 +110,12 @@ namespace ParisiPizza.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OrderStatus")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("timestamp without time zone");
 
@@ -183,7 +189,7 @@ namespace ParisiPizza.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pizza");
+                    b.ToTable("Pizzas");
                 });
 
             modelBuilder.Entity("ParisiPizza.PizzaTopping", b =>
@@ -205,7 +211,7 @@ namespace ParisiPizza.Migrations
 
                     b.HasIndex("ToppingId");
 
-                    b.ToTable("PizzaTopping");
+                    b.ToTable("PizzaToppings");
                 });
 
             modelBuilder.Entity("ParisiPizza.Topping", b =>
@@ -223,7 +229,7 @@ namespace ParisiPizza.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Topping");
+                    b.ToTable("Toppings");
                 });
 
             modelBuilder.Entity("ParisiPizza.CustomerOrder", b =>

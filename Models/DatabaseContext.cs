@@ -32,7 +32,7 @@ namespace ParisiPizza.Models
       {
         var envConn = Environment.GetEnvironmentVariable("DATABASE_URL");
         // #error Update this connection string to point to your own database.
-        var conn = "server=localhost;database=ParisiPizzaDatabase";
+        var conn = "server=localhost;database=ParisiPizzaDatabase2";
         if (envConn != null)
         {
           conn = ConvertPostConnectionToConnectionString(envConn);
