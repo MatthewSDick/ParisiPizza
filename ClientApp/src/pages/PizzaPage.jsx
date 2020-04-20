@@ -1,68 +1,69 @@
-import React, { useReducer, useState, useEffect } from 'react'
+import React, { useReducer, useState, useEffect, useContext } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import { useOrder } from './OrderContext'
+import { Link } from 'react-router-dom'
 
-function mark(el) {
-  el.style.border = '1px solid blue'
-}
+// MOVED TO CONTEXT
+// const reducer = (state, action) => {
+//   console.log(action.name)
+//   switch (action.type) {
+//     case 'add-topping':
+//       // for add and delete topping need to see if the topping is already added
+//       // if not then add
+//       // if it is there then delete
+//       console.log('action: ', action)
+//       var toppingPrice = 0
+//       const baseTotal = state.baseTotal
+//       console.log('basePrice', baseTotal)
 
-const reducer = (state, action) => {
-  console.log(action.name)
-  switch (action.type) {
-    case 'add-topping':
-      // for add and delete topping need to see if the topping is already added
-      // if not then add
-      // if it is there then delete
-      console.log('action: ', action)
-      var toppingPrice = 0
-      const baseTotal = state.baseTotal
-      console.log('basePrice', baseTotal)
+//       const toppingSize = action.name.split('-')[0]
+//       if (toppingSize == 'whole') {
+//         toppingPrice = 2
+//       } else {
+//         toppingPrice = 1
+//       }
+//       console.log('top size: ', toppingSize)
 
-      const toppingSize = action.name.split('-')[0]
-      if (toppingSize == 'whole') {
-        toppingPrice = 2
-      } else {
-        toppingPrice = 1
-      }
-      console.log('top size: ', toppingSize)
+//       return {
+//         toppings: [...state.toppings, { toppings: action.name }],
+//         toppingsTotal: state.toppingsTotal + toppingPrice,
+//         pizzaTotal: state.pizzaTotal + toppingPrice,
 
-      return {
-        toppings: [...state.toppings, { toppings: action.name }],
-        toppingsTotal: state.toppingsTotal + toppingPrice,
-        pizzaTotal: state.pizzaTotal + toppingPrice,
+//         selected: state.toppings.map((t, index) =>
+//           index === action.index ? { ...t, selected: !t.selected } : t
+//         ),
+//       }
 
-        selected: state.toppings.map((t, index) =>
-          index === action.index ? { ...t, selected: !t.selected } : t
-        ),
-      }
+//     case 'pizza-size':
+//       const basePrice = parseFloat(action.price)
+//       console.log('basePrice', action.price)
 
-    case 'pizza-size':
-      const basePrice = parseFloat(action.price)
-      console.log('basePrice', action.price)
+//       return {
+//         ...state,
+//         baseTotal: basePrice,
+//         pizzaTotal: state.toppingsTotal + basePrice,
+//       }
 
-      return {
-        ...state,
-        baseTotal: basePrice,
-        pizzaTotal: state.toppingsTotal + basePrice,
-      }
-
-    default:
-      return state
-  }
-}
+//     default:
+//       return state
+//   }
+// }
 
 const PizzaPage = () => {
-  const [
-    { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
-    dispatch,
-  ] = useReducer(reducer, {
-    toppings: [],
-    baseTotal: 0,
-    pizzaTotal: 0,
-    toppingsTotal: 0,
-    selected: false,
-  })
+  const Context = useOrder()
+  // Moved this into the reducer in Context
+  // const [
+  //   { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
+  //   dispatch,
+  // ] = useReducer(reducer, {
+  //   toppings: [],
+  //   baseTotal: 0,
+  //   pizzaTotal: 0,
+  //   toppingsTotal: 0,
+  //   selected: false,
+  // })
 
   const [pizzaToppings, setPizzaToppings] = useState({
     toppingData: [],
@@ -105,12 +106,12 @@ const PizzaPage = () => {
 
   const pizzaSizeSelection = e => {
     const price = e.target.value
-    dispatch({ type: 'pizza-size', price })
-    console.log('toppings:', toppings)
-    console.log('baseTotal:', baseTotal)
-    console.log('toppingsTotal:', toppingsTotal)
-    console.log('pizzaTotal:', pizzaTotal)
-    console.log('selected:', selected)
+    Context.dispatch({ type: 'pizza-size', price })
+    // console.log('toppings:', toppings)
+    // console.log('baseTotal:', baseTotal)
+    // console.log('toppingsTotal:', toppingsTotal)
+    // console.log('pizzaTotal:', pizzaTotal)
+    // console.log('selected:', selected)
   }
 
   useEffect(() => {
@@ -166,11 +167,11 @@ const PizzaPage = () => {
             </label>
             <p>Options Total</p>
             <h3 style={{ color: '#CA0707' }}>
-              ${parseFloat(toppingsTotal).toFixed(2)}
+              ${parseFloat(Context.toppingsTotal).toFixed(2)}
             </h3>
             <p>Final Total</p>
             <h3 style={{ color: '#CA0707' }}>
-              ${parseFloat(pizzaTotal).toFixed(2)}
+              ${parseFloat(Context.pizzaTotal).toFixed(2)}
             </h3>
             {/* <pre>{JSON.stringify(selected, null, 2)}</pre> */}
           </div>
@@ -192,7 +193,7 @@ const PizzaPage = () => {
                     src={item.imagePath}
                     alt={item.name}
                     onClick={() =>
-                      dispatch({
+                      Context.dispatch({
                         type: 'add-topping',
                         name: `left-${item.name}`,
                       })
@@ -231,7 +232,7 @@ const PizzaPage = () => {
                     src={item.imagePath}
                     alt={item.name}
                     onClick={() =>
-                      dispatch({
+                      Context.dispatch({
                         type: 'add-topping',
                         name: `whole-${item.name}`,
                       })
@@ -253,7 +254,7 @@ const PizzaPage = () => {
                     src={item.imagePath}
                     alt={item.name}
                     onClick={() =>
-                      dispatch({
+                      Context.dispatch({
                         type: 'add-topping',
                         name: `right-${item.name}`,
                       })

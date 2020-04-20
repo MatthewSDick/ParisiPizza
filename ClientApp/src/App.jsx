@@ -53,19 +53,80 @@ export default function App() {
           cartTotal: state.cartTotal - itemDeletePrice,
         }
 
+      case 'add-topping':
+        // for add and delete topping need to see if the topping is already added
+        // if not then add
+        // if it is there then delete
+        console.log('action: ', action)
+        var toppingPrice = 0
+        const baseTotal = state.baseTotal
+        console.log('basePrice', baseTotal)
+
+        const toppingSize = action.name.split('-')[0]
+        if (toppingSize == 'whole') {
+          toppingPrice = 2
+        } else {
+          toppingPrice = 1
+        }
+        console.log('top size: ', toppingSize)
+
+        return {
+          toppings: [...state.toppings, { toppings: action.name }],
+          toppingsTotal: state.toppingsTotal + toppingPrice,
+          pizzaTotal: state.pizzaTotal + toppingPrice,
+
+          selected: state.toppings.map((t, index) =>
+            index === action.index ? { ...t, selected: !t.selected } : t
+          ),
+        }
+
+      case 'pizza-size':
+        const basePrice = parseFloat(action.price)
+        console.log('basePrice', action.price)
+
+        return {
+          ...state,
+          baseTotal: basePrice,
+          pizzaTotal: state.toppingsTotal + basePrice,
+        }
+
       default:
         return state
     }
   }
 
-  const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
-    reducer,
+  // const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
+  //   reducer,
+  //   {
+  //     basketItems: [],
+  //     cartTotal: 0,
+  //     orderItemID: '',
+  //   }
+  // )
+
+  const [
     {
-      basketItems: [],
-      cartTotal: 0,
-      orderItemID: '',
-    }
-  )
+      basketItems,
+      cartTotal,
+      orderItemID,
+      toppings,
+      baseTotal,
+      pizzaTotal,
+      toppingsTotal,
+      selected,
+      toppingData,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    basketItems: [],
+    cartTotal: 0,
+    orderItemID: '',
+    toppings: [],
+    baseTotal: 0,
+    pizzaTotal: 0,
+    toppingsTotal: 0,
+    selected: false,
+  })
 
   const contextObject = {
     orderId,
@@ -74,7 +135,25 @@ export default function App() {
     cartTotal,
     orderItemID,
     dispatch,
+    toppings,
+    baseTotal,
+    pizzaTotal,
+    toppingsTotal,
+    selected,
+    toppingData,
   }
+
+  // Below added from pizza
+  // const [
+  //   { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
+  //   dispatch,
+  // ] = useReducer(reducer, {
+  //   toppings: [],
+  //   baseTotal: 0,
+  //   pizzaTotal: 0,
+  //   toppingsTotal: 0,
+  //   selected: false,
+  // })
 
   return (
     <Layout>

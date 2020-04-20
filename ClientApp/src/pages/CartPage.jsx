@@ -46,7 +46,7 @@ const CartPage = () => {
         <Header />
         <div
           className="divTable"
-          style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
+          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
         >
           <div className="divTableBody">
             <div className="divTableRowHeader">
@@ -89,7 +89,7 @@ const CartPage = () => {
 
         <div
           className="divTableCartBottom"
-          style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
+          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
         >
           <div className="divTableBodyCart">
             <div className="divTableRow">

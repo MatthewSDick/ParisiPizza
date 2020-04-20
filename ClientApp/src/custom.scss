@@ -297,7 +297,7 @@ background-color: blue; */
   align-items: center;
   justify-items: center;
   margin-top: -1.5rem;
-  margin-left: 6rem;
+  margin-left: 0rem;
 }
 
 footer > ul > li > img {
@@ -312,16 +312,18 @@ footer > h4 {
 
 .footer-name {
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 3;
   margin-bottom: 0rem;
   padding-bottom: 0.5rem;
+  font-size: 0.8rem;
 }
 
 .footer-address {
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 3;
   margin-top: 0rem;
   padding-top: 0.3rem;
+  font-size: 0.8rem;
 }
 
 footer {
@@ -1363,7 +1365,7 @@ border-style: solid; */
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: inherit;
+    background-color: white;
     min-width: 5px;
     max-width: 10rem;
     box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
@@ -1419,8 +1421,8 @@ border-style: solid; */
     // background-image: url('./images/Rounded_Facebook_svg-256.png');
     background-image: url('https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Rounded_Facebook_svg-256_i6qzho.png');
     background-size: cover;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     border-radius: 50%;
     display: inline-block;
@@ -1430,8 +1432,8 @@ border-style: solid; */
     // background-image: url('./images/Rounded_Instagram_svg-256.png');
     background-image: url('https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Rounded_Instagram_svg-256_zruxsy.png');
     background-size: cover;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     border-radius: 50%;
     display: inline-block;
@@ -1441,8 +1443,8 @@ border-style: solid; */
     // background-image: url('./images/Rounded_Twitter5_svg-256.png');
     background-image: url('https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Rounded_Twitter5_svg-256_iwbctn.png');
     background-size: cover;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     border-radius: 50%;
     display: inline-block;
@@ -1451,9 +1453,8 @@ border-style: solid; */
   .dot-pintrest {
     // background-image: url('./images/Rounded_Pinterest2_svg-256.png');
     background-image: url('https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Rounded_Pinterest2_svg-256_lkdmsc.png');
-    background-size: cover;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     border-radius: 50%;
     display: inline-block;
@@ -1483,6 +1484,7 @@ border-style: solid; */
     grid-column-end: 2;
     margin-bottom: 0rem;
     padding-bottom: 0.5rem;
+    font-size: 1rem;
   }
 
   .footer-address {
@@ -1490,6 +1492,7 @@ border-style: solid; */
     grid-column-end: 2;
     margin-top: 0rem;
     padding-top: 0.3rem;
+    font-size: 1rem;
   }
 
   footer {
@@ -2091,7 +2094,7 @@ border-style: solid; */
 
   .divTable {
     text-align: center;
-    border: black 1px solid;
+    // border: black 1px solid;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -2127,18 +2130,18 @@ border-style: solid; */
 
   .divTableCellL {
     width: 60%;
-    border: red 1px solid;
+    // border: red 1px solid;
   }
 
   .divTableCellC {
     width: 20%;
     text-align: center;
-    border: green 1px solid;
+    // border: green 1px solid;
   }
 
   .divTableCellR {
     width: 20%;
-    border: purple 1px solid;
+    // border: purple 1px solid;
   }
   .divTableCellDelete {
     width: 15%;
@@ -2183,7 +2186,7 @@ border-style: solid; */
 
   .divTableCartBottom {
     text-align: center;
-    border: black 1px solid;
+    // border: black 1px solid;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -2531,7 +2534,7 @@ border-style: solid; */
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: inherit;
+    background-color: white;
     min-width: 5px;
     max-width: 10rem;
     box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
@@ -2649,6 +2652,7 @@ border-style: solid; */
     grid-column-end: 2;
     margin-bottom: 0rem;
     padding-bottom: 0.5rem;
+    font-size: 1rem;
   }
 
   .footer-address {
@@ -2656,6 +2660,7 @@ border-style: solid; */
     grid-column-end: 2;
     margin-top: 0rem;
     padding-top: 0.3rem;
+    font-size: 1rem;
   }
 
   footer {
@@ -3257,7 +3262,7 @@ border-style: solid; */
 
   .divTable {
     text-align: center;
-    border: black 1px solid;
+    // border: black 1px solid;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -3293,18 +3298,18 @@ border-style: solid; */
 
   .divTableCellL {
     width: 60%;
-    border: red 1px solid;
+    // border: red 1px solid;
   }
 
   .divTableCellC {
     width: 20%;
     text-align: center;
-    border: green 1px solid;
+    // border: green 1px solid;
   }
 
   .divTableCellR {
     width: 20%;
-    border: purple 1px solid;
+    // border: purple 1px solid;
   }
   .divTableCellDelete {
     width: 15%;
