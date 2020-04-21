@@ -71,6 +71,7 @@ export default function App() {
         console.log('top size: ', toppingSize)
 
         return {
+          ...state,
           toppings: [...state.toppings, { toppings: action.name }],
           toppingsTotal: state.toppingsTotal + toppingPrice,
           pizzaTotal: state.pizzaTotal + toppingPrice,

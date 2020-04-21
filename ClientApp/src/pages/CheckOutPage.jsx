@@ -115,19 +115,19 @@ const CheckOutPage = () => {
         <Header />
         <div
           className="checkout-top"
-          style={{
-            borderStyle: 'solid',
-            borderColor: 'black',
-            borderWidth: '1px',
-          }}
+          // style={{
+          //   borderStyle: 'solid',
+          //   borderColor: 'black',
+          //   borderWidth: '1px',
+          // }}
         >
           <div
             className="checkout-left"
-            style={{
-              borderStyle: 'solid',
-              borderColor: 'red',
-              borderWidth: '1px',
-            }}
+            // style={{
+            //   borderStyle: 'solid',
+            //   borderColor: 'red',
+            //   borderWidth: '1px',
+            // }}
           >
             <h2>Billing Details</h2>
             <p>

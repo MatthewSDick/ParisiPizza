@@ -51,6 +51,7 @@ namespace ParisiPizza
               options.KnownNetworks.Clear();
               options.KnownProxies.Clear();
             });
+
       services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
 
 

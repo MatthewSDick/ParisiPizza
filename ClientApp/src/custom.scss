@@ -453,10 +453,6 @@ footer {
   width: inherit;
 }
 
-.hours td {
-  font-size: 1.5rem;
-}
-
 .checkout label {
   font-size: 1.2rem;
 }
@@ -496,6 +492,7 @@ footer {
 .pizza-one-left {
   width: 50%;
   text-align: right;
+  justify-content: flex-end;
 }
 
 .pizza-one-right {
@@ -1148,7 +1145,7 @@ border-style: solid; */
 }
 
 .order-divTableRow {
-  /* width: 70%; */
+  width: 90%;
   display: inline-block;
   // border: black 1px solid;
   display: flex;
@@ -1165,8 +1162,8 @@ border-style: solid; */
   color: white;
   background-color: #ca0707;
   height: 2.5rem;
-  width: auto;
-  font-size: 1rem;
+  width: 6rem;
+  font-size: 0.6rem;
   border-radius: 25px;
 }
 
@@ -1240,9 +1237,54 @@ border-style: solid; */
   // width: auto;
 }
 
+.pepp-pizza {
+  height: 12rem;
+  align-self: center;
+}
+
+.pizza-one-left {
+  display: flex;
+  flex-direction: row;
+}
+
 @media (min-width: 760px) {
   a {
     color: #0366d6;
+  }
+
+  .message {
+    font-size: 10px;
+    margin: 0rem;
+  }
+
+  // .welcome-message {
+  //   visibility: visible;
+  //   width: 0%;
+  // }
+
+  .divTableCellHours {
+    font-size: 1.2rem;
+  }
+
+  .divTableRowHours {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.5rem;
+  }
+
+  .wine-bottles {
+    height: 10rem;
+    // width: auto;
+  }
+
+  .hours h3 {
+    font-size: 1.5rem;
+  }
+
+  .wine h3 {
+    font-size: 1.5rem;
   }
 
   code {
@@ -1642,7 +1684,8 @@ border-style: solid; */
   }
 
   .welcome-message {
-    margin: 4rem 0rem 1rem 0rem;
+    visibility: visible;
+    margin: 2rem 0rem 1rem 0rem;
   }
 
   .hours-wine {
@@ -1722,7 +1765,8 @@ border-style: solid; */
   }
 
   .pepp-pizza {
-    max-height: 100%;
+    height: 16rem;
+    align-self: center;
   }
 
   .pizza-bottom {
@@ -2366,7 +2410,7 @@ border-style: solid; */
   }
 
   .order-divTableRow {
-    width: 70%;
+    width: 90%;
     display: inline-block;
     // border: black 1px solid;
     display: flex;
@@ -2383,8 +2427,8 @@ border-style: solid; */
     color: white;
     background-color: #ca0707;
     height: 2.5rem;
-    width: auto;
-    font-size: 1rem;
+    width: 9rem;
+    font-size: 0.8rem;
     border-radius: 25px;
   }
 
@@ -2412,13 +2456,17 @@ border-style: solid; */
 }
 
 @media (min-width: 1200px) {
-  .welcome-message {
-    visibility: visible;
-    width: 0%;
+  .wine-bottles {
+    height: 18rem;
+    // width: auto;
+  }
+
+  .divTableCellHours {
+    font-size: 2rem;
   }
 
   .message {
-    font-size: 25px;
+    font-size: 20px;
   }
   a {
     color: #0366d6;
@@ -2829,7 +2877,8 @@ border-style: solid; */
   }
 
   .welcome-message {
-    margin: 4rem 0rem 1rem 0rem;
+    visibility: visible;
+    margin: 2rem 0rem 1rem 0rem;
   }
 
   .hours-wine {
@@ -2909,9 +2958,10 @@ border-style: solid; */
   }
 
   .pepp-pizza {
-    max-height: 100%;
+    height: 20rem;
+    align-self: center;
+    justify-content: space-around;
   }
-
   .pizza-bottom {
     display: flex;
     justify-content: center;
@@ -3554,7 +3604,7 @@ border-style: solid; */
   }
 
   .order-divTableRow {
-    width: 70%;
+    width: 90%;
     display: inline-block;
     // border: black 1px solid;
     display: flex;
