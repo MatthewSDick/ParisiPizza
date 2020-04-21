@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ParisiPizza.Models;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace ParisiPizza
 {
@@ -27,8 +28,7 @@ namespace ParisiPizza
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      // MDICK ADDED THIS LINE
-      services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
+
 
       services.AddControllersWithViews();
 
@@ -42,6 +42,16 @@ namespace ParisiPizza
   c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
       services.AddDbContext<DatabaseContext>();
+
+      services.Configure<ForwardedHeadersOptions>(options =>
+            {
+              options.ForwardedHeaders =
+                  ForwardedHeaders.XForwardedFor |
+                  ForwardedHeaders.XForwardedProto;
+              options.KnownNetworks.Clear();
+              options.KnownProxies.Clear();
+            });
+      services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
 
 
     }
@@ -60,10 +70,13 @@ namespace ParisiPizza
         app.UseHsts();
       }
 
+      app.UseForwardedHeaders();
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseSpaStaticFiles();
       app.UseSwagger();
+
+
 
       // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
       // specifying the Swagger JSON endpoint.
