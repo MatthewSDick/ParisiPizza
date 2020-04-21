@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParisiPizza.Models;
@@ -9,9 +10,10 @@ using ParisiPizza.Models;
 namespace ParisiPizza.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200421193939_OrderItemToppings")]
+    partial class OrderItemToppings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,28 +152,6 @@ namespace ParisiPizza.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("ParisiPizza.OrderItemTopping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("OrderItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ToppingId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderItemId");
-
-                    b.HasIndex("ToppingId");
-
-                    b.ToTable("OrderItemToppings");
-                });
-
             modelBuilder.Entity("ParisiPizza.OrderPizza", b =>
                 {
                     b.Property<int>("Id")
@@ -289,21 +269,6 @@ namespace ParisiPizza.Migrations
                     b.HasOne("ParisiPizza.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParisiPizza.OrderItemTopping", b =>
-                {
-                    b.HasOne("ParisiPizza.OrderItem", "OrderItem")
-                        .WithMany("OrderItemToppings")
-                        .HasForeignKey("OrderItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParisiPizza.Topping", "Topping")
-                        .WithMany()
-                        .HasForeignKey("ToppingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

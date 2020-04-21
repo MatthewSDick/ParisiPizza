@@ -17,6 +17,7 @@ namespace ParisiPizza.Models
     public DbSet<CustomerOrder> CustomerOrders { get; set; }
     public DbSet<OrderPizza> OrderPizzas { get; set; }
     public DbSet<PizzaTopping> PizzaToppings { get; set; }
+    public DbSet<OrderItemTopping> OrderItemToppings { get; set; }
 
 
     private string ConvertPostConnectionToConnectionString(string connection)

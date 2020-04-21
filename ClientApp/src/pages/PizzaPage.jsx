@@ -74,6 +74,50 @@ const PizzaPage = props => {
     })
   }
 
+  const [justin, setJustin] = useState('')
+
+  const pizzaToppingSave = (side, name, id) => {
+    const itemName = side + '-' + name
+    var orderItemId = Context.orderItemId
+    const toppingId = id
+
+    if (orderItemId == null) {
+      console.log('doing this')
+      const orderID = Context.orderId
+      const itemID = categoryItem.itemData[0].id
+
+      const response = axios
+        .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
+        .then(response => {
+          // console.log('After API . then: ', response)
+          if (response.status === 200) {
+            console.log('resp date:', response.data.id)
+            orderItemId = response.data.id
+          } else {
+          }
+        })
+    } else {
+    }
+
+    console.log('orderItemId Justin', orderItemId)
+    console.log('toppingId', toppingId)
+    // Eval the orderItemID - If nothing then you need to put a record in the orderItem table
+    // If there is a ID then you can assign it and move on.border-black
+    // const toppingId = id
+
+    const response = axios
+      .post(
+        `/api/OrderItemToppings/addTopping?orderItemID=${orderItemId}&toppingId=${toppingId}`
+      )
+      .then(response => {
+        if (response.status === 200) {
+          // const orderItemId = response.data.id
+          // Context.dispatch({ type: 'add-topping', name: itemName,})
+        } else {
+        }
+      })
+  }
+
   useEffect(() => {
     GetCategoryItems()
     isThereOrder()
@@ -148,18 +192,15 @@ const PizzaPage = props => {
             <div className="toppings-detail">
               {/* *** MOVE THE MAPS TO A COMPONENT PAGE *** */}
               {pizzaToppings.toppingData.map((item, index) => {
+                // if context.toppings.contains selected do this if not render somethng else
                 return (
                   <img
                     className="left-{item.name}"
                     title={item.name}
                     src={item.imagePath}
                     alt={item.name}
-                    onClick={() =>
-                      Context.dispatch({
-                        type: 'add-topping',
-                        name: `left-${item.name}`,
-                      })
-                    }
+                    id={item.id}
+                    onClick={() => pizzaToppingSave('left', item.name, item.id)}
                   />
                 )
               })}

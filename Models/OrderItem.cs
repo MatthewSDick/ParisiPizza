@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 
@@ -14,6 +15,8 @@ namespace ParisiPizza
     public int OrderId { get; set; }
     [JsonIgnore]
     public Order Order { get; set; }
+
+    public List<OrderItemTopping> OrderItemToppings { get; set; } = new List<OrderItemTopping>();
 
   }
 
