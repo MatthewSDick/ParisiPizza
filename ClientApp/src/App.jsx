@@ -19,18 +19,19 @@ export default function App() {
   const [orderId, setOrderId] = useState(0)
 
   const reducer = (state, action) => {
-    //Don't know how to get this from Context while in reducer/dispatch
-    // const Context = useOrder()
-    // const orderID = Context.orderId
+    // Pizza is item.id = 61
+    // Add to basket with an item-61
+    // Add to pizzaTotal to the cartTotal
+
     switch (action.type) {
       case 'add-item':
-        // using this because I can't pull from context
-        // const orderID = sessionStorage.getItem('orderID')
         const itemID = action.item.id
         const itemAddPrice = parseFloat(action.item.price)
-        console.log('Add:', itemAddPrice)
-        // console.log('Info when adding: ', action.item)
+        console.log('Add: itemID', itemID)
+        console.log('Add: orderItemId', action.item.orderItemIdID)
+
         return {
+          ...state,
           basketItems: [
             ...state.basketItems,
             { item: action.item, orderItemID: action.item.orderItemId },
@@ -38,15 +39,32 @@ export default function App() {
           cartTotal: state.cartTotal + itemAddPrice,
         }
 
+      case 'add-pizza':
+        const item = action.itemId
+        const pizzaItemAddPrice = parseFloat(action.price)
+        const orderId = action.orderId
+
+        console.log('add-pizza item', item)
+        console.log('add-pizza price', pizzaItemAddPrice)
+        console.log('add-pizza orderId', orderId)
+
+        return {
+          ...state,
+          basketItems: [
+            ...state.basketItems,
+            { item: item, orderItemID: orderId },
+          ],
+          cartTotal: state.cartTotal + pizzaItemAddPrice,
+        }
+
       case 'delete-item':
-        // console.log('In delete: ', action.item)
+        console.log('In delete: ', action.item)
         const itemDeletePrice = parseFloat(action.item.item.price)
         console.log('Delete:', itemDeletePrice)
         var itemToDelete = action.item.item.orderItemId
-        // console.log('the action in delete;', action)
 
-        const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
         return {
+          ...state,
           basketItems: [
             ...state.basketItems.filter((x, i) => i !== action.index),
           ],
@@ -54,9 +72,6 @@ export default function App() {
         }
 
       case 'add-topping':
-        // for add and delete topping need to see if the topping is already added
-        // if not then add
-        // if it is there then delete
         console.log('action: ', action)
         var toppingPrice = 0
         const baseTotal = state.baseTotal
@@ -95,15 +110,6 @@ export default function App() {
         return state
     }
   }
-
-  // const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
-  //   reducer,
-  //   {
-  //     basketItems: [],
-  //     cartTotal: 0,
-  //     orderItemID: '',
-  //   }
-  // )
 
   const [
     {
@@ -144,18 +150,6 @@ export default function App() {
     toppingData,
   }
 
-  // Below added from pizza
-  // const [
-  //   { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
-  //   dispatch,
-  // ] = useReducer(reducer, {
-  //   toppings: [],
-  //   baseTotal: 0,
-  //   pizzaTotal: 0,
-  //   toppingsTotal: 0,
-  //   selected: false,
-  // })
-
   return (
     <Layout>
       <OrderContext.Provider value={contextObject}>
@@ -165,7 +159,7 @@ export default function App() {
           <Route exact path="/checkout" component={CheckOutPage} />
           <Route exact path="/complete" component={CompletePage} />
           <Route exact path="/order/:category" component={OrderPage} />
-          <Route exact path="/pizza" component={PizzaPage} />
+          <Route exact path="/pizza/:category" component={PizzaPage} />
           <Route exact path="/additems" component={AddItems} />
           <Route exact path="*" component={NotFound} />
         </Switch>

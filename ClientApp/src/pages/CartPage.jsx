@@ -5,6 +5,7 @@ import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
+import Item from '../components/Item'
 
 const CartPage = () => {
   const Context = useOrder()
@@ -20,13 +21,11 @@ const CartPage = () => {
   // var orderID = sessionStorage.getItem('orderID')
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-    console.log(response.data)
+    console.log('Loaded in cart:', response.data)
     setCartItems({
       cartData: response.data,
       isLoaded: true,
     })
-
-    // console.log(cartData)
   }
 
   useEffect(() => {
@@ -75,11 +74,12 @@ const CartPage = () => {
             {cartItems.cartData.orderItems.map(item => {
               return (
                 <CartItem
+                  item={Item}
                   name={item.item.name}
                   imagePath={item.item.imagePath}
                   price={item.item.price}
                   id={item.item.id}
-                  // index={item.index}
+                  index={item.index}
                 />
               )
             })}

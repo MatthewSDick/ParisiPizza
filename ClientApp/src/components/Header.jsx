@@ -29,7 +29,7 @@ const Header = () => {
                 <Link to="/order/Italian Specialties">Italian Specialties</Link>
                 <Link to="/order/Paninis">Paninis</Link>
                 <Link to="/order/Pasta">Pasta</Link>
-                <Link to="/pizza">Pizza</Link>
+                <Link to="/pizza/Pizza">Pizza</Link>
                 <Link to="/order/Salads">Salads</Link>
                 <Link to="/order/Seafood">Seafood</Link>
               </div>

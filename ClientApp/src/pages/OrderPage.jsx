@@ -8,59 +8,9 @@ import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
 
-// const reducer = (state, action) => {
-//   //Don't know how to get this from Context while in reducer/dispatch
-//   // const Context = useOrder()
-//   // const orderID = Context.orderId
-//   switch (action.type) {
-//     case 'add-item':
-//       // using this because I can't pull from context
-//       // const orderID = sessionStorage.getItem('orderID')
-//       const itemID = action.item.id
-//       const itemAddPrice = parseFloat(action.item.price)
-//       console.log('Add:', itemAddPrice)
-//       // console.log('Info when adding: ', action.item)
-//       return {
-//         basketItems: [
-//           ...state.basketItems,
-//           { item: action.item, orderItemID: action.item.orderItemId },
-//         ],
-//         cartTotal: state.cartTotal + itemAddPrice,
-//       }
-
-//     case 'delete-item':
-//       // console.log('In delete: ', action.item)
-//       const itemDeletePrice = parseFloat(action.item.item.price)
-//       console.log('Delete:', itemDeletePrice)
-//       var itemToDelete = action.item.item.orderItemId
-//       // console.log('the action in delete;', action)
-
-//       const responseDelete = axios.delete(`/api/orderitem/${itemToDelete}`)
-//       return {
-//         basketItems: [
-//           ...state.basketItems.filter((x, i) => i !== action.index),
-//         ],
-//         cartTotal: state.cartTotal - itemDeletePrice,
-//       }
-
-//     default:
-//       return state
-//   }
-// }
-
 const OrderPage = props => {
-  // const contextObject = useUserProfile()
   const Context = useOrder()
   console.log('Top app: ', Context)
-  // const { value, setValue } = useContext(orderContext)
-  // const [{ basketItems, cartTotal, orderItemID }, dispatch] = useReducer(
-  //   reducer,
-  //   {
-  //     basketItems: [],
-  //     cartTotal: 0,
-  //     orderItemID: '',
-  //   }
-  // )
 
   const menuCategory = props.match.params.category
   // console.log(menuCategory)
@@ -86,18 +36,12 @@ const OrderPage = props => {
   }
 
   const isThereOrder = async e => {
-    // console.log('Enter isThereOrder Context: ', Context)
     const orderID = Context.orderId
-    // const orderID = ''
-    // console.log('orderID after set from Context: ', orderID)
     if (!orderID) {
       const response = await axios.post('/api/order', {
         orderstatus: 'Started',
       })
-      // console.log('Response.Data after API for new order: ', response.data)
       Context.setOrderId(response.data.id)
-      // sessionStorage.setItem('orderID', response.data.id)
-      // console.log('Context data after it is set from API: ', Context)
     }
   }
 
@@ -110,12 +54,26 @@ const OrderPage = props => {
       .then(response => {
         // console.log('After API . then: ', response)
         if (response.status === 200) {
-          // need to set this to the item in the basket for the delete
-          // set the OrderItem:Id here
-          // sessionStorage.setItem('setOrderItemID', response.data.id)
           const orderItemId = response.data.id
           item.orderItemId = orderItemId
           Context.dispatch({ type: 'add-item', item })
+        } else {
+        }
+      })
+  }
+
+  const deleteItemData = async (item, index) => {
+    console.log('is the item here:', item)
+    console.log('is the item here 2:', item.item.orderItemId)
+    const itemToDelete = item.item.orderItemId
+
+    const response = axios
+      .delete(`/api/orderitem/${itemToDelete}`)
+
+      .then(response => {
+        console.log('Delete Item:', item)
+        if (response.status === 200) {
+          Context.dispatch({ type: 'delete-item', index, item })
         } else {
         }
       })
@@ -152,7 +110,8 @@ const OrderPage = props => {
                     <div key={item.id} className="order-divTableCellDelete">
                       <img
                         onClick={() =>
-                          Context.dispatch({ type: 'delete-item', index, item })
+                          // Context.dispatch({ type: 'delete-item', index, item })
+                          deleteItemData(item, index)
                         }
                         className="order-trashcan"
                         src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
@@ -180,21 +139,6 @@ const OrderPage = props => {
             </div>
           </div>
 
-          {/* 
-              {basketItems.map(item => {
-                return (
-                  <CartItemOrderPage
-                    name={item.item.name}
-                    imagePath={item.item.imagePath}
-                    price={item.item.price}
-                    id={item.item.id}
-                    dispatch={dispatch}
-                  />
-                )
-              })}
-            </div>
-          </div> */}
-
           <div className="order-page-right">
             <ul className="catagory-list">
               {categoryItems.itemData.map(item => {
@@ -208,13 +152,6 @@ const OrderPage = props => {
                     <p>{item.name}</p>
                     <p>{item.price}</p>
                     <p>{item.id}</p>
-                    {/* <button
-                      value={item.id}
-                      className="order-add-to-cart-btn"
-                      onClick={() => dispatch({ type: 'add-item', item })}
-                    >
-                      ADD TO CART
-                    </button> */}
                     <button
                       key={item}
                       value={item.id}

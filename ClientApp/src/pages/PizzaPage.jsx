@@ -5,65 +5,15 @@ import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
 
-// MOVED TO CONTEXT
-// const reducer = (state, action) => {
-//   console.log(action.name)
-//   switch (action.type) {
-//     case 'add-topping':
-//       // for add and delete topping need to see if the topping is already added
-//       // if not then add
-//       // if it is there then delete
-//       console.log('action: ', action)
-//       var toppingPrice = 0
-//       const baseTotal = state.baseTotal
-//       console.log('basePrice', baseTotal)
-
-//       const toppingSize = action.name.split('-')[0]
-//       if (toppingSize == 'whole') {
-//         toppingPrice = 2
-//       } else {
-//         toppingPrice = 1
-//       }
-//       console.log('top size: ', toppingSize)
-
-//       return {
-//         toppings: [...state.toppings, { toppings: action.name }],
-//         toppingsTotal: state.toppingsTotal + toppingPrice,
-//         pizzaTotal: state.pizzaTotal + toppingPrice,
-
-//         selected: state.toppings.map((t, index) =>
-//           index === action.index ? { ...t, selected: !t.selected } : t
-//         ),
-//       }
-
-//     case 'pizza-size':
-//       const basePrice = parseFloat(action.price)
-//       console.log('basePrice', action.price)
-
-//       return {
-//         ...state,
-//         baseTotal: basePrice,
-//         pizzaTotal: state.toppingsTotal + basePrice,
-//       }
-
-//     default:
-//       return state
-//   }
-// }
-
-const PizzaPage = () => {
+const PizzaPage = props => {
   const Context = useOrder()
-  // Moved this into the reducer in Context
-  // const [
-  //   { toppings, baseTotal, pizzaTotal, toppingsTotal, selected },
-  //   dispatch,
-  // ] = useReducer(reducer, {
-  //   toppings: [],
-  //   baseTotal: 0,
-  //   pizzaTotal: 0,
-  //   toppingsTotal: 0,
-  //   selected: false,
-  // })
+  const menuCategory = props.match.params.category
+
+  // const [categoryItem, setCategoryItem] = useState({})
+  const [categoryItem, setCategoryItem] = useState({
+    itemData: [],
+    isLoaded: false,
+  })
 
   const [pizzaToppings, setPizzaToppings] = useState({
     toppingData: [],
@@ -71,50 +21,62 @@ const PizzaPage = () => {
   })
 
   const GetToppings = async () => {
+    console.log('in the toppings call')
     const menuCategory = 'Toppings'
-    const response = await axios.get(
-      `/api/items/category?categoryName=${menuCategory}`
-    )
-    console.log(response.data)
+    const response = await axios.get(`/api/toppings/`)
+    console.log('toppings:', response.data)
     setPizzaToppings({
       toppingData: response.data,
       isLoaded: true,
     })
-    // console.log('PizzaToppings: ', response.data)
   }
-
-  // const pizzaSizeSelection = async item => {
-  //   dispatch({ type: 'pizza-size', item })
-  //   // console.log('is the item here:', item)
-  //   // const orderID = Context.orderId
-  //   // const itemID = item.id
-  //   // const response = axios
-  //   //   .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
-  //   //   .then(response => {
-  //   //     // console.log('After API . then: ', response)
-  //   //     if (response.status === 200) {
-  //   //       // need to set this to the item in the basket for the delete
-  //   //       // set the OrderItem:Id here
-  //   //       // sessionStorage.setItem('setOrderItemID', response.data.id)
-  //   //       const orderItemId = response.data.id
-  //   //       item.orderItemId = orderItemId
-  //   //       Context.dispatch({ type: 'add-item', item })
-  //   //     } else {
-  //   //     }
-  //   //   })
-  // }
 
   const pizzaSizeSelection = e => {
     const price = e.target.value
     Context.dispatch({ type: 'pizza-size', price })
-    // console.log('toppings:', toppings)
-    // console.log('baseTotal:', baseTotal)
-    // console.log('toppingsTotal:', toppingsTotal)
-    // console.log('pizzaTotal:', pizzaTotal)
-    // console.log('selected:', selected)
+  }
+
+  const saveItemData = () => {
+    const orderId = Context.orderId
+    const itemId = categoryItem.itemData[0].id
+
+    const response = axios
+      .post(`/api/orderitem/addItem?orderID=${orderId}&itemID=${itemId}`)
+      .then(response => {
+        if (response.status === 200) {
+          console.log('back from save:', response.data)
+          const orderItemId = response.data.id
+          console.log('orderItemId', orderItemId)
+          var price = Context.pizzaTotal
+          Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
+        } else {
+        }
+      })
+  }
+
+  const isThereOrder = async e => {
+    const orderID = Context.orderId
+    if (!orderID) {
+      const response = await axios.post('/api/order', {
+        orderstatus: 'Started',
+      })
+      Context.setOrderId(response.data.id)
+    }
+  }
+
+  const GetCategoryItems = async () => {
+    const response = await axios.get(
+      `/api/items/category?categoryName=${menuCategory}`
+    )
+    console.log('Menu Cat Resp', response.data)
+    setCategoryItem({
+      itemData: response.data,
+    })
   }
 
   useEffect(() => {
+    GetCategoryItems()
+    isThereOrder()
     GetToppings()
   }, [])
 
@@ -173,7 +135,7 @@ const PizzaPage = () => {
             <h3 style={{ color: '#CA0707' }}>
               ${parseFloat(Context.pizzaTotal).toFixed(2)}
             </h3>
-            {/* <pre>{JSON.stringify(selected, null, 2)}</pre> */}
+            <pre>{JSON.stringify(categoryItem, null, 2)}</pre>
           </div>
         </div>
         {/* hide this */}
@@ -199,22 +161,6 @@ const PizzaPage = () => {
                       })
                     }
                   />
-                  // <img
-                  //   className="topping-image"
-                  //   title={item.name}
-                  //   src={item.imagePath}
-                  //   alt={item.name}
-                  //   onClick={() =>
-                  //     dispatch({
-                  //       type: 'add-topping',
-                  //       name: `left-${item.name}`,
-                  //       index: index,
-                  //     })
-                  //   }
-                  //   style={{
-                  //     border: selected ? '1px red solid' : '',
-                  //   }}
-                  // />
                 )
               })}
             </div>
@@ -266,7 +212,15 @@ const PizzaPage = () => {
           </div>
         </div>
         <div className="button-div">
-          <button className="add-to-cart">ADD TO CART</button>
+          {/* <button className="add-to-cart">ADD TO CART</button> */}
+          <button
+            // key={item}
+            // value={item.id}
+            className="order-add-to-cart-btn"
+            onClick={() => saveItemData()}
+          >
+            > ADD TO CART
+          </button>
         </div>
         <Footer />
       </div>
