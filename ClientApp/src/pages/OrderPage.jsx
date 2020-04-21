@@ -176,7 +176,7 @@ const OrderPage = props => {
               <Link to="/checkout">
                 <button className="order-checkout">PROCEED TO CHECKOUT</button>
               </Link>
-              <pre>{JSON.stringify(Context.basketItems, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(Context.basketItems, null, 2)}</pre> */}
             </div>
           </div>
 

@@ -113,8 +113,22 @@ const CheckOutPage = () => {
     return (
       <div>
         <Header />
-        <div className="checkout-top">
-          <div className="checkout-left">
+        <div
+          className="checkout-top"
+          style={{
+            borderStyle: 'solid',
+            borderColor: 'black',
+            borderWidth: '1px',
+          }}
+        >
+          <div
+            className="checkout-left"
+            style={{
+              borderStyle: 'solid',
+              borderColor: 'red',
+              borderWidth: '1px',
+            }}
+          >
             <h2>Billing Details</h2>
             <p>
               First Name<span style={{ color: '#CA0707' }}> *</span>
@@ -196,9 +210,6 @@ const CheckOutPage = () => {
               />{' '}
               Delivery
             </p>
-          </div>
-          <div className="checkout-right">
-            {' '}
             <h2>Additional Information</h2>
             <input
               type="text"
@@ -207,11 +218,25 @@ const CheckOutPage = () => {
               onChange={updateCustomerData}
             ></input>
           </div>
+          <img
+            className="checkout-pizza"
+            src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/main-pizza_ktipx4.jpg"
+          />
+          {/* <div className="checkout-right">
+            {' '}
+            <h2>Additional Information</h2>
+            <input
+              type="text"
+              name="additionalinfo"
+              className="additional-info"
+              onChange={updateCustomerData}
+            ></input>
+          </div> */}
         </div>
         {/* start of table */}
         <div
-          className="divTable"
-          style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
+          className="divTable-bottom-checkout"
+          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
         >
           <div className="divTableBody">
             <div className="divTableRowHeader">

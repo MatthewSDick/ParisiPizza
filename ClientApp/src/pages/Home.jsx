@@ -40,59 +40,40 @@ export function Home() {
         </div>
         <div class="hours-wine">
           <div class="hours">
-            {/* <div class="divTableHours">
+            <h3>Business Hours</h3>
+            <div class="divTableHours">
               <div class="divTableBodyHours">
-                <div class="divTableRowHour">
-                  <div class="divTableCellHours">&nbsp;</div>
-                  <div class="divTableCellHours">&nbsp;</div>
-                  <div class="divTableCellHours">&nbsp;</div>
-                  <div class="divTableCellHours">&nbsp;</div>
-                </div>
                 <div class="divTableRowHours">
-                  <div class="divTableCellHours">Monday&nbsp;</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">10:00 PM</div>
+                  <div class="divTableCellHours">Monday</div>
+                  <div class="divTableCellHours">11:00 AM - 10:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Tuesday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">10:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 10:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Wednesday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">10:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 10:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Thursday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">10:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 10:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Friday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">11:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 11:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Saturday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">11:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 11:00 PM</div>
                 </div>
                 <div class="divTableRowHours">
                   <div class="divTableCellHours">Sunday</div>
-                  <div class="divTableCellHours">11:00 AM</div>
-                  <div class="divTableCellHours">-</div>
-                  <div class="divTableCellHours">10:00 PM</div>
+                  <div class="divTableCellHours">11:00 AM - 10:00 PM</div>
                 </div>
               </div>
-            </div> */}
-            <table>
+            </div>
+            {/* <table>
               <tr>
                 <td className="hours-top" colspan="2" align="center">
                   <h3>Our business hours</h3>
@@ -126,11 +107,12 @@ export function Home() {
                 <td>Sunday</td>
                 <td>11:00 AM - 10:00 PM</td>
               </tr>
-            </table>
+            </table> */}
           </div>
           <div class="wine">
             <h3>We have great wine selections</h3>
             <img
+              className="wine-bottles"
               src="https://res.cloudinary.com/matthewdick/image/upload/v1587340364/wine-bottles_ip9k0a.jpg"
               alt="Bottles of wine"
             />
