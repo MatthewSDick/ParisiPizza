@@ -22,8 +22,7 @@ namespace ParisiPizza
     // these are the lines added
     public void ConfigureServices(IServiceCollection services)
     {
-      ... 
-         services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
+      services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
     }
 
 
