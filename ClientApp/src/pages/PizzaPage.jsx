@@ -9,6 +9,8 @@ const PizzaPage = props => {
   const Context = useOrder()
   const menuCategory = props.match.params.category
 
+  const [pizzaSizeSet, setPizzaSizeSet] = useState(false)
+
   // const [categoryItem, setCategoryItem] = useState({})
   const [categoryItem, setCategoryItem] = useState({
     itemData: [],
@@ -33,7 +35,11 @@ const PizzaPage = props => {
 
   const pizzaSizeSelection = e => {
     const price = e.target.value
+    getOrderItemId()
     Context.dispatch({ type: 'pizza-size', price })
+    if (e.target.value === '9.99' || '10.99' || '11.99') {
+      setPizzaSizeSet(true)
+    }
   }
 
   const saveItemData = () => {
@@ -74,45 +80,41 @@ const PizzaPage = props => {
     })
   }
 
-  const [justin, setJustin] = useState('')
-
-  const pizzaToppingSave = (side, name, id) => {
-    const itemName = side + '-' + name
-    var orderItemId = Context.orderItemId
-    const toppingId = id
-
-    if (orderItemId == null) {
-      console.log('doing this')
-      const orderID = Context.orderId
-      const itemID = categoryItem.itemData[0].id
-
-      const response = axios
-        .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
-        .then(response => {
-          // console.log('After API . then: ', response)
-          if (response.status === 200) {
-            console.log('resp date:', response.data.id)
-            orderItemId = response.data.id
-          } else {
-          }
-        })
-    } else {
-    }
-
-    console.log('orderItemId Justin', orderItemId)
-    console.log('toppingId', toppingId)
-    // Eval the orderItemID - If nothing then you need to put a record in the orderItem table
-    // If there is a ID then you can assign it and move on.border-black
-    // const toppingId = id
-
-    const response = axios
-      .post(
-        `/api/OrderItemToppings/addTopping?orderItemID=${orderItemId}&toppingId=${toppingId}`
-      )
+  const getOrderItemId = async () => {
+    const orderID = Context.orderId
+    const itemID = categoryItem.itemData[0].id
+    const response = await axios
+      .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
       .then(response => {
         if (response.status === 200) {
-          // const orderItemId = response.data.id
-          // Context.dispatch({ type: 'add-topping', name: itemName,})
+          // orderItemId = response.data.id
+          Context.setOrderItemId(response.data.id)
+          console.log('After Context Set', Context.orderItemId)
+        } else {
+        }
+      })
+  }
+
+  const pizzaToppingSave = async (side, name, id) => {
+    const itemName = side + '-' + name
+    const toppingId = id
+    var orderItemId = Context.orderItemId
+    console.log('where and what', itemName)
+
+    if (orderItemId == '') {
+      getOrderItemId()
+    } else {
+    }
+    orderItemId = Context.orderItemId
+    const response = axios
+      .post(`/api/OrderItemToppings`, {
+        orderItemId: orderItemId,
+        toppingId: toppingId,
+      })
+      .then(response => {
+        if (response.status === 200 || 201) {
+          Context.dispatch({ type: 'add-topping', name: itemName })
+          // Context.dispatch({type: 'add-topping', name: `whole-${item.name}`,
         } else {
         }
       })
@@ -184,85 +186,94 @@ const PizzaPage = props => {
         </div>
         {/* hide this */}
         {/* <div className="pizza-bottom" style={{ visibility: 'hidden' }}> */}
-        <div className="pizza-bottom">
-          <div className="toppings-left">
-            <div>
-              <p>Left Half - $1.00</p>
+
+        {pizzaSizeSet === true ? (
+          <>
+            <div className="pizza-bottom">
+              <div className="toppings-left">
+                <div>
+                  <p>Left Half - $1.00</p>
+                </div>
+                <div className="toppings-detail">
+                  {/* *** MOVE THE MAPS TO A COMPONENT PAGE *** */}
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    // if context.toppings.contains selected do this if not render somethng else
+                    return (
+                      <img
+                        className="left-{item.name}"
+                        title={item.name}
+                        src={item.imagePath}
+                        alt={item.name}
+                        id={item.id}
+                        onClick={() =>
+                          pizzaToppingSave('left', item.name, item.id)
+                        }
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="toppings-whole">
+                <div>
+                  <p>Whole Pizza - $2.00</p>
+                </div>
+                <div className="toppings-detail">
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    return (
+                      <img
+                        className={index}
+                        title={item.name}
+                        src={item.imagePath}
+                        alt={item.name}
+                        onClick={() =>
+                          Context.dispatch({
+                            type: 'add-topping',
+                            name: `whole-${item.name}`,
+                          })
+                        }
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="toppings-right">
+                <div>
+                  <p>Right Half - $1.00</p>
+                </div>
+                <div className="toppings-detail">
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    return (
+                      <img
+                        title={item.name}
+                        src={item.imagePath}
+                        alt={item.name}
+                        onClick={() =>
+                          Context.dispatch({
+                            type: 'add-topping',
+                            name: `right-${item.name}`,
+                          })
+                        }
+                      />
+                    )
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="toppings-detail">
-              {/* *** MOVE THE MAPS TO A COMPONENT PAGE *** */}
-              {pizzaToppings.toppingData.map((item, index) => {
-                // if context.toppings.contains selected do this if not render somethng else
-                return (
-                  <img
-                    className="left-{item.name}"
-                    title={item.name}
-                    src={item.imagePath}
-                    alt={item.name}
-                    id={item.id}
-                    onClick={() => pizzaToppingSave('left', item.name, item.id)}
-                  />
-                )
-              })}
+            <div className="button-div">
+              {/* <button className="add-to-cart">ADD TO CART</button> */}
+              <button
+                // key={item}
+                // value={item.id}
+                className="order-add-to-cart-btn"
+                onClick={() => saveItemData()}
+              >
+                > ADD TO CART
+              </button>
             </div>
-          </div>
-          <div className="toppings-whole">
-            <div>
-              <p>Whole Pizza - $2.00</p>
-            </div>
-            <div className="toppings-detail">
-              {pizzaToppings.toppingData.map((item, index) => {
-                return (
-                  <img
-                    className={index}
-                    title={item.name}
-                    src={item.imagePath}
-                    alt={item.name}
-                    onClick={() =>
-                      Context.dispatch({
-                        type: 'add-topping',
-                        name: `whole-${item.name}`,
-                      })
-                    }
-                  />
-                )
-              })}
-            </div>
-          </div>
-          <div className="toppings-right">
-            <div>
-              <p>Right Half - $1.00</p>
-            </div>
-            <div className="toppings-detail">
-              {pizzaToppings.toppingData.map((item, index) => {
-                return (
-                  <img
-                    title={item.name}
-                    src={item.imagePath}
-                    alt={item.name}
-                    onClick={() =>
-                      Context.dispatch({
-                        type: 'add-topping',
-                        name: `right-${item.name}`,
-                      })
-                    }
-                  />
-                )
-              })}
-            </div>
-          </div>
-        </div>
-        <div className="button-div">
-          {/* <button className="add-to-cart">ADD TO CART</button> */}
-          <button
-            // key={item}
-            // value={item.id}
-            className="order-add-to-cart-btn"
-            onClick={() => saveItemData()}
-          >
-            > ADD TO CART
-          </button>
-        </div>
+          </>
+        ) : (
+          <></>
+        )}
         <Footer />
       </div>
     )

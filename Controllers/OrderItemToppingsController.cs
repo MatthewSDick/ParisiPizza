@@ -80,6 +80,11 @@ namespace ParisiPizza.Controllers
     [HttpPost]
     public async Task<ActionResult<OrderItemTopping>> PostOrderItemTopping(OrderItemTopping orderItemTopping)
     {
+
+      // If orderItemId is null put code in here to create the orderItem
+
+      Console.WriteLine($"*************************** DEBUG: {orderItemTopping.ToppingId}");
+      Console.WriteLine($"*************************** DEBUG: {orderItemTopping.OrderItemId}");
       _context.OrderItemToppings.Add(orderItemTopping);
       await _context.SaveChangesAsync();
 
@@ -88,22 +93,30 @@ namespace ParisiPizza.Controllers
 
 
 
-    [HttpPost("addTopping")]
-    public async Task<ActionResult> AddItemToOrder(int orderItemId, int toppingId)
-    {
 
-      var toppingItem = new OrderItemTopping
-      {
-        ToppingId = toppingId,
-        OrderItemId = orderItemId
-      };
-      Console.WriteLine(toppingItem.ToppingId);
-      Console.WriteLine(toppingItem.OrderItemId);
 
-      _context.OrderItemToppings.Add(toppingItem);
-      await _context.SaveChangesAsync();
-      return Ok(toppingItem);
-    }
+
+
+
+    // [HttpPost("addTopping")]
+    // public async Task<ActionResult> AddItemToOrder(int orderItemId, int toppingId)
+    // {
+
+    //   var toppingItem = new OrderItemTopping
+    //   {
+    //     OrderItemId = orderItemId,
+    //     ToppingId = toppingId
+    //   };
+
+    //   Console.WriteLine(toppingItem.ToppingId);
+    //   Console.WriteLine(toppingItem.OrderItemId);
+    //   Console.WriteLine("This fired");
+    //   Console.WriteLine($"*************************** DEBUG: {toppingItem.ToppingId}");
+
+    //   _context.OrderItemToppings.Add(toppingItem);
+    //   await _context.SaveChangesAsync();
+    //   return Ok(toppingItem);
+    // }
 
 
 

@@ -17,6 +17,7 @@ import axios from 'axios'
 
 export default function App() {
   const [orderId, setOrderId] = useState(0)
+  const [orderItemId, setOrderItemId] = useState(0)
 
   const reducer = (state, action) => {
     // Pizza is item.id = 61
@@ -115,7 +116,7 @@ export default function App() {
     {
       basketItems,
       cartTotal,
-      orderItemID,
+      // orderItemID,
       toppings,
       baseTotal,
       pizzaTotal,
@@ -127,7 +128,7 @@ export default function App() {
   ] = useReducer(reducer, {
     basketItems: [],
     cartTotal: 0,
-    orderItemID: '',
+    // orderItemID: '',
     toppings: [],
     baseTotal: 0,
     pizzaTotal: 0,
@@ -140,7 +141,8 @@ export default function App() {
     setOrderId,
     basketItems,
     cartTotal,
-    orderItemID,
+    orderItemId,
+    setOrderItemId,
     dispatch,
     toppings,
     baseTotal,
