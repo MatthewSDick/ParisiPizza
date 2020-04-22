@@ -44,20 +44,23 @@ const PizzaPage = props => {
 
   const saveItemData = () => {
     const orderId = Context.orderId
-    const itemId = categoryItem.itemData[0].id
+    const itemId = Context.orderItemId
+    const price = Context.pizzaTotal
+    Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
 
-    const response = axios
-      .post(`/api/orderitem/addItem?orderID=${orderId}&itemID=${itemId}`)
-      .then(response => {
-        if (response.status === 200) {
-          console.log('back from save:', response.data)
-          const orderItemId = response.data.id
-          console.log('orderItemId', orderItemId)
-          var price = Context.pizzaTotal
-          Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
-        } else {
-        }
-      })
+    // const response = axios
+    //   .post(`/api/orderitem/addItem?orderID=${orderId}&itemID=${itemId}`)
+    //   .then(response => {
+    //     if (response.status === 200 || 201) {
+    //       console.log('back from save:', response.data)
+    //       const orderItemId = response.data.id
+    //       console.log('orderItemId', orderItemId)
+    //       var price = Context.pizzaTotal
+    //       console.log('orderItemId', itemId)
+    //       Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
+    //     } else {
+    //     }
+    //   })
   }
 
   const isThereOrder = async e => {
@@ -95,21 +98,41 @@ const PizzaPage = props => {
       })
   }
 
-  const pizzaToppingSave = async (side, name, id) => {
+  const pizzaToppingDelete = async (side, name, id) => {
     const itemName = side + '-' + name
     const toppingId = id
     var orderItemId = Context.orderItemId
-    console.log('where and what', itemName)
+    console.log('The delete is fired')
 
-    if (orderItemId == '') {
-      getOrderItemId()
-    } else {
-    }
+    // orderItemId = Context.orderItemId
+    // const response = await axios
+    //   // work the delete in the controller
+    //   .post(`/api/OrderItemToppings/deleteTopping`, {
+    //     orderItemId: orderItemId,
+    //     toppingId: toppingId,
+    //     side: side,
+    //   })
+    //   .then(response => {
+    //     if (response.status === 200 || 201) {
+    //       Context.dispatch({ type: 'add-topping', name: itemName })
+    //       // Context.dispatch({type: 'add-topping', name: `whole-${item.name}`,
+    //     } else {
+    //     }
+    //   })
+  }
+
+  const pizzaToppingAdd = async (side, name, id) => {
+    const itemName = side + '-' + name
+    const toppingId = id
+    var orderItemId = Context.orderItemId
+    console.log('The add is fired')
+
     orderItemId = Context.orderItemId
-    const response = axios
+    const response = await axios
       .post(`/api/OrderItemToppings`, {
         orderItemId: orderItemId,
         toppingId: toppingId,
+        side: side,
       })
       .then(response => {
         if (response.status === 200 || 201) {
@@ -195,20 +218,40 @@ const PizzaPage = props => {
                   <p>Left Half - $1.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {/* *** MOVE THE MAPS TO A COMPONENT PAGE *** */}
+                  {console.log('PT-TD', pizzaToppings.toppingData)}
+                  {console.log('Context - Toppings', Context.toppings)}
                   {pizzaToppings.toppingData.map((item, index) => {
-                    // if context.toppings.contains selected do this if not render somethng else
-                    return (
-                      <img
-                        className="left-{item.name}"
-                        title={item.name}
-                        src={item.imagePath}
-                        alt={item.name}
-                        id={item.id}
-                        onClick={() =>
-                          pizzaToppingSave('left', item.name, item.id)
-                        }
-                      />
+                    return Context.toppings.includes(
+                      topping => topping.topping === `left-${item.name}`
+
+                      // t => t.topping == `left-${item.name}`,
+                      // console.log('HERE WE ARE', Context.toppings)
+                    ) ? (
+                      <>
+                        <img
+                          className="left-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingDelete('left', item.name, item.id)
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          className="left-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingAdd('left', item.name, item.id)
+                          }
+                        />
+                      </>
                     )
                   })}
                 </div>
@@ -218,20 +261,51 @@ const PizzaPage = props => {
                   <p>Whole Pizza - $2.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {pizzaToppings.toppingData.map((item, index) => {
+                  {/* {pizzaToppings.toppingData.map((item, index) => {
                     return (
                       <img
                         className={index}
                         title={item.name}
                         src={item.imagePath}
                         alt={item.name}
-                        onClick={() =>
-                          Context.dispatch({
-                            type: 'add-topping',
-                            name: `whole-${item.name}`,
-                          })
+                        onClick={
+                          () => pizzaToppingAdd('whole', item.name, item.id)
+                          // onClick={() =>
+                          //   Context.dispatch({
+                          //     type: 'add-topping',
+                          //     name: `whole-${item.name}`,
+                          //   })
                         }
                       />
+                    )
+                  })} */}
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    return Context.toppings.includes(`whole-${item.name}`) ? (
+                      <>
+                        <img
+                          className="whole-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingDelete('whole', item.name, item.id)
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          className="whole-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingAdd('whole', item.name, item.id)
+                          }
+                        />
+                      </>
                     )
                   })}
                 </div>
@@ -241,19 +315,50 @@ const PizzaPage = props => {
                   <p>Right Half - $1.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {pizzaToppings.toppingData.map((item, index) => {
+                  {/* {pizzaToppings.toppingData.map((item, index) => {
                     return (
                       <img
                         title={item.name}
                         src={item.imagePath}
                         alt={item.name}
-                        onClick={() =>
-                          Context.dispatch({
-                            type: 'add-topping',
-                            name: `right-${item.name}`,
-                          })
+                        onClick={
+                          () => pizzaToppingAdd('left', item.name, item.id)
+                          // onClick={() =>
+                          //   Context.dispatch({
+                          //     type: 'add-topping',
+                          //     name: `right-${item.name}`,
+                          //   })
                         }
                       />
+                    )
+                  })} */}
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    return Context.toppings.includes(`right-${item.name}`) ? (
+                      <>
+                        <img
+                          className="right-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingDelete('right', item.name, item.id)
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          className="right-{item.name}"
+                          title={item.name}
+                          src={item.imagePath}
+                          alt={item.name}
+                          id={item.id}
+                          onClick={() =>
+                            pizzaToppingAdd('right', item.name, item.id)
+                          }
+                        />
+                      </>
                     )
                   })}
                 </div>

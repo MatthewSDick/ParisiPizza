@@ -41,13 +41,18 @@ export default function App() {
         }
 
       case 'add-pizza':
+        // const orderId = Context.orderId
+        // const itemId = Context.orderItemId
+        // const price = Context.pizzaTotal
+        // Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
+
         const item = action.itemId
         const pizzaItemAddPrice = parseFloat(action.price)
         const orderId = action.orderId
 
-        console.log('add-pizza item', item)
-        console.log('add-pizza price', pizzaItemAddPrice)
-        console.log('add-pizza orderId', orderId)
+        console.log('reducer - add-pizza item', item)
+        console.log('reducer - add-pizza price', pizzaItemAddPrice)
+        console.log('reducer - add-pizza orderId', orderId)
 
         return {
           ...state,
@@ -77,24 +82,28 @@ export default function App() {
         var toppingPrice = 0
         const baseTotal = state.baseTotal
         console.log('basePrice', baseTotal)
+        console.log('add-topping', action)
 
-        const toppingSize = action.name.split('-')[0]
-        if (toppingSize == 'whole') {
+        const toppingSide = action.name.split('-')[0]
+        const toppingType = action.name.split('-')[1]
+        if (toppingSide == 'whole') {
           toppingPrice = 2
         } else {
           toppingPrice = 1
         }
-        console.log('top size: ', toppingSize)
 
         return {
           ...state,
-          toppings: [...state.toppings, { toppings: action.name }],
+          toppings: [
+            ...state.toppings,
+            { topping: action.name, type: toppingType, side: toppingSide },
+          ],
           toppingsTotal: state.toppingsTotal + toppingPrice,
           pizzaTotal: state.pizzaTotal + toppingPrice,
 
-          selected: state.toppings.map((t, index) =>
-            index === action.index ? { ...t, selected: !t.selected } : t
-          ),
+          // selected: state.toppings.map((t, index) =>
+          //   index === action.index ? { ...t, selected: !t.selected } : t
+          // ),
         }
 
       case 'pizza-size':
@@ -116,7 +125,6 @@ export default function App() {
     {
       basketItems,
       cartTotal,
-      // orderItemID,
       toppings,
       baseTotal,
       pizzaTotal,
@@ -128,7 +136,6 @@ export default function App() {
   ] = useReducer(reducer, {
     basketItems: [],
     cartTotal: 0,
-    // orderItemID: '',
     toppings: [],
     baseTotal: 0,
     pizzaTotal: 0,

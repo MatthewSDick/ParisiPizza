@@ -92,45 +92,6 @@ namespace ParisiPizza.Controllers
     }
 
 
-
-
-
-
-
-
-    // [HttpPost("addTopping")]
-    // public async Task<ActionResult> AddItemToOrder(int orderItemId, int toppingId)
-    // {
-
-    //   var toppingItem = new OrderItemTopping
-    //   {
-    //     OrderItemId = orderItemId,
-    //     ToppingId = toppingId
-    //   };
-
-    //   Console.WriteLine(toppingItem.ToppingId);
-    //   Console.WriteLine(toppingItem.OrderItemId);
-    //   Console.WriteLine("This fired");
-    //   Console.WriteLine($"*************************** DEBUG: {toppingItem.ToppingId}");
-
-    //   _context.OrderItemToppings.Add(toppingItem);
-    //   await _context.SaveChangesAsync();
-    //   return Ok(toppingItem);
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // DELETE: api/OrderItemToppings/5
     [HttpDelete("{id}")]
     public async Task<ActionResult<OrderItemTopping>> DeleteOrderItemTopping(int id)

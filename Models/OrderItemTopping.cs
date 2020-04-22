@@ -9,6 +9,7 @@ namespace ParisiPizza
   {
 
     public int Id { get; set; }
+    public string Side { get; set; }
     public int ToppingId { get; set; }
     public Topping Topping { get; set; }
     public int OrderItemId { get; set; }
