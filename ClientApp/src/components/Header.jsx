@@ -7,20 +7,20 @@ const Header = () => {
   const Context = useOrder()
   return (
     <div>
-      <div class="top">
-        <div class="flex1">
-          <div class="one">
+      <div className="top">
+        <div className="flex1">
+          <div className="one">
             {/* this is the nav menu */}
             <Link to="/">
               <button className="go-home">Home</button>
               {/* <span>Home</span> */}
             </Link>
-            <div class="dropdown">
-              <button class="dropbtn">
+            <div className="dropdown">
+              <button className="dropbtn">
                 Order Online
-                <i class="fa fa-caret-down"></i>
+                <i className="fa fa-caret-down"></i>
               </button>
-              <div class="dropdown-content">
+              <div className="dropdown-content">
                 <Link to="/order/Appetizers">Appetizers</Link>
                 <Link to="/order/Baked Pasta">Baked Pasta</Link>
                 <Link to="/order/Dolci">Dolci</Link>
@@ -36,26 +36,28 @@ const Header = () => {
             </div>
             {/* this is the bottom of nav menu */}
           </div>
-          <div class="two">
+          <div className="two">
             <img
               className="parisi-logo"
               src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Parisi_Logo_BeforeAndAfter_up4lwu.jpg"
             />
           </div>
-          <div class="three">
-            <ul class="right-nav">
+          <div className="three">
+            <ul className="right-nav">
               <li>
                 <Link to="/cart">
                   <img
-                    class="cart"
+                    className="cart"
                     src="https://res.cloudinary.com/matthewdick/image/upload/v1587340362/cart_icon_dcdryh.png"
                   />
                 </Link>
               </li>
-              <li class="top-items-count">{localStorage.getItem('items')}</li>
+              <li className="top-items-count">
+                {localStorage.getItem('items')}
+              </li>
 
-              <li class="top-items">{Context.basketItems.length} Items</li>
-              <li class="top-money">
+              <li className="top-items">{Context.basketItems.length} Items</li>
+              <li className="top-money">
                 Total: ${parseFloat(Context.cartTotal).toFixed(2)}
               </li>
               <li>
@@ -69,19 +71,19 @@ const Header = () => {
 
         <h2>Authentic Italian Pizza</h2>
         <h1>Best pizza in St Pete</h1>
-        <div class="top-wrapper">
+        <div className="top-wrapper">
           <Link to="/pizza">
-            <button class="top-button">Order Online</button>
+            <button className="top-button">Order Online</button>
           </Link>
         </div>
       </div>
-      <div class="line">
-        <div class="div-line-left"></div>
+      <div className="line">
+        <div className="div-line-left"></div>
         <img
-          class="pizza-logo"
+          className="pizza-logo"
           src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/pizza_icon_ytfkvx.png"
         />
-        <div class="div-line-right"></div>
+        <div className="div-line-right"></div>
       </div>
     </div>
   )
