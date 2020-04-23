@@ -102,23 +102,46 @@ const PizzaPage = props => {
     const itemName = side + '-' + name
     const toppingId = id
     var orderItemId = Context.orderItemId
-    console.log('The delete is fired')
+    console.log('The side is:', side)
 
+    console.log('orderItemId', orderItemId)
+    console.log('toppingId', toppingId)
+    console.log('side', side)
     // orderItemId = Context.orderItemId
-    // const response = await axios
-    //   // work the delete in the controller
-    //   .post(`/api/OrderItemToppings/deleteTopping`, {
-    //     orderItemId: orderItemId,
-    //     toppingId: toppingId,
-    //     side: side,
-    //   })
-    //   .then(response => {
-    //     if (response.status === 200 || 201) {
-    //       Context.dispatch({ type: 'add-topping', name: itemName })
-    //       // Context.dispatch({type: 'add-topping', name: `whole-${item.name}`,
-    //     } else {
-    //     }
-    //   })
+    const response = await axios
+      // work the delete in the controller
+      .delete(`/api/OrderItemToppings/deleteTopping`, {
+        orderItemId: orderItemId,
+        toppingId: toppingId,
+        side: side,
+      })
+      .catch(function(error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message)
+        }
+        console.log(error.config)
+      })
+
+    // .then(response => {
+    //   console.log('the then -------')
+    //   // if (response.status === 200 || 201) {
+    //   //   Context.dispatch({ type: 'add-topping', name: itemName })
+    //   //   // Context.dispatch({type: 'add-topping', name: `whole-${item.name}`,
+    //   // } else {
+    //   // }
+    // })
   }
 
   const pizzaToppingAdd = async (side, name, id) => {
@@ -221,37 +244,24 @@ const PizzaPage = props => {
                   {console.log('PT-TD', pizzaToppings.toppingData)}
                   {console.log('Context - Toppings', Context.toppings)}
                   {pizzaToppings.toppingData.map((item, index) => {
-                    return Context.toppings.includes(
+                    const alreadyGotIt = Context.toppings.some(
                       topping => topping.topping === `left-${item.name}`
-
-                      // t => t.topping == `left-${item.name}`,
-                      // console.log('HERE WE ARE', Context.toppings)
-                    ) ? (
-                      <>
-                        <img
-                          className="left-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                    )
+                    return (
+                      <img
+                        className="left-{item.name}"
+                        title={item.name}
+                        src={item.imagePath}
+                        alt={item.name}
+                        id={item.id}
+                        onClick={() => {
+                          if (alreadyGotIt) {
                             pizzaToppingDelete('left', item.name, item.id)
-                          }
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          className="left-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                          } else {
                             pizzaToppingAdd('left', item.name, item.id)
                           }
-                        />
-                      </>
+                        }}
+                      />
                     )
                   })}
                 </div>
@@ -261,51 +271,27 @@ const PizzaPage = props => {
                   <p>Whole Pizza - $2.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {/* {pizzaToppings.toppingData.map((item, index) => {
+                  {console.log('PT-TD', pizzaToppings.toppingData)}
+                  {console.log('Context - Toppings', Context.toppings)}
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    const alreadyGotIt = Context.toppings.some(
+                      topping => topping.topping === `whole-${item.name}`
+                    )
                     return (
                       <img
-                        className={index}
+                        className="whole-{item.name}"
                         title={item.name}
                         src={item.imagePath}
                         alt={item.name}
-                        onClick={
-                          () => pizzaToppingAdd('whole', item.name, item.id)
-                          // onClick={() =>
-                          //   Context.dispatch({
-                          //     type: 'add-topping',
-                          //     name: `whole-${item.name}`,
-                          //   })
-                        }
-                      />
-                    )
-                  })} */}
-                  {pizzaToppings.toppingData.map((item, index) => {
-                    return Context.toppings.includes(`whole-${item.name}`) ? (
-                      <>
-                        <img
-                          className="whole-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                        id={item.id}
+                        onClick={() => {
+                          if (alreadyGotIt) {
                             pizzaToppingDelete('whole', item.name, item.id)
-                          }
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          className="whole-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                          } else {
                             pizzaToppingAdd('whole', item.name, item.id)
                           }
-                        />
-                      </>
+                        }}
+                      />
                     )
                   })}
                 </div>
@@ -315,50 +301,27 @@ const PizzaPage = props => {
                   <p>Right Half - $1.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {/* {pizzaToppings.toppingData.map((item, index) => {
+                  {console.log('PT-TD', pizzaToppings.toppingData)}
+                  {console.log('Context - Toppings', Context.toppings)}
+                  {pizzaToppings.toppingData.map((item, index) => {
+                    const alreadyGotIt = Context.toppings.some(
+                      topping => topping.topping === `right-${item.name}`
+                    )
                     return (
                       <img
+                        className="right-{item.name}"
                         title={item.name}
                         src={item.imagePath}
                         alt={item.name}
-                        onClick={
-                          () => pizzaToppingAdd('left', item.name, item.id)
-                          // onClick={() =>
-                          //   Context.dispatch({
-                          //     type: 'add-topping',
-                          //     name: `right-${item.name}`,
-                          //   })
-                        }
-                      />
-                    )
-                  })} */}
-                  {pizzaToppings.toppingData.map((item, index) => {
-                    return Context.toppings.includes(`right-${item.name}`) ? (
-                      <>
-                        <img
-                          className="right-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                        id={item.id}
+                        onClick={() => {
+                          if (alreadyGotIt) {
                             pizzaToppingDelete('right', item.name, item.id)
-                          }
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          className="right-{item.name}"
-                          title={item.name}
-                          src={item.imagePath}
-                          alt={item.name}
-                          id={item.id}
-                          onClick={() =>
+                          } else {
                             pizzaToppingAdd('right', item.name, item.id)
                           }
-                        />
-                      </>
+                        }}
+                      />
                     )
                   })}
                 </div>

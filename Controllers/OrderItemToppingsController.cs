@@ -83,12 +83,37 @@ namespace ParisiPizza.Controllers
 
       // If orderItemId is null put code in here to create the orderItem
 
-      Console.WriteLine($"*************************** DEBUG: {orderItemTopping.ToppingId}");
-      Console.WriteLine($"*************************** DEBUG: {orderItemTopping.OrderItemId}");
+      Console.WriteLine($"*************************** DEBUG POST: {orderItemTopping.ToppingId}");
+      Console.WriteLine($"*************************** DEBUG POST: {orderItemTopping.OrderItemId}");
       _context.OrderItemToppings.Add(orderItemTopping);
       await _context.SaveChangesAsync();
 
       return CreatedAtAction("GetOrderItemTopping", new { id = orderItemTopping.Id }, orderItemTopping);
+    }
+
+
+    [HttpDelete("deleteTopping")]
+    public async Task<ActionResult<OrderItemTopping>> DeleteOrderItemTopping(OrderItemTopping OrderItemTopping)
+    {
+      Console.WriteLine($" ***************************************** Got here");
+      Console.WriteLine($"*************************** DEBUG DELETE: side: {OrderItemTopping.Side}");
+      Console.WriteLine($"*************************** DEBUG DELETE: toppingID: {OrderItemTopping.ToppingId}");
+      Console.WriteLine($"*************************** DEBUG DELETE: orderItemId: {OrderItemTopping.OrderItemId}");
+      var toDelete = _context.OrderItemToppings.FirstOrDefault(i => i.Side == OrderItemTopping.Side && i.ToppingId == OrderItemTopping.ToppingId && i.OrderItemId == OrderItemTopping.OrderItemId);
+
+      if (toDelete == null)
+      {
+        return NotFound();
+      }
+
+      _context.OrderItemToppings.Remove(toDelete);
+      await _context.SaveChangesAsync();
+      return Ok();
+    }
+
+    private bool OrderItemToppingExists(int id)
+    {
+      return _context.OrderItemToppings.Any(e => e.Id == id);
     }
 
 
@@ -108,9 +133,5 @@ namespace ParisiPizza.Controllers
       return orderItemTopping;
     }
 
-    private bool OrderItemToppingExists(int id)
-    {
-      return _context.OrderItemToppings.Any(e => e.Id == id);
-    }
   }
 }
