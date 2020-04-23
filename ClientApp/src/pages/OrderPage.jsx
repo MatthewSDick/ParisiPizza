@@ -63,15 +63,13 @@ const OrderPage = props => {
   }
 
   const deleteItemData = async (item, index) => {
-    console.log('is the item here:', item)
-    console.log('is the item here 2:', item.item.orderItemId)
+    console.log('Item to be deleted', item.item)
     const itemToDelete = item.item.orderItemId
 
     const response = axios
       .delete(`/api/orderitem/${itemToDelete}`)
 
       .then(response => {
-        console.log('Delete Item:', item)
         if (response.status === 200) {
           Context.dispatch({ type: 'delete-item', index, item })
         } else {

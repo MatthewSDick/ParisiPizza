@@ -516,6 +516,7 @@ footer {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 2px;
 }
 
 .toppings-whole {
@@ -524,6 +525,7 @@ footer {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 1px;
 }
 
 .toppings-right {
@@ -532,6 +534,7 @@ footer {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 1px;
 }
 
 .toppings-detail {
@@ -1247,6 +1250,10 @@ border-style: solid; */
   flex-direction: row;
 }
 
+.toppings-detail {
+  padding: 2px;
+}
+
 @media (min-width: 760px) {
   a {
     color: #0366d6;
@@ -1781,6 +1788,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 2px;
   }
 
   .toppings-whole {
@@ -1789,6 +1797,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 1px;
   }
 
   .toppings-right {
@@ -1797,6 +1806,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 1px;
   }
 
   .toppings-detail {
@@ -2974,6 +2984,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 2px;
   }
 
   .toppings-whole {
@@ -2982,6 +2993,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 1px;
   }
 
   .toppings-right {
@@ -2990,6 +3002,7 @@ border-style: solid; */
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 1px;
   }
 
   .toppings-detail {

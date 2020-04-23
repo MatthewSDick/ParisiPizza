@@ -46,7 +46,14 @@ const PizzaPage = props => {
     const orderId = Context.orderId
     const itemId = Context.orderItemId
     const price = Context.pizzaTotal
-    Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
+    const imagePath = categoryItem.imagePath
+    Context.dispatch({
+      type: 'add-pizza',
+      itemId,
+      price,
+      orderId,
+      categoryItem,
+    })
 
     // const response = axios
     //   .post(`/api/orderitem/addItem?orderID=${orderId}&itemID=${itemId}`)
@@ -77,10 +84,10 @@ const PizzaPage = props => {
     const response = await axios.get(
       `/api/items/category?categoryName=${menuCategory}`
     )
-    // console.log('Menu Cat Resp', response.data)
     setCategoryItem({
       itemData: response.data,
     })
+    console.log('zzzzzzz', response.data)
   }
 
   const getOrderItemId = async () => {
@@ -102,11 +109,7 @@ const PizzaPage = props => {
     const itemName = side + '-' + name
     const toppingId = id
     var orderItemId = Context.orderItemId
-    console.log('inside the delete', side)
 
-    console.log('orderItemId', orderItemId)
-    console.log('toppingId', toppingId)
-    console.log('side', side)
     orderItemId = Context.orderItemId
     const response = await axios
       // work the delete in the controller

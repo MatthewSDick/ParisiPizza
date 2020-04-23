@@ -35,18 +35,22 @@ export default function App() {
           ...state,
           basketItems: [
             ...state.basketItems,
-            { item: action.item, orderItemID: action.item.orderItemId },
+            { item: action.item, orderItemId: action.item.orderItemId },
           ],
           cartTotal: state.cartTotal + itemAddPrice,
         }
 
       case 'add-pizza':
-        // const orderId = Context.orderId
-        // const itemId = Context.orderItemId
-        // const price = Context.pizzaTotal
-        // Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
+        var item = {
+          id: action.orderId,
+          name: action.categoryItem.itemData[0].name,
+          category: action.categoryItem.itemData[0].category,
+          imagePath: action.categoryItem.itemData[0].imagePath,
+          orderItemId: action.itemId,
+          price: action.price,
+        }
 
-        const item = action.itemId
+        // const item = action.itemId
         const pizzaItemAddPrice = parseFloat(action.price)
         const orderId = action.orderId
 
@@ -58,7 +62,7 @@ export default function App() {
           ...state,
           basketItems: [
             ...state.basketItems,
-            { item: item, orderItemID: orderId },
+            { item: item, orderItemId: orderId },
           ],
           cartTotal: state.cartTotal + pizzaItemAddPrice,
         }
@@ -113,8 +117,8 @@ export default function App() {
           ...state,
           // toppings: [...state.toppings.filter((x, i) => i !== action.index)],
           toppings: [
-            ...state.toppings.filter(toppings =>
-              toppings.topping.includes(!action.name)
+            ...state.toppings.filter(
+              toppings => toppings.topping !== action.name
             ),
           ],
 
