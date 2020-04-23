@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import CartPage from '../components/CartItem'
 import Footer from '../components/Footer'
-import CartItem from '../components/CartItem'
-import CartItemOrderPage from '../components/CartItemOrderPage'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
@@ -20,36 +17,36 @@ const OrderPage = props => {
     isLoaded: false,
   })
 
-  const [cartItems, setCartItems] = useState({
-    cartData: { orderItems: [] },
-  })
+  // const [cartItems, setCartItems] = useState({
+  //   cartData: { orderItems: [] },
+  // })
 
-  const GetCategoryItems = async () => {
-    const response = await axios.get(
-      `/api/items/category?categoryName=${menuCategory}`
-    )
-    // console.log(response.data)
-    setCategoryItems({
-      itemData: response.data,
-      isLoaded: true,
-    })
-  }
+  // const GetCategoryItems = async () => {
+  //   const response = await axios.get(
+  //     `/api/items/category?categoryName=${menuCategory}`
+  //   )
+  //   // console.log(response.data)
+  //   setCategoryItems({
+  //     itemData: response.data,
+  //     isLoaded: true,
+  //   })
+  // }
 
-  const isThereOrder = async e => {
-    const orderID = Context.orderId
-    if (!orderID) {
-      const response = await axios.post('/api/order', {
-        orderstatus: 'Started',
-      })
-      Context.setOrderId(response.data.id)
-    }
-  }
+  // const isThereOrder = async e => {
+  //   const orderID = Context.orderId
+  //   if (!orderID) {
+  //     const response = await axios.post('/api/order', {
+  //       orderstatus: 'Started',
+  //     })
+  //     Context.setOrderId(response.data.id)
+  //   }
+  // }
 
   const saveItemData = async item => {
     // console.log('is the item here:', item)
     const orderID = Context.orderId
     const itemID = item.id
-    const response = axios
+    axios
       .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
       .then(response => {
         // console.log('After API . then: ', response)
@@ -66,7 +63,7 @@ const OrderPage = props => {
     console.log('Item to be deleted', item.item)
     const itemToDelete = item.item.orderItemId
 
-    const response = axios
+    axios
       .delete(`/api/orderitem/${itemToDelete}`)
 
       .then(response => {
@@ -77,17 +74,31 @@ const OrderPage = props => {
       })
   }
 
-  const addItemToCart = e => {
-    var item = e.target.value
-    Context.dispatch({ type: 'add-item', item })
-  }
-
   useEffect(() => {
+    const GetCategoryItems = async () => {
+      const response = await axios.get(
+        `/api/items/category?categoryName=${menuCategory}`
+      )
+      // console.log(response.data)
+      setCategoryItems({
+        itemData: response.data,
+        isLoaded: true,
+      })
+    }
+
+    const isThereOrder = async e => {
+      const orderID = Context.orderId
+      if (!orderID) {
+        const response = await axios.post('/api/order', {
+          orderstatus: 'Started',
+        })
+        Context.setOrderId(response.data.id)
+      }
+    }
+
     GetCategoryItems()
     isThereOrder()
-    // refreshCart()
-    // refreshCart()
-  }, [menuCategory])
+  }, [])
 
   if (!categoryItems.isLoaded) {
     return <h2>Loading...</h2>
@@ -107,6 +118,7 @@ const OrderPage = props => {
                   <div className="order-divTableRow">
                     <div key={item.id} className="order-divTableCellDelete">
                       <img
+                        alt="trash can"
                         onClick={() =>
                           // Context.dispatch({ type: 'delete-item', index, item })
                           deleteItemData(item, index)
@@ -117,6 +129,7 @@ const OrderPage = props => {
                     </div>
                     <div className="order-divTableCellPic">
                       <img
+                        alt="item"
                         className="order-checkout-image"
                         src={item.item.imagePath}
                       />

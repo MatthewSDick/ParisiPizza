@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
@@ -30,7 +30,7 @@ const CartPage = () => {
 
   useEffect(() => {
     GetCartInfo()
-  }, [])
+  })
 
   if (!cartItems.isLoaded) {
     return (

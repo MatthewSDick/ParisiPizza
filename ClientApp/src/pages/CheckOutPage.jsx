@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CartItem from '../components/CartItem'
@@ -12,7 +12,6 @@ const CheckOutPage = () => {
   const orderTax = Context.cartTotal * 0.06
   const orderTotal = orderSubTotal + orderTax
   const orderID = Context.orderId
-  var customerID = ''
 
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
@@ -52,33 +51,32 @@ const CheckOutPage = () => {
   const sendCustomerInfo = async () => {
     const resp = await axios.post('api/customers', customer)
     if (resp.status === 201) {
-      customerID = resp.data.id
     } else {
       // do something
     }
   }
 
-  const setOrderstatus = () => {
-    const orderTotal = Context.cartTotal
-    console.log('orderTotal:', orderTotal)
-    setOrder(previousOrder => {
-      return {
-        ...previousOrder,
-        AdditionalInfo: customer.AdditionalInfo,
-      }
-    })
-  }
+  // const setOrderstatus = () => {
+  //   const orderTotal = Context.cartTotal
+  //   console.log('orderTotal:', orderTotal)
+  //   setOrder(previousOrder => {
+  //     return {
+  //       ...previousOrder,
+  //       AdditionalInfo: customer.AdditionalInfo,
+  //     }
+  //   })
+  // }
 
-  const closeOrder = async () => {
-    console.log('the order is', order)
-    const resp = await axios.put(`api/order/${orderID}`, order)
-    console.log(resp.data)
-    if (resp.status === 200 || 204) {
-      // do something
-    } else {
-      // do something
-    }
-  }
+  // const closeOrder = async () => {
+  //   console.log('the order is', order)
+  //   const resp = await axios.put(`api/order/${orderID}`, order)
+  //   console.log(resp.data)
+  //   if (resp.status === 200 || 204) {
+  //     // do something
+  //   } else {
+  //     // do something
+  //   }
+  // }
 
   const [cartItems, setCartItems] = useState({
     cartData: [],
@@ -100,7 +98,7 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     GetCartInfo()
-  }, [])
+  })
 
   if (!cartItems.isLoaded) {
     return (
@@ -219,6 +217,7 @@ const CheckOutPage = () => {
             ></input>
           </div>
           <img
+            alt="checkout pizza"
             className="checkout-pizza"
             src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/main-pizza_ktipx4.jpg"
           />

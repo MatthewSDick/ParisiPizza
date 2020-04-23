@@ -1,9 +1,8 @@
-import React, { useReducer, useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
-import { Link } from 'react-router-dom'
 
 const PizzaPage = props => {
   const Context = useOrder()
@@ -24,7 +23,6 @@ const PizzaPage = props => {
 
   const GetToppings = async () => {
     // console.log('in the toppings call')
-    const menuCategory = 'Toppings'
     const response = await axios.get(`/api/toppings/`)
     // console.log('toppings:', response.data)
     setPizzaToppings({
@@ -46,7 +44,6 @@ const PizzaPage = props => {
     const orderId = Context.orderId
     const itemId = Context.orderItemId
     const price = Context.pizzaTotal
-    const imagePath = categoryItem.imagePath
     Context.dispatch({
       type: 'add-pizza',
       itemId,
@@ -70,30 +67,30 @@ const PizzaPage = props => {
     //   })
   }
 
-  const isThereOrder = async e => {
-    const orderID = Context.orderId
-    if (!orderID) {
-      const response = await axios.post('/api/order', {
-        orderstatus: 'Started',
-      })
-      Context.setOrderId(response.data.id)
-    }
-  }
+  // const isThereOrder = async e => {
+  //   const orderID = Context.orderId
+  //   if (!orderID) {
+  //     const response = await axios.post('/api/order', {
+  //       orderstatus: 'Started',
+  //     })
+  //     Context.setOrderId(response.data.id)
+  //   }
+  // }
 
-  const GetCategoryItems = async () => {
-    const response = await axios.get(
-      `/api/items/category?categoryName=${menuCategory}`
-    )
-    setCategoryItem({
-      itemData: response.data,
-    })
-    console.log('zzzzzzz', response.data)
-  }
+  // const GetCategoryItems = async () => {
+  //   const response = await axios.get(
+  //     `/api/items/category?categoryName=${menuCategory}`
+  //   )
+  //   setCategoryItem({
+  //     itemData: response.data,
+  //   })
+  //   console.log('zzzzzzz', response.data)
+  // }
 
   const getOrderItemId = async () => {
     const orderID = Context.orderId
     const itemID = categoryItem.itemData[0].id
-    const response = await axios
+    await axios
       .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
       .then(response => {
         if (response.status === 200) {
@@ -111,7 +108,7 @@ const PizzaPage = props => {
     var orderItemId = Context.orderItemId
 
     orderItemId = Context.orderItemId
-    const response = await axios
+    await axios
       // work the delete in the controller
       .delete(`/api/OrderItemToppings/deleteTopping`, {
         data: {
@@ -130,7 +127,7 @@ const PizzaPage = props => {
     // console.log('The add is fired')
 
     orderItemId = Context.orderItemId
-    const response = await axios
+    await axios
       .post(`/api/OrderItemToppings`, {
         orderItemId: orderItemId,
         toppingId: toppingId,
@@ -146,6 +143,26 @@ const PizzaPage = props => {
   }
 
   useEffect(() => {
+    const GetCategoryItems = async () => {
+      const response = await axios.get(
+        `/api/items/category?categoryName=${menuCategory}`
+      )
+      setCategoryItem({
+        itemData: response.data,
+      })
+      console.log('zzzzzzz', response.data)
+    }
+
+    const isThereOrder = async e => {
+      const orderID = Context.orderId
+      if (!orderID) {
+        const response = await axios.post('/api/order', {
+          orderstatus: 'Started',
+        })
+        Context.setOrderId(response.data.id)
+      }
+    }
+
     GetCategoryItems()
     isThereOrder()
     GetToppings()

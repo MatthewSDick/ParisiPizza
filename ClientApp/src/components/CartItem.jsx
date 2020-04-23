@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useContext, Component } from 'react'
+import React from 'react'
 import { useOrder } from '../pages/OrderContext'
 
 const CartItem = props => {
   const Context = useOrder()
-  const { name, imagePath, price, id, index, item } = props
+  const { name, imagePath, price, index, item } = props
   return (
     <div className="divTableRow">
       <div className="divTableCellDelete">
         <img
+          alt="trash can"
           className="cart-trashcan"
           onClick={() => Context.dispatch({ type: 'delete-item', index, item })}
-          className="trashcan"
+          // className="trashcan"
           src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
         />
       </div>
       <div className="divTableCellPic">
-        <img className="checkout-image" src={imagePath} />
+        <img className="checkout-image" src={imagePath} alt="checkout" />
       </div>
       <div className="divTableCellProduct">
         <p>{name}</p>

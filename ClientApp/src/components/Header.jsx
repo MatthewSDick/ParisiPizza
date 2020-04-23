@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { useOrder } from '../pages/OrderContext'
 import '../components/header.scss'
@@ -39,6 +39,7 @@ const Header = () => {
           <div className="two">
             <img
               className="parisi-logo"
+              alt="logo"
               src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/Parisi_Logo_BeforeAndAfter_up4lwu.jpg"
             />
           </div>
@@ -48,6 +49,7 @@ const Header = () => {
                 <Link to="/cart">
                   <img
                     className="cart"
+                    alt="cart"
                     src="https://res.cloudinary.com/matthewdick/image/upload/v1587340362/cart_icon_dcdryh.png"
                   />
                 </Link>
@@ -81,6 +83,7 @@ const Header = () => {
         <div className="div-line-left"></div>
         <img
           className="pizza-logo"
+          alt="pizza logo"
           src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/pizza_icon_ytfkvx.png"
         />
         <div className="div-line-right"></div>

@@ -1,5 +1,5 @@
-import React, { Component, useState, useReducer } from 'react'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import React, { useState, useReducer } from 'react'
+import { Route, Switch } from 'react-router-dom'
 // import { Route, Switch } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
@@ -12,8 +12,6 @@ import PizzaPage from './pages/PizzaPage'
 import AddItems from './pages/AddItems'
 import './custom.scss'
 import { OrderContext } from './pages/OrderContext'
-import Header from './components/Header'
-import axios from 'axios'
 
 export default function App() {
   const [orderId, setOrderId] = useState(0)
@@ -71,7 +69,6 @@ export default function App() {
         console.log('In delete: ', action.item)
         const itemDeletePrice = parseFloat(action.item.item.price)
         console.log('Delete:', itemDeletePrice)
-        var itemToDelete = action.item.item.orderItemId
 
         return {
           ...state,
@@ -83,10 +80,9 @@ export default function App() {
 
       case 'add-topping':
         var toppingPrice = 0
-        const baseTotal = state.baseTotal
         const toppingSide = action.name.split('-')[0]
         const toppingType = action.name.split('-')[1]
-        if (toppingSide == 'whole') {
+        if (toppingSide === 'whole') {
           toppingPrice = 2
         } else {
           toppingPrice = 1
@@ -103,14 +99,12 @@ export default function App() {
         }
 
       case 'delete-topping':
-        var toppingPrice = 0
-        const deleteBaseTotal = state.baseTotal
+        var deleteToppingPrice = 0
         const deleteToppingSide = action.name.split('-')[0]
-        const deleteToppingType = action.name.split('-')[1]
-        if (deleteToppingSide == 'whole') {
-          toppingPrice = 2
+        if (deleteToppingSide === 'whole') {
+          deleteToppingPrice = 2
         } else {
-          toppingPrice = 1
+          deleteToppingPrice = 1
         }
         console.log('delete topping incoming', action)
         return {
@@ -122,8 +116,8 @@ export default function App() {
             ),
           ],
 
-          toppingsTotal: state.toppingsTotal - toppingPrice,
-          pizzaTotal: state.pizzaTotal - toppingPrice,
+          toppingsTotal: state.toppingsTotal - deleteToppingPrice,
+          pizzaTotal: state.pizzaTotal - deleteToppingPrice,
         }
 
       case 'pizza-size':

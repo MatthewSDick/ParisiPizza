@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const AddItems = () => {
   const [item, setItem] = useState({})
-  const [wasCreated, setwasCreated] = useState({
+  const [wasCreated] = useState({
     shouldRedirect: false,
     newItemInformation: '',
   })
@@ -21,7 +21,7 @@ const AddItems = () => {
   const addItemToAPI = async () => {
     console.log('adding - ', item)
     const resp = await axios.post('/api/items/post', item)
-    if (resp == 201) {
+    if (resp === 201) {
       wasCreated({ shouldRedirect: true, newItemInformation: resp.data })
     } else {
       // do something else
