@@ -78,12 +78,8 @@ export default function App() {
         }
 
       case 'add-topping':
-        console.log('action: ', action)
         var toppingPrice = 0
         const baseTotal = state.baseTotal
-        console.log('basePrice', baseTotal)
-        console.log('add-topping', action)
-
         const toppingSide = action.name.split('-')[0]
         const toppingType = action.name.split('-')[1]
         if (toppingSide == 'whole') {
@@ -100,15 +96,34 @@ export default function App() {
           ],
           toppingsTotal: state.toppingsTotal + toppingPrice,
           pizzaTotal: state.pizzaTotal + toppingPrice,
+        }
 
-          // selected: state.toppings.map((t, index) =>
-          //   index === action.index ? { ...t, selected: !t.selected } : t
-          // ),
+      case 'delete-topping':
+        var toppingPrice = 0
+        const deleteBaseTotal = state.baseTotal
+        const deleteToppingSide = action.name.split('-')[0]
+        const deleteToppingType = action.name.split('-')[1]
+        if (deleteToppingSide == 'whole') {
+          toppingPrice = 2
+        } else {
+          toppingPrice = 1
+        }
+        console.log('delete topping incoming', action)
+        return {
+          ...state,
+          // toppings: [...state.toppings.filter((x, i) => i !== action.index)],
+          toppings: [
+            ...state.toppings.filter(toppings =>
+              toppings.topping.includes(!action.name)
+            ),
+          ],
+
+          toppingsTotal: state.toppingsTotal - toppingPrice,
+          pizzaTotal: state.pizzaTotal - toppingPrice,
         }
 
       case 'pizza-size':
         const basePrice = parseFloat(action.price)
-        console.log('basePrice', action.price)
 
         return {
           ...state,
