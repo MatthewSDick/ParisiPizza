@@ -66,7 +66,7 @@ export default function App() {
         }
 
       case 'delete-item':
-        console.log('In delete: ', action.item)
+        console.log('In delete ---- ------: ', action.item)
         const itemDeletePrice = parseFloat(action.item.item.price)
         console.log('Delete:', itemDeletePrice)
 

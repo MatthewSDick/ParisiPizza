@@ -98,7 +98,7 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     GetCartInfo()
-  })
+  }, [])
 
   if (!cartItems.isLoaded) {
     return (

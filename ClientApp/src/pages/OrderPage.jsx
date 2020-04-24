@@ -98,7 +98,7 @@ const OrderPage = props => {
 
     GetCategoryItems()
     isThereOrder()
-  }, [])
+  }, [menuCategory])
 
   if (!categoryItems.isLoaded) {
     return <h2>Loading...</h2>
@@ -155,21 +155,23 @@ const OrderPage = props => {
               {categoryItems.itemData.map(item => {
                 return (
                   <li className="order-item">
-                    <img
-                      className="order-image"
-                      src={item.imagePath}
-                      alt={item.name}
-                    />
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                    <p>{item.id}</p>
+                    <section>
+                      <img
+                        className="order-image"
+                        src={item.imagePath}
+                        alt={item.name}
+                      />
+                    </section>
+                    <p className="order-item-name">{item.name}</p>
+                    <p className="order-page-item-price">{item.price}</p>
+                    {/* <p>{item.id}</p> */}
                     <button
                       key={item}
                       value={item.id}
                       className="order-add-to-cart-btn"
                       onClick={() => saveItemData(item)}
                     >
-                      > ADD TO CART
+                      ADD TO CART
                     </button>
                   </li>
                 )
