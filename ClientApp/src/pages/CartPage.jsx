@@ -72,15 +72,16 @@ const CartPage = () => {
             {/* Looping items */}
 
             {/* {cartItems.cartData.orderItems.map((item, index) => { */}
-            {cartItems.cartData.orderItems.map(item => {
+            {Context.basketItems.map((item, index) => {
+              // {cartItems.cartData.orderItems.map(item => {
               return (
                 <CartItem
-                  item={Item}
+                  item={item}
                   name={item.item.name}
                   imagePath={item.item.imagePath}
-                  price={item.item.price}
+                  price={item.price}
                   id={item.item.id}
-                  index={item.index}
+                  index={index}
                 />
               )
             })}

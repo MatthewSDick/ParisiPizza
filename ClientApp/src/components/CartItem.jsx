@@ -7,6 +7,7 @@ const CartItem = props => {
   return (
     <div className="divTableRow">
       <div className="divTableCellDelete">
+        {console.log('cartItem ----------', item)}
         <img
           alt="trash can"
           className="cart-trashcan"
@@ -16,13 +17,17 @@ const CartItem = props => {
         />
       </div>
       <div className="divTableCellPic">
-        <img className="checkout-image" src={imagePath} alt="checkout" />
+        <img
+          className="checkout-image"
+          src={item.item.imagePath}
+          alt="checkout"
+        />
       </div>
       <div className="divTableCellProduct">
-        <p>{name}</p>
+        <p>{item.item.name}</p>
       </div>
       <div className="divTableCellPrice">
-        <p>{price}</p>
+        <p>{item.item.price}</p>
       </div>
       {/* <div className="divTableCellTotal">
         <p>$25.09</p>

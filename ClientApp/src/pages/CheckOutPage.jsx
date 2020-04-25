@@ -259,14 +259,19 @@ const CheckOutPage = () => {
                 </div> */}
             </div>
             {/* Looping items */}
-
-            {cartItems.cartData.orderItems.map(item => {
+            {/* {console.log'checkout ------',} */}
+            {Context.basketItems.map((item, index) => {
+              {
+                /* {cartItems.cartData.orderItems.map(item => { */
+              }
               return (
                 <CartItem
+                  item={item}
                   name={item.item.name}
                   imagePath={item.item.imagePath}
-                  price={item.item.price}
+                  price={item.price}
                   id={item.item.id}
+                  index={index}
                 />
               )
             })}
