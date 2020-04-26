@@ -25,10 +25,10 @@ export default function App() {
     switch (action.type) {
       case 'add-item':
         const itemID = action.item.id
+        console.log('add-item-price before parse', action.item.price)
         const itemAddPrice = parseFloat(action.item.price)
-        console.log('Add: itemID', itemID)
-        console.log('Add: orderItemId', action.item.orderItemIdID)
 
+        console.log('add-item-price', action.item.price)
         return {
           ...state,
           basketItems: [
@@ -48,13 +48,9 @@ export default function App() {
           price: action.price,
         }
 
-        // const item = action.itemId
-        const pizzaItemAddPrice = parseFloat(action.price)
+        console.log('add-pizza-price', action.price)
+        const pizzaItemAddPrice = action.price
         const orderId = action.orderId
-
-        console.log('reducer - add-pizza item', item)
-        console.log('reducer - add-pizza price', pizzaItemAddPrice)
-        console.log('reducer - add-pizza orderId', orderId)
 
         return {
           ...state,
@@ -63,6 +59,7 @@ export default function App() {
             { item: item, orderItemId: orderId },
           ],
           cartTotal: state.cartTotal + pizzaItemAddPrice,
+          toppings: [],
         }
 
       case 'delete-item':
@@ -83,9 +80,9 @@ export default function App() {
         const toppingSide = action.name.split('-')[0]
         const toppingType = action.name.split('-')[1]
         if (toppingSide === 'whole') {
-          toppingPrice = 2
+          toppingPrice = 2.0
         } else {
-          toppingPrice = 1
+          toppingPrice = 1.0
         }
 
         return {
@@ -109,7 +106,6 @@ export default function App() {
         console.log('delete topping incoming', action)
         return {
           ...state,
-          // toppings: [...state.toppings.filter((x, i) => i !== action.index)],
           toppings: [
             ...state.toppings.filter(
               toppings => toppings.topping !== action.name

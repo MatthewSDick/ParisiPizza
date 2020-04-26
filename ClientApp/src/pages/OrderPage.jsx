@@ -17,31 +17,6 @@ const OrderPage = props => {
     isLoaded: false,
   })
 
-  // const [cartItems, setCartItems] = useState({
-  //   cartData: { orderItems: [] },
-  // })
-
-  // const GetCategoryItems = async () => {
-  //   const response = await axios.get(
-  //     `/api/items/category?categoryName=${menuCategory}`
-  //   )
-  //   // console.log(response.data)
-  //   setCategoryItems({
-  //     itemData: response.data,
-  //     isLoaded: true,
-  //   })
-  // }
-
-  // const isThereOrder = async e => {
-  //   const orderID = Context.orderId
-  //   if (!orderID) {
-  //     const response = await axios.post('/api/order', {
-  //       orderstatus: 'Started',
-  //     })
-  //     Context.setOrderId(response.data.id)
-  //   }
-  // }
-
   const saveItemData = async item => {
     // console.log('is the item here:', item)
     const orderID = Context.orderId
@@ -138,7 +113,7 @@ const OrderPage = props => {
                       <p>{item.item.name}</p>
                     </div>
                     <div className="order-divTableCellPrice">
-                      <p>{item.item.price}</p>
+                      <p>{parseFloat(item.item.price).toFixed(2)}</p>
                     </div>
                   </div>
                 )

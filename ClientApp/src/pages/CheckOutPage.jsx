@@ -21,7 +21,6 @@ const CheckOutPage = () => {
     pickupDelivery: '',
     AdditionalInfo: '',
   })
-  // console.log('just set top: ', order)
 
   const updateCustomerData = e => {
     const key = e.target.name
@@ -44,39 +43,26 @@ const CheckOutPage = () => {
 
   const finalizeOrder = () => {
     sendCustomerInfo()
-    // setOrderstatus()
-    // closeOrder()
+    closeOrder()
   }
 
   const sendCustomerInfo = async () => {
     const resp = await axios.post('api/customers', customer)
     if (resp.status === 201) {
     } else {
-      // do something
     }
   }
 
-  // const setOrderstatus = () => {
-  //   const orderTotal = Context.cartTotal
-  //   console.log('orderTotal:', orderTotal)
-  //   setOrder(previousOrder => {
-  //     return {
-  //       ...previousOrder,
-  //       AdditionalInfo: customer.AdditionalInfo,
-  //     }
-  //   })
-  // }
-
-  // const closeOrder = async () => {
-  //   console.log('the order is', order)
-  //   const resp = await axios.put(`api/order/${orderID}`, order)
-  //   console.log(resp.data)
-  //   if (resp.status === 200 || 204) {
-  //     // do something
-  //   } else {
-  //     // do something
-  //   }
-  // }
+  const closeOrder = async () => {
+    console.log('the order is', order)
+    const resp = await axios.put(`api/order/${orderID}`, order)
+    console.log(resp.data)
+    if (resp.status === 200 || 204) {
+      // do something
+    } else {
+      // do something
+    }
+  }
 
   const [cartItems, setCartItems] = useState({
     cartData: [],
@@ -84,9 +70,7 @@ const CheckOutPage = () => {
   })
 
   const GetCartInfo = async () => {
-    // const orderID = Context.orderId
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-    console.log('Cart Info: ', response.data)
     setCartItems({
       cartData: response.data,
       isLoaded: true,
@@ -111,22 +95,8 @@ const CheckOutPage = () => {
     return (
       <div>
         <Header />
-        <div
-          className="checkout-top"
-          // style={{
-          //   borderStyle: 'solid',
-          //   borderColor: 'black',
-          //   borderWidth: '1px',
-          // }}
-        >
-          <div
-            className="checkout-left"
-            // style={{
-            //   borderStyle: 'solid',
-            //   borderColor: 'red',
-            //   borderWidth: '1px',
-            // }}
-          >
+        <div className="checkout-top">
+          <div className="checkout-left">
             <h2>Billing Details</h2>
             <p>
               First Name<span style={{ color: '#CA0707' }}> *</span>
@@ -265,14 +235,44 @@ const CheckOutPage = () => {
                 /* {cartItems.cartData.orderItems.map(item => { */
               }
               return (
-                <CartItem
-                  item={item}
-                  name={item.item.name}
-                  imagePath={item.item.imagePath}
-                  price={item.price}
-                  id={item.item.id}
-                  index={index}
-                />
+                <div className="divTableRow">
+                  <div className="divTableCellDelete">
+                    {console.log('cartItem ----------', item)}
+                    <img
+                      alt="trash can"
+                      className="cart-trashcan"
+                      onClick={() =>
+                        Context.dispatch({ type: 'delete-item', index, item })
+                      }
+                      // className="trashcan"
+                      src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
+                    />
+                  </div>
+                  <div className="divTableCellPic">
+                    <img
+                      className="checkout-image"
+                      src={item.item.imagePath}
+                      alt="checkout"
+                    />
+                  </div>
+                  <div className="divTableCellProduct">
+                    <p>{item.item.name}</p>
+                  </div>
+                  <div className="divTableCellPrice">
+                    <p>{parseFloat(item.item.price).toFixed(2)}</p>
+                  </div>
+                  {/* <div className="divTableCellTotal">
+                  <p>$25.09</p>
+                </div> */}
+                </div>
+                // <CartItem
+                //   item={item}
+                //   name={item.item.name}
+                //   imagePath={item.item.imagePath}
+                //   price={item.price}
+                //   id={item.item.id}
+                //   index={index}
+                // />
               )
             })}
 

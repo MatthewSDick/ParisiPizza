@@ -3,12 +3,14 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
+import { Redirect } from 'react-router-dom'
 
 const PizzaPage = props => {
   const Context = useOrder()
   const menuCategory = props.match.params.category
 
   const [pizzaSizeSet, setPizzaSizeSet] = useState(false)
+  const [cartDirect, setCartDirect] = useState(false)
 
   // const [categoryItem, setCategoryItem] = useState({})
   const [categoryItem, setCategoryItem] = useState({
@@ -51,52 +53,21 @@ const PizzaPage = props => {
       orderId,
       categoryItem,
     })
-
-    // const response = axios
-    //   .post(`/api/orderitem/addItem?orderID=${orderId}&itemID=${itemId}`)
-    //   .then(response => {
-    //     if (response.status === 200 || 201) {
-    //       console.log('back from save:', response.data)
-    //       const orderItemId = response.data.id
-    //       console.log('orderItemId', orderItemId)
-    //       var price = Context.pizzaTotal
-    //       console.log('orderItemId', itemId)
-    //       Context.dispatch({ type: 'add-pizza', itemId, price, orderId })
-    //     } else {
-    //     }
-    //   })
+    console.log('CART CONTAINS', Context)
+    Context.setOrderItemId(null)
+    setCartDirect(true)
   }
 
-  // const isThereOrder = async e => {
-  //   const orderID = Context.orderId
-  //   if (!orderID) {
-  //     const response = await axios.post('/api/order', {
-  //       orderstatus: 'Started',
-  //     })
-  //     Context.setOrderId(response.data.id)
-  //   }
-  // }
-
-  // const GetCategoryItems = async () => {
-  //   const response = await axios.get(
-  //     `/api/items/category?categoryName=${menuCategory}`
-  //   )
-  //   setCategoryItem({
-  //     itemData: response.data,
-  //   })
-  //   console.log('zzzzzzz', response.data)
-  // }
-
   const getOrderItemId = async () => {
+    console.log('Before Context Set', Context.orderItemId)
     const orderID = Context.orderId
     const itemID = categoryItem.itemData[0].id
     await axios
       .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
       .then(response => {
         if (response.status === 200) {
-          // orderItemId = response.data.id
           Context.setOrderItemId(response.data.id)
-          // console.log('After Context Set', Context.orderItemId)
+          console.log('After Context Set', Context.orderItemId)
         } else {
         }
       })
@@ -171,6 +142,10 @@ const PizzaPage = props => {
   if (!pizzaToppings.isLoaded) {
     return <h2>Loading...</h2>
   } else {
+    if (cartDirect) {
+      return <Redirect to={'/cart'} />
+    }
+
     return (
       <div>
         <Header />
@@ -444,7 +419,7 @@ const PizzaPage = props => {
                 className="order-add-to-cart-btn"
                 onClick={() => saveItemData()}
               >
-                > ADD TO CART
+                ADD TO CART
               </button>
             </div>
           </>

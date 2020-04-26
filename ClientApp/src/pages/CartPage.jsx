@@ -75,14 +75,44 @@ const CartPage = () => {
             {Context.basketItems.map((item, index) => {
               // {cartItems.cartData.orderItems.map(item => {
               return (
-                <CartItem
-                  item={item}
-                  name={item.item.name}
-                  imagePath={item.item.imagePath}
-                  price={item.price}
-                  id={item.item.id}
-                  index={index}
-                />
+                <div className="divTableRow">
+                  <div className="divTableCellDelete">
+                    {console.log('cartItem ----------', item)}
+                    <img
+                      alt="trash can"
+                      className="cart-trashcan"
+                      onClick={() =>
+                        Context.dispatch({ type: 'delete-item', index, item })
+                      }
+                      // className="trashcan"
+                      src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
+                    />
+                  </div>
+                  <div className="divTableCellPic">
+                    <img
+                      className="checkout-image"
+                      src={item.item.imagePath}
+                      alt="checkout"
+                    />
+                  </div>
+                  <div className="divTableCellProduct">
+                    <p>{item.item.name}</p>
+                  </div>
+                  <div className="divTableCellPrice">
+                    <p>{parseFloat(item.item.price).toFixed(2)}</p>
+                  </div>
+                  {/* <div className="divTableCellTotal">
+                  <p>$25.09</p>
+                </div> */}
+                </div>
+                // <CartItem
+                //   item={item}
+                //   name={item.item.name}
+                //   imagePath={item.item.imagePath}
+                //   price={item.item.price}
+                //   id={item.item.id}
+                //   index={item.index}
+                // />
               )
             })}
             {/* End Loop */}
@@ -115,7 +145,7 @@ const CartPage = () => {
                 <p>Total: </p>
               </div>
               <div className="divTableCellCartRight">
-                <p>$ {orderTotal.toFixed(2)}</p>
+                <p>$ {parseFloat(orderTotal).toFixed(2)}</p>
               </div>
             </div>
             <div className="divTableRowCartButton">

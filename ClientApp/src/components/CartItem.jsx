@@ -3,7 +3,7 @@ import { useOrder } from '../pages/OrderContext'
 
 const CartItem = props => {
   const Context = useOrder()
-  const { name, imagePath, price, index, item } = props
+  const { index, item } = props
   return (
     <div className="divTableRow">
       <div className="divTableCellDelete">
