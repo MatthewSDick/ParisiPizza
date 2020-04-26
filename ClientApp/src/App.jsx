@@ -178,7 +178,7 @@ export default function App() {
           <Route exact path="/complete" component={CompletePage} />
           <Route exact path="/order/:category" component={OrderPage} />
           <Route exact path="/pizza/:category" component={PizzaPage} />
-          <Route exact path="/thankyou" component={ThankYou} />
+          <Route exact path="/thankyou:/name" component={ThankYou} />
           <Route exact path="*" component={NotFound} />
         </Switch>
       </OrderContext.Provider>

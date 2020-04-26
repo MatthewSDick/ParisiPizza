@@ -4,7 +4,8 @@ import Footer from '../components/Footer'
 // import axios from 'axios'
 import { useOrder } from './OrderContext'
 
-const CartPage = () => {
+const CartPage = props => {
+  const name = props.name
   const Context = useOrder()
   const orderSubTotal = Context.cartTotal
   const orderTax = Context.cartTotal * 0.06
@@ -30,7 +31,7 @@ const CartPage = () => {
   return (
     <div>
       <Header />
-      <h1>Thank you *NAME* for ordering from Parisi Pizza.</h1>
+      <h1>Thank you {name} for ordering from Parisi Pizza.</h1>
       <h3>
         Your order has been entered into our system and is being prepared at
         this time.

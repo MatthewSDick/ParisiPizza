@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const CheckOutPage = () => {
   const Context = useOrder()
@@ -12,7 +13,7 @@ const CheckOutPage = () => {
   const orderTax = Context.cartTotal * 0.06
   const orderTotal = orderSubTotal + orderTax
   const orderID = Context.orderId
-
+  const [thankYou, setThankYou] = useState(false)
   const [customer, setCustomer] = useState({})
   const [order, setOrder] = useState({
     Id: 0,
@@ -44,6 +45,7 @@ const CheckOutPage = () => {
   const finalizeOrder = () => {
     sendCustomerInfo()
     closeOrder()
+    setThankYou(true)
   }
 
   const sendCustomerInfo = async () => {
@@ -92,6 +94,11 @@ const CheckOutPage = () => {
       </h2>
     )
   } else {
+    if (thankYou) {
+      const firstName = customer.firstName
+      return <Redirect to={'/thankyou/Matt'} />
+    }
+
     return (
       <div>
         <Header />
