@@ -3,13 +3,13 @@ import { Route, Switch } from 'react-router-dom'
 // import { Route, Switch } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
-import NotFound from './pages/NotFound'
+import NotFound from './pages/NotFound_a'
 import CartPage from './pages/CartPage'
 import CheckOutPage from './pages/CheckOutPage'
 import CompletePage from './pages/CompletePage'
 import OrderPage from './pages/OrderPage'
 import PizzaPage from './pages/PizzaPage'
-import AddItems from './pages/AddItems'
+import ThankYou from './pages/ThankYou'
 import './custom.scss'
 import { OrderContext } from './pages/OrderContext'
 
@@ -24,7 +24,7 @@ export default function App() {
 
     switch (action.type) {
       case 'add-item':
-        const itemID = action.item.id
+        // const itemID = action.item.id
         console.log('add-item-price before parse', action.item.price)
         const itemAddPrice = parseFloat(action.item.price)
 
@@ -178,7 +178,7 @@ export default function App() {
           <Route exact path="/complete" component={CompletePage} />
           <Route exact path="/order/:category" component={OrderPage} />
           <Route exact path="/pizza/:category" component={PizzaPage} />
-          <Route exact path="/additems" component={AddItems} />
+          <Route exact path="/thankyou" component={ThankYou} />
           <Route exact path="*" component={NotFound} />
         </Switch>
       </OrderContext.Provider>

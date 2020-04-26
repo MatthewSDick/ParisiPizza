@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import CartItem from '../components/CartItem'
+// import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
-import Item from '../components/Item'
+// import Item from '../components/Item'
 
 const CartPage = () => {
   const Context = useOrder()

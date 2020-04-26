@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import CartItem from '../components/CartItem'
+// import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
@@ -231,9 +231,8 @@ const CheckOutPage = () => {
             {/* Looping items */}
             {/* {console.log'checkout ------',} */}
             {Context.basketItems.map((item, index) => {
-              {
-                /* {cartItems.cartData.orderItems.map(item => { */
-              }
+              /* {cartItems.cartData.orderItems.map(item => { */
+
               return (
                 <div className="divTableRow">
                   <div className="divTableCellDelete">

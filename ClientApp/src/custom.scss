@@ -1253,6 +1253,23 @@ footer {
   padding: 2px;
 }
 
+.notFound-top {
+  width: 80%;
+  display: flex;
+  flex: wrap;
+  flex-basis: auto;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.notFound-top-left {
+  width: 50%;
+}
+
+.notFound-top-right {
+  width: 50%;
+}
+
 @media (min-width: 760px) {
   a {
     color: #0366d6;
