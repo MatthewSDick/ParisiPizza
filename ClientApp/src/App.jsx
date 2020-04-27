@@ -1,7 +1,6 @@
 import React, { useState, useReducer } from 'react'
 import { Route, Switch } from 'react-router-dom'
 // import { Route, Switch } from 'react-router'
-import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import NotFound from './pages/NotFound'
 import CartPage from './pages/CartPage'
@@ -157,19 +156,17 @@ export default function App() {
   }
 
   return (
-    <Layout>
-      <OrderContext.Provider value={contextObject}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/cart" component={CartPage} />
-          <Route exact path="/checkout" component={CheckOutPage} />
-          <Route exact path="/complete" component={CompletePage} />
-          <Route exact path="/order/:category" component={OrderPage} />
-          <Route exact path="/pizza/:category" component={PizzaPage} />
-          <Route exact path="/thankyou/" component={ThankYou} />
-          <Route exact path="*" component={NotFound} />
-        </Switch>
-      </OrderContext.Provider>
-    </Layout>
+    <OrderContext.Provider value={contextObject}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/cart" component={CartPage} />
+        <Route exact path="/checkout" component={CheckOutPage} />
+        <Route exact path="/complete" component={CompletePage} />
+        <Route exact path="/order/:category" component={OrderPage} />
+        <Route exact path="/pizza/:category" component={PizzaPage} />
+        <Route exact path="/thankyou/" component={ThankYou} />
+        <Route exact path="*" component={NotFound} />
+      </Switch>
+    </OrderContext.Provider>
   )
 }
