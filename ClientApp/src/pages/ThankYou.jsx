@@ -11,7 +11,6 @@ const CartPage = props => {
   const orderSubTotal = Context.cartTotal
   const orderTax = Context.cartTotal * 0.06
   const orderTotal = orderSubTotal + orderTax
-  const orderID = Context.orderId
 
   return (
     <div>

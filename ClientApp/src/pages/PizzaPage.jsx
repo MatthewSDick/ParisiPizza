@@ -20,16 +20,6 @@ const PizzaPage = props => {
     isLoaded: false,
   })
 
-  const GetToppings = async () => {
-    // console.log('in the toppings call')
-    const response = await axios.get(`/api/toppings/`)
-    // console.log('toppings:', response.data)
-    setPizzaToppings({
-      toppingData: response.data,
-      isLoaded: true,
-    })
-  }
-
   const pizzaSizeSelection = e => {
     const price = e.target.value
     getOrderItemId()
@@ -123,6 +113,16 @@ const PizzaPage = props => {
         })
         Context.setOrderId(response.data.id)
       }
+    }
+
+    const GetToppings = async () => {
+      // console.log('in the toppings call')
+      const response = await axios.get(`/api/toppings/`)
+      // console.log('toppings:', response.data)
+      setPizzaToppings({
+        toppingData: response.data,
+        isLoaded: true,
+      })
     }
 
     GetCategoryItems()
