@@ -117,19 +117,7 @@ export default function App() {
     }
   }
 
-  const [
-    {
-      basketItems,
-      cartTotal,
-      toppings,
-      baseTotal,
-      pizzaTotal,
-      toppingsTotal,
-      selected,
-      toppingData,
-    },
-    dispatch,
-  ] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     basketItems: [],
     cartTotal: 0,
     toppings: [],
@@ -142,17 +130,10 @@ export default function App() {
   const contextObject = {
     orderId,
     setOrderId,
-    basketItems,
-    cartTotal,
     orderItemId,
     setOrderItemId,
     dispatch,
-    toppings,
-    baseTotal,
-    pizzaTotal,
-    toppingsTotal,
-    selected,
-    toppingData,
+    ...state,
   }
 
   return (
