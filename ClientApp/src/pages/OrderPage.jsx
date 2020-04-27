@@ -7,24 +7,18 @@ import { Link } from 'react-router-dom'
 
 const OrderPage = props => {
   const Context = useOrder()
-  console.log('Top app: ', Context)
-
   const menuCategory = props.match.params.category
-  // console.log(menuCategory)
-
   const [categoryItems, setCategoryItems] = useState({
     itemData: [],
     isLoaded: false,
   })
 
   const saveItemData = async item => {
-    // console.log('is the item here:', item)
     const orderID = Context.orderId
     const itemID = item.id
     axios
       .post(`/api/orderitem/addItem?orderID=${orderID}&itemID=${itemID}`)
       .then(response => {
-        // console.log('After API . then: ', response)
         if (response.status === 200) {
           const orderItemId = response.data.id
           item.orderItemId = orderItemId
@@ -35,7 +29,6 @@ const OrderPage = props => {
   }
 
   const deleteItemData = async (item, index) => {
-    console.log('Item to be deleted', item.item)
     const itemToDelete = item.item.orderItemId
 
     axios
@@ -54,7 +47,6 @@ const OrderPage = props => {
       const response = await axios.get(
         `/api/items/category?categoryName=${menuCategory}`
       )
-      // console.log(response.data)
       setCategoryItems({
         itemData: response.data,
         isLoaded: true,
@@ -81,23 +73,18 @@ const OrderPage = props => {
     return (
       <div>
         <Header />
-        {/* <div>{value}</div> */}
         <div className="order-page">
           <div className="order-page-left">
             <div className="cart-view">
               <h3 className="order-cart-head">Cart</h3>
-              {console.log('basket: ', Context.basketItems)}
-              {console.log('basket total: ', Context.cartTotal)}
+
               {Context.basketItems.map((item, index) => {
                 return (
                   <div className="order-divTableRow">
                     <div key={item.id} className="order-divTableCellDelete">
                       <img
                         alt="trash can"
-                        onClick={() =>
-                          // Context.dispatch({ type: 'delete-item', index, item })
-                          deleteItemData(item, index)
-                        }
+                        onClick={() => deleteItemData(item, index)}
                         className="order-trashcan"
                         src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
                       />
@@ -139,7 +126,6 @@ const OrderPage = props => {
                     </section>
                     <p className="order-item-name">{item.name}</p>
                     <p className="order-page-item-price">{item.price}</p>
-                    {/* <p>{item.id}</p> */}
                     <button
                       key={item}
                       value={item.id}

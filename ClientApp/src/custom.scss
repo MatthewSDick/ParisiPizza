@@ -2,6 +2,14 @@ a {
   color: #0366d6;
 }
 
+.thankyou-name {
+  color: #fac123;
+}
+
+.thankyou-order {
+  // color: #548c1d;
+}
+
 code {
   color: #e01a76;
 }
@@ -132,7 +140,7 @@ background-color: blue; */
   font-family: Arial;
   color: white;
   font-style: sans-serif;
-  font-size: 16px;
+  font-size: 9px;
 }
 
 /* Links inside the navbar */
@@ -140,13 +148,13 @@ background-color: blue; */
 .navbar a {
   margin-top: 2rem;
   float: left;
-  font-size: 16px;
+  // font-size: 16px;
   color: white;
   text-align: center;
   padding: 14px 10px;
   text-decoration: none;
   font-style: sans-serif;
-  font-size: 16px;
+  font-size: 9px;
 }
 
 /* The dropdown container */
@@ -157,14 +165,14 @@ background-color: blue; */
   overflow: hidden;
   padding: 0;
   font-style: sans-serif;
-  font-size: 16px;
+  font-size: 9px;
   margin: 0rem 0rem 0rem 1rem;
 }
 
 /* Dropdown button */
 
 .dropdown .dropbtn {
-  font-size: 11px;
+  font-size: 9px;
   text-align: center;
   border: none;
   outline: none;
@@ -172,7 +180,7 @@ background-color: blue; */
   padding: 0;
   background-color: inherit;
   font-style: sans-serif;
-  font-size: 12px;
+  // font-size: 12px;
   /* Important for vertical align on mobile phones */
   margin: 0;
   /* Important for vertical align on mobile phones */
@@ -196,7 +204,7 @@ background-color: blue; */
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-style: sans-serif;
-  font-size: 16px;
+  font-size: 9px;
 }
 
 /* Links inside the dropdown */
@@ -213,13 +221,13 @@ background-color: blue; */
   display: block;
   text-align: left;
   font-style: sans-serif;
-  font-size: 16px;
+  font-size: 9px;
 }
 
 .go-home {
   color: #fac123;
   font-style: sans-serif;
-  font-size: 12px;
+  font-size: 9px;
   padding: 0;
   background-color: inherit;
   border: 0;
@@ -1079,7 +1087,7 @@ footer {
 
 .divTableCellCartRight {
   width: 50%;
-  text-align: center;
+  text-align: right;
 }
 
 .divTableRowCartButton {
@@ -1253,26 +1261,42 @@ footer {
   padding: 2px;
 }
 
-.notFound-top {
-  width: 80%;
-  display: flex;
-  flex: wrap;
-  flex-basis: auto;
-  margin-top: 4rem;
+.notFound-divTable {
+  text-align: center;
+  margin: 1rem 2rem 2rem 2rem;
+}
+
+.notFound-divTable img {
+  width: 30%;
+}
+
+.notFound-divTable h1 {
+  font-size: medium;
+}
+
+.thankyou {
+  margin-top: 2rem;
+}
+
+.thankyou h1 {
   text-align: center;
 }
 
-.notFound-top-left {
-  width: 50%;
+.thankyou h3 {
+  text-align: center;
 }
 
-.notFound-top-right {
-  width: 50%;
+.thankyou p {
+  text-align: center;
 }
 
 @media (min-width: 760px) {
   a {
     color: #0366d6;
+  }
+
+  .parisi-logo {
+    height: 10vh;
   }
 
   .order-item {
@@ -1505,7 +1529,7 @@ footer {
     padding: 0;
     background-color: inherit;
     font-style: sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     // Important for vertical align on mobile phones
     margin: 0;
     // Important for vertical align on mobile phones
@@ -1529,7 +1553,7 @@ footer {
     box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     font-style: sans-serif;
-    font-size: 16px;
+    font-size: 12px;
   }
 
   // Links inside the dropdown _/
@@ -1546,13 +1570,13 @@ footer {
     display: block;
     text-align: left;
     font-style: sans-serif;
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .go-home {
     color: #fac123;
     font-style: sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     padding: 0;
     background-color: inherit;
     border: 0;
@@ -2487,10 +2511,27 @@ footer {
   }
 }
 
+.notFound-divTable {
+  text-align: center;
+  margin: 2rem 2rem 2rem 2rem;
+}
+
+.notFound-divTable img {
+  width: 40%;
+}
+
+.notFound-divTable h1 {
+  font-size: x-large;
+}
+
 @media (min-width: 1200px) {
   .wine-bottles {
     height: 18rem;
     // width: auto;
+  }
+
+  .parisi-logo {
+    height: 19vh;
   }
 
   .order-item {
@@ -2563,15 +2604,15 @@ footer {
   .top > h2 {
     color: #fac123;
     text-align: center;
-    margin: 2rem;
+    margin: 1rem;
     font-size: 2rem;
   }
 
   .top > h1 {
     color: white;
     text-align: center;
-    margin: 0rem 0rem 3rem 0rem;
-    font-size: 4rem;
+    margin: 0rem 0rem 1.5rem 0rem;
+    font-size: 3rem;
   }
 
   .top-button {
@@ -2579,10 +2620,10 @@ footer {
     color: white;
     border: 0;
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font: bold;
-    width: 7rem;
-    height: 3rem;
+    width: 6rem;
+    height: 2rem;
     border-radius: 25px;
   }
 
@@ -3693,5 +3734,18 @@ footer {
 
   .checkout-pizza {
     visibility: visible;
+  }
+
+  .notFound-divTable {
+    text-align: center;
+    margin: 2rem 2rem 2rem 2rem;
+  }
+
+  .notFound-divTable img {
+    width: 30%;
+  }
+
+  .notFound-divTable h1 {
+    font-size: xx-large;
   }
 }

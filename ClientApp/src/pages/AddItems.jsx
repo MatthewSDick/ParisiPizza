@@ -19,12 +19,10 @@ const AddItems = () => {
   }
 
   const addItemToAPI = async () => {
-    console.log('adding - ', item)
     const resp = await axios.post('/api/items/post', item)
     if (resp === 201) {
       wasCreated({ shouldRedirect: true, newItemInformation: resp.data })
     } else {
-      // do something else
     }
   }
 
@@ -40,11 +38,6 @@ const AddItems = () => {
   } else {
     return (
       <div className="add-items">
-        {/*     public string Name { get; set; }
-    public string Description { get; set; }
-    public string ImagePath { get; set; }
-    public string Price { get; set; } */}
-
         <h3>Name of the item</h3>
         <input type="text" name="name" onChange={updateItem}></input>
         <h3>Catagory</h3>

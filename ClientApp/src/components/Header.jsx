@@ -10,10 +10,8 @@ const Header = () => {
       <div className="top">
         <div className="flex1">
           <div className="one">
-            {/* this is the nav menu */}
             <Link to="/">
               <button className="go-home">Home</button>
-              {/* <span>Home</span> */}
             </Link>
             <div className="dropdown">
               <button className="dropbtn">
@@ -34,7 +32,6 @@ const Header = () => {
                 <Link to="/order/Seafood">Seafood</Link>
               </div>
             </div>
-            {/* this is the bottom of nav menu */}
           </div>
           <div className="two">
             <img
@@ -62,11 +59,7 @@ const Header = () => {
               <li className="top-money">
                 Total: ${parseFloat(Context.cartTotal).toFixed(2)}
               </li>
-              <li>
-                {/* <Link to="/checkout">
-                  <button class="top-checkout">Checkout</button>
-                </Link> */}
-              </li>
+              <li></li>
             </ul>
           </div>
         </div>
@@ -74,7 +67,7 @@ const Header = () => {
         <h2>Authentic Italian Pizza</h2>
         <h1>Best pizza in St Pete</h1>
         <div className="top-wrapper">
-          <Link to="/pizza">
+          <Link to="/pizza/Pizza">
             <button className="top-button">Order Online</button>
           </Link>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-// import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
@@ -39,7 +38,6 @@ const CheckOutPage = () => {
       prevOrder[key] = value
       return prevOrder
     })
-    console.log('aaaaaa', order)
   }
 
   const finalizeOrder = () => {
@@ -56,13 +54,9 @@ const CheckOutPage = () => {
   }
 
   const closeOrder = async () => {
-    console.log('the order is', order)
     const resp = await axios.put(`api/order/${orderID}`, order)
-    console.log(resp.data)
     if (resp.status === 200 || 204) {
-      // do something
     } else {
-      // do something
     }
   }
 
@@ -96,7 +90,18 @@ const CheckOutPage = () => {
   } else {
     if (thankYou) {
       const firstName = customer.firstName
-      return <Redirect to={'/thankyou/Matt'} />
+      return (
+        <Redirect
+          to={{
+            pathname: '/thankyou',
+            customer: {
+              name: `${customer.firstName}`,
+              email: `${customer.email}`,
+              pickupDelivery: `${order.pickupDelivery}`,
+            },
+          }}
+        />
+      )
     }
 
     return (
@@ -198,22 +203,8 @@ const CheckOutPage = () => {
             className="checkout-pizza"
             src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/main-pizza_ktipx4.jpg"
           />
-          {/* <div className="checkout-right">
-            {' '}
-            <h2>Additional Information</h2>
-            <input
-              type="text"
-              name="additionalinfo"
-              className="additional-info"
-              onChange={updateCustomerData}
-            ></input>
-          </div> */}
         </div>
-        {/* start of table */}
-        <div
-          className="divTable-bottom-checkout"
-          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
-        >
+        <div className="divTable-bottom-checkout">
           <div className="divTableBody">
             <div className="divTableRowHeader">
               <div className="divTableCellDelete">
@@ -228,29 +219,18 @@ const CheckOutPage = () => {
               <div className="divTableCellPrice">
                 <p>Price</p>
               </div>
-              {/* <div className="divTableCellQuantity">
-                <p>Quantity</p>
-              </div> */}
-              {/* <div className="divTableCellTotal">
-                  <p>OrderTotal</p>
-                </div> */}
             </div>
-            {/* Looping items */}
-            {/* {console.log'checkout ------',} */}
-            {Context.basketItems.map((item, index) => {
-              /* {cartItems.cartData.orderItems.map(item => { */
 
+            {Context.basketItems.map((item, index) => {
               return (
                 <div className="divTableRow">
                   <div className="divTableCellDelete">
-                    {console.log('cartItem ----------', item)}
                     <img
                       alt="trash can"
                       className="cart-trashcan"
                       onClick={() =>
                         Context.dispatch({ type: 'delete-item', index, item })
                       }
-                      // className="trashcan"
                       src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
                     />
                   </div>
@@ -267,22 +247,10 @@ const CheckOutPage = () => {
                   <div className="divTableCellPrice">
                     <p>{parseFloat(item.item.price).toFixed(2)}</p>
                   </div>
-                  {/* <div className="divTableCellTotal">
-                  <p>$25.09</p>
-                </div> */}
                 </div>
-                // <CartItem
-                //   item={item}
-                //   name={item.item.name}
-                //   imagePath={item.item.imagePath}
-                //   price={item.price}
-                //   id={item.item.id}
-                //   index={index}
-                // />
               )
             })}
 
-            {/* end looping items */}
             <div className="divTableRow">
               <div className="divTableCellL">
                 <p>&nbsp;</p>
@@ -329,7 +297,6 @@ const CheckOutPage = () => {
             </div>
           </div>
         </div>
-        {/* end of table */}
         <Footer />
       </div>
     )

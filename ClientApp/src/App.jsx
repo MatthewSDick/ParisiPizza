@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 // import { Route, Switch } from 'react-router'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
-import NotFound from './pages/NotFound_a'
+import NotFound from './pages/NotFound'
 import CartPage from './pages/CartPage'
 import CheckOutPage from './pages/CheckOutPage'
 import CompletePage from './pages/CompletePage'
@@ -18,17 +18,9 @@ export default function App() {
   const [orderItemId, setOrderItemId] = useState(0)
 
   const reducer = (state, action) => {
-    // Pizza is item.id = 61
-    // Add to basket with an item-61
-    // Add to pizzaTotal to the cartTotal
-
     switch (action.type) {
       case 'add-item':
-        // const itemID = action.item.id
-        console.log('add-item-price before parse', action.item.price)
         const itemAddPrice = parseFloat(action.item.price)
-
-        console.log('add-item-price', action.item.price)
         return {
           ...state,
           basketItems: [
@@ -48,7 +40,6 @@ export default function App() {
           price: action.price,
         }
 
-        console.log('add-pizza-price', action.price)
         const pizzaItemAddPrice = action.price
         const orderId = action.orderId
 
@@ -63,9 +54,7 @@ export default function App() {
         }
 
       case 'delete-item':
-        console.log('In delete ---- ------: ', action.item)
         const itemDeletePrice = parseFloat(action.item.item.price)
-        console.log('Delete:', itemDeletePrice)
 
         return {
           ...state,
@@ -103,7 +92,6 @@ export default function App() {
         } else {
           deleteToppingPrice = 1
         }
-        console.log('delete topping incoming', action)
         return {
           ...state,
           toppings: [
@@ -178,7 +166,7 @@ export default function App() {
           <Route exact path="/complete" component={CompletePage} />
           <Route exact path="/order/:category" component={OrderPage} />
           <Route exact path="/pizza/:category" component={PizzaPage} />
-          <Route exact path="/thankyou:/name" component={ThankYou} />
+          <Route exact path="/thankyou/" component={ThankYou} />
           <Route exact path="*" component={NotFound} />
         </Switch>
       </OrderContext.Provider>

@@ -8,11 +8,8 @@ import { Redirect } from 'react-router-dom'
 const PizzaPage = props => {
   const Context = useOrder()
   const menuCategory = props.match.params.category
-
   const [pizzaSizeSet, setPizzaSizeSet] = useState(false)
   const [cartDirect, setCartDirect] = useState(false)
-
-  // const [categoryItem, setCategoryItem] = useState({})
   const [categoryItem, setCategoryItem] = useState({
     itemData: [],
     isLoaded: false,
@@ -53,13 +50,11 @@ const PizzaPage = props => {
       orderId,
       categoryItem,
     })
-    console.log('CART CONTAINS', Context)
     Context.setOrderItemId(null)
     setCartDirect(true)
   }
 
   const getOrderItemId = async () => {
-    console.log('Before Context Set', Context.orderItemId)
     const orderID = Context.orderId
     const itemID = categoryItem.itemData[0].id
     await axios
@@ -67,7 +62,6 @@ const PizzaPage = props => {
       .then(response => {
         if (response.status === 200) {
           Context.setOrderItemId(response.data.id)
-          console.log('After Context Set', Context.orderItemId)
         } else {
         }
       })
@@ -79,15 +73,13 @@ const PizzaPage = props => {
     var orderItemId = Context.orderItemId
 
     orderItemId = Context.orderItemId
-    await axios
-      // work the delete in the controller
-      .delete(`/api/OrderItemToppings/deleteTopping`, {
-        data: {
-          orderItemId: orderItemId,
-          toppingId: toppingId,
-          side: side,
-        },
-      })
+    await axios.delete(`/api/OrderItemToppings/deleteTopping`, {
+      data: {
+        orderItemId: orderItemId,
+        toppingId: toppingId,
+        side: side,
+      },
+    })
     Context.dispatch({ type: 'delete-topping', name: itemName })
   }
 
@@ -121,7 +113,6 @@ const PizzaPage = props => {
       setCategoryItem({
         itemData: response.data,
       })
-      console.log('zzzzzzz', response.data)
     }
 
     const isThereOrder = async e => {
@@ -160,7 +151,6 @@ const PizzaPage = props => {
           <div className="pizza-one-right">
             <h2>Custom Pizza</h2>
             <h3 style={{ color: '#CA0707' }}>$9.99 - $11.99</h3>
-            {/* <p>Small + $1.40; Medium + $1.70; Large + $2.00</p> */}
             <label>
               <input
                 onClick={pizzaSizeSelection}
@@ -201,8 +191,6 @@ const PizzaPage = props => {
             {/* <pre>{JSON.stringify(categoryItem, null, 2)}</pre> */}
           </div>
         </div>
-        {/* hide this */}
-        {/* <div className="pizza-bottom" style={{ visibility: 'hidden' }}> */}
 
         {pizzaSizeSet === true ? (
           <>
@@ -212,9 +200,6 @@ const PizzaPage = props => {
                   <p>Left Half - $1.00</p>
                 </div>
                 <div className="toppings-detail">
-                  {/* {console.log('PT-TD', pizzaToppings.toppingData)}
-                  {console.log('Context - Toppings', Context.toppings)} */}
-
                   {pizzaToppings.toppingData.map((item, index) => {
                     return Context.toppings.some(
                       topping => topping.topping === `left-${item.name}`

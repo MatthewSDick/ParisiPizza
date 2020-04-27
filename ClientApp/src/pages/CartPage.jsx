@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-// import CartItem from '../components/CartItem'
 import axios from 'axios'
 import { useOrder } from './OrderContext'
 import { Link } from 'react-router-dom'
-// import Item from '../components/Item'
 
 const CartPage = () => {
   const Context = useOrder()
@@ -17,12 +15,8 @@ const CartPage = () => {
     isLoaded: false,
   })
   const orderID = Context.orderId
-  console.log('orderID: ', orderID)
-  // var orderID = sessionStorage.getItem('orderID')
-
   const GetCartInfo = async () => {
     const response = await axios.get(`/api/order/orderitems?orderID=${orderID}`)
-    console.log('Loaded in cart:', response.data)
     setCartItems({
       cartData: response.data,
       isLoaded: true,
@@ -44,10 +38,7 @@ const CartPage = () => {
     return (
       <div>
         <Header />
-        <div
-          className="divTable"
-          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
-        >
+        <div className="divTable">
           <div className="divTableBody">
             <div className="divTableRowHeader">
               <div className="divTableCellDelete">
@@ -62,29 +53,18 @@ const CartPage = () => {
               <div className="divTableCellPrice">
                 <p>Price</p>
               </div>
-              {/* <div className="divTableCellQuantity">
-                <p>Quantity</p>
-              </div> */}
-              {/* <div className="divTableCellTotal">
-                <p>OrderTotal</p>
-              </div> */}
             </div>
-            {/* Looping items */}
 
-            {/* {cartItems.cartData.orderItems.map((item, index) => { */}
             {Context.basketItems.map((item, index) => {
-              // {cartItems.cartData.orderItems.map(item => {
               return (
                 <div className="divTableRow">
                   <div className="divTableCellDelete">
-                    {console.log('cartItem ----------', item)}
                     <img
                       alt="trash can"
                       className="cart-trashcan"
                       onClick={() =>
                         Context.dispatch({ type: 'delete-item', index, item })
                       }
-                      // className="trashcan"
                       src="https://res.cloudinary.com/matthewdick/image/upload/v1587340363/delete_non8eq.png"
                     />
                   </div>
@@ -101,28 +81,13 @@ const CartPage = () => {
                   <div className="divTableCellPrice">
                     <p>{parseFloat(item.item.price).toFixed(2)}</p>
                   </div>
-                  {/* <div className="divTableCellTotal">
-                  <p>$25.09</p>
-                </div> */}
                 </div>
-                // <CartItem
-                //   item={item}
-                //   name={item.item.name}
-                //   imagePath={item.item.imagePath}
-                //   price={item.item.price}
-                //   id={item.item.id}
-                //   index={item.index}
-                // />
               )
             })}
-            {/* End Loop */}
           </div>
         </div>
 
-        <div
-          className="divTableCartBottom"
-          // style={{ borderColor: 'black', borderStyle: '1px', color: 'white' }}
-        >
+        <div className="divTableCartBottom">
           <div className="divTableBodyCart">
             <div className="divTableRow">
               <div className="divTableCellCartLeft">
@@ -149,9 +114,6 @@ const CartPage = () => {
               </div>
             </div>
             <div className="divTableRowCartButton">
-              {/* <div className="divTableCellCartLeft">
-              <p></p>
-            </div> */}
               <div className="divTableCellCartButton">
                 <Link to="/checkout">
                   <button className="order-checkout">

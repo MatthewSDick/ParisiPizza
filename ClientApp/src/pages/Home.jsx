@@ -73,41 +73,6 @@ export function Home() {
                 </div>
               </div>
             </div>
-            {/* <table>
-              <tr>
-                <td className="hours-top" colspan="2" align="center">
-                  <h3>Our business hours</h3>
-                </td>
-              </tr>
-              <tr>
-                <td>Monday</td>
-                <td>11:00 AM - 10:00 PM</td>
-              </tr>
-              <tr>
-                <td>Tuesday</td>
-                <td>11:00 AM - 10:00 PM</td>
-              </tr>
-              <tr>
-                <td>Wednesday</td>
-                <td>11:00 AM - 10:00 PM</td>
-              </tr>
-              <tr>
-                <td>Thursday</td>
-                <td>11:00 AM - 10:00 PM</td>
-              </tr>
-              <tr>
-                <td>Friday</td>
-                <td>11:00 AM - 11:00 PM</td>
-              </tr>
-              <tr>
-                <td>Saturday</td>
-                <td>11:00 AM - 11:00 PM</td>
-              </tr>
-              <tr>
-                <td>Sunday</td>
-                <td>11:00 AM - 10:00 PM</td>
-              </tr>
-            </table> */}
           </div>
           <div className="wine">
             <h3>We have great wine selections</h3>
@@ -118,7 +83,6 @@ export function Home() {
             />
           </div>
         </div>
-        {/* Below is the div for the bottom of the center portion */}
       </div>
       <Footer />
     </div>

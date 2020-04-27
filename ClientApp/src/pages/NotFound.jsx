@@ -1,23 +1,43 @@
 import React from 'react'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
     <div>
-      <h2>
-        {Math.ceil(Math.random() * 100) % 2 === 0 ? (
-          <span role="img" aria-label="male shrugging">
-            🤷🏼‍♂️
-          </span>
-        ) : (
-          <span role="img" aria-label="female shrugging">
-            🤷‍♀️
-          </span>
-        )}
-        Not sure how you got here. Do you want to{' '}
-        <a href="" onclick="window.history.go(-1); return false;">
-          go back?
-        </a>
-      </h2>
+      <Header />
+      <div class="notFound-divTable">
+        <div class="notFound-divTableBody">
+          <div class="notFound-divTableRow">
+            <div class="notFound-divTableCell">
+              <h1>404 - That slice of pizza can't be found.</h1>
+            </div>
+            <div class="notFound-divTableCell">
+              <img
+                alt="pizza"
+                src="https://res.cloudinary.com/matthewdick/image/upload/v1587860902/download_xqlhzk.jpg"
+              />
+            </div>
+          </div>
+          <div class="notFound-divTableRow">
+            <div class="notFound-divTableCell">
+              {' '}
+              <h1>Click on this slice to go to the home page.</h1>
+            </div>
+            <div class="notFound-divTableCell">
+              <Link to="/">
+                <img
+                  alt="slice"
+                  src="https://res.cloudinary.com/matthewdick/image/upload/v1587861005/download-1_xlqc2f.jpg"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   )
 }
