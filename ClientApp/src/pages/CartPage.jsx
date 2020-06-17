@@ -30,7 +30,7 @@ const CartPage = () => {
   if (!cartItems.isLoaded) {
     return (
       <h2>
-        You do not have anything in your cart at this time{' '}
+        You do not have anything in your cart at this time.{' '}
         <Link to="/order/Baked Pasta"> Click here to order</Link>
       </h2>
     )
